@@ -15,6 +15,7 @@
 		9C13808129A4615F00BE1486 /* PlanDoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C13807F29A4615F00BE1486 /* PlanDoList.xcdatamodeld */; };
 		9C13808329A4616100BE1486 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C13808229A4616100BE1486 /* Assets.xcassets */; };
 		9C13808629A4616100BE1486 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C13808429A4616100BE1486 /* LaunchScreen.storyboard */; };
+		9C13809029A4752300BE1486 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13808F29A4752300BE1486 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		9C13808229A4616100BE1486 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C13808529A4616100BE1486 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C13808729A4616100BE1486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C13808F29A4752300BE1486 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,7 +52,6 @@
 				685F3B60D3C53BCFE1E7D5D8 /* Pods-PlanDoList.debug.xcconfig */,
 				841BC357EF6F06C073572DC8 /* Pods-PlanDoList.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -75,8 +76,8 @@
 		9C13807529A4615F00BE1486 /* PlanDoList */ = {
 			isa = PBXGroup;
 			children = (
-				9C13807629A4615F00BE1486 /* AppDelegate.swift */,
-				9C13807829A4615F00BE1486 /* SceneDelegate.swift */,
+				9C13808E29A4750C00BE1486 /* Model */,
+				9C13808D29A463FA00BE1486 /* Application */,
 				9C13807A29A4615F00BE1486 /* ViewController.swift */,
 				9C13807C29A4615F00BE1486 /* Main.storyboard */,
 				9C13808229A4616100BE1486 /* Assets.xcassets */,
@@ -85,6 +86,23 @@
 				9C13807F29A4615F00BE1486 /* PlanDoList.xcdatamodeld */,
 			);
 			path = PlanDoList;
+			sourceTree = "<group>";
+		};
+		9C13808D29A463FA00BE1486 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				9C13807629A4615F00BE1486 /* AppDelegate.swift */,
+				9C13807829A4615F00BE1486 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		9C13808E29A4750C00BE1486 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9C13808F29A4752300BE1486 /* CoreDataStack.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B15A1AB1FCA9036CDD8D819B /* Frameworks */ = {
@@ -210,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C13809029A4752300BE1486 /* CoreDataStack.swift in Sources */,
 				9C13807B29A4615F00BE1486 /* ViewController.swift in Sources */,
 				9C13808129A4615F00BE1486 /* PlanDoList.xcdatamodeld in Sources */,
 				9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */,
