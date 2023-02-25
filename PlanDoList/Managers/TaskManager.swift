@@ -17,6 +17,9 @@ protocol TaskManagerProtocol {
     func group(at index: Int) -> Group?
     func ungroupedList(at index: Int) -> List?
     func addGroup(name: String)
+    func addList(to group: Group?)
+    func renameGroup(group: Group, name: String)
+    func ungroupLists(from group: Group)
 }
 
 class TaskManager: TaskManagerProtocol {
@@ -102,4 +105,37 @@ class TaskManager: TaskManagerProtocol {
         groups.append(group)
         coreDataStack.saveContext()
     }
+    
+    func addList(to group: Group?) {
+        let list = List(context: coreDataStack.managedContext)
+        list.name = "New List"
+        list.order = Int32(ungroupedListsCount)
+        if let group {
+            group.addToLists(list)
+            list.order = Int32(group.lists?.count ?? 0)
+        } else {
+            list.order = Int32(ungroupedListsCount)
+            ungroupedLists.append(list)
+        }
+        coreDataStack.saveContext()
+    }
+    
+    func renameGroup(group: Group, name: String) {
+        group.name = name
+        coreDataStack.saveContext()
+    }
+    
+    func ungroupLists(from group: Group) {
+        guard let groupIndex = groups.firstIndex(of: group) else { return }
+        groups.remove(at: groupIndex)
+        coreDataStack.managedContext.delete(group)
+        
+        if let listsToUngroup = group.lists?.array as? [List] {
+            for list in listsToUngroup {
+                list.order = Int32(ungroupedListsCount)
+                ungroupedLists.append(list)
+            }
+        }
+    }
+    
 }

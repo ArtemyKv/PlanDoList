@@ -9,7 +9,8 @@ import Foundation
 
 protocol HomeViewProtocol: AnyObject {
     func applyChanges()
-    func presentGroupAlert(title: String, buttonName: String, text: String)
+    func reloadItem(item: HomeViewModel.Item)
+    func presentGroupAlert(title: String, buttonName: String, text: String, actionHandler: @escaping (String) -> Void)
 }
 
 protocol HomePresenterProtocol: AnyObject {
@@ -46,17 +47,50 @@ final class HomePresenter: HomePresenterProtocol {
                 title = list.name ?? ""
         }
         cell.configure(title: title, imageName: item.imageName)
+        
+        if item.itemKind == .group {
+            cell.configureMenu(groupItem: item,
+                               addListAction: addListAction(groupItem:),
+                               renameGroupAction: renameGroupAction(groupItem:),
+                               ungroupListsAction: ungroupListsAction(groupItem:))
+        }
     }
     
     func presentNewGroupAlert() {
-        let title = "New Group"
+        let alertTitle = "New Group"
         let buttonName = "Create"
         let text = "New Group"
-        view.presentGroupAlert(title: title, buttonName: buttonName, text: text)
+        view.presentGroupAlert(title: alertTitle, buttonName: buttonName, text: text, actionHandler: { [weak self] name in
+            self?.addGroup(name: name)
+        })
     }
     
     func addGroup(name: String) {
         taskManager.addGroup(name: name)
+        view.applyChanges()
+    }
+    
+    func addListAction(groupItem: HomeViewModel.Item) {
+        if case let .group(group) = groupItem {
+            taskManager.addList(to: group)
+            view.applyChanges()
+        }
+    }
+    
+    func renameGroupAction(groupItem: HomeViewModel.Item) {
+        guard case let .group(group) = groupItem else { return }
+        let alertTitle = "Rename Group"
+        let buttonName = "Rename"
+        let text = group.name ?? ""
+        view.presentGroupAlert(title: alertTitle, buttonName: buttonName, text: text) { [weak self] name in
+            self?.taskManager.renameGroup(group: group, name: name)
+            self?.view.reloadItem(item: groupItem)
+        }
+    }
+    
+    func ungroupListsAction(groupItem: HomeViewModel.Item) {
+        guard case let .group(group) = groupItem else { return }
+        taskManager.ungroupLists(from: group)
         view.applyChanges()
     }
     

@@ -9,6 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     typealias DataSourceType = UICollectionViewDiffableDataSource<HomeViewModel.Section, HomeViewModel.Item>
+    typealias SnapshotType = NSDiffableDataSourceSectionSnapshot<HomeViewModel.Item>
     
     var presenter: HomePresenterProtocol!
     
@@ -61,16 +62,23 @@ extension HomeViewController {
         return dataSource
     }
     
+    //MARK: - Snapshots
     func applySnapshots() {
-        typealias Snapshot = NSDiffableDataSourceSectionSnapshot<HomeViewModel.Item>
-        
-        var basicSectionSnapshot = Snapshot()
+        applyBasicSectionSnapshot()
+        applyGroupedSectionSnapshot()
+        applyUngroupedSectionSnapshot()
+    }
+    
+    func applyBasicSectionSnapshot() {
+        var basicSectionSnapshot = SnapshotType()
         let basicItems = presenter.getViewModelItems(ofKind: .basic)
         basicSectionSnapshot.append(basicItems)
         
         dataSource?.apply(basicSectionSnapshot, to: .basic)
-        
-        var groupedSectionSnapshot = Snapshot()
+    }
+    
+    func applyGroupedSectionSnapshot() {
+        var groupedSectionSnapshot = SnapshotType()
         let groupedItems = presenter.getViewModelItems(ofKind: .group)
         
         for groupItem in groupedItems {
@@ -79,8 +87,10 @@ extension HomeViewController {
             groupedSectionSnapshot.append(listItems, to: groupItem)
         }
         dataSource?.apply(groupedSectionSnapshot, to: .grouped)
-        
-        var ungroupedSectionSnapshot = Snapshot()
+    }
+    
+    func applyUngroupedSectionSnapshot() {
+        var ungroupedSectionSnapshot = SnapshotType()
         let ungroupedItems = presenter.getViewModelItems(ofKind: .list)
         ungroupedSectionSnapshot.append(ungroupedItems)
         
@@ -94,7 +104,13 @@ extension HomeViewController: HomeViewProtocol {
         applySnapshots()
     }
     
-    func presentGroupAlert(title: String, buttonName: String, text: String) {
+    func reloadItem(item: HomeViewModel.Item) {
+        guard var snapshot = dataSource?.snapshot() else { return }
+        snapshot.reloadItems([item])
+        dataSource?.apply(snapshot)
+    }
+    
+    func presentGroupAlert(title: String, buttonName: String, text: String, actionHandler: @escaping (String) -> Void) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
             textField.text = text
@@ -107,9 +123,9 @@ extension HomeViewController: HomeViewProtocol {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             NotificationCenter.default.removeObserver(textField)
         }
-        let mainAction = UIAlertAction(title: buttonName, style: .default) { [weak self] _ in
+        let mainAction = UIAlertAction(title: buttonName, style: .default) { _ in
             let name = textField.text!
-            self?.presenter.addGroup(name: name)
+            actionHandler(name)
             NotificationCenter.default.removeObserver(textField)
         }
         
