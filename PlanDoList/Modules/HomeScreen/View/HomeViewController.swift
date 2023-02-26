@@ -50,7 +50,28 @@ extension HomeViewController {
         layoutConfig.backgroundColor = .systemBackground
         layoutConfig.showsSeparators = false
         
+        setupTrailingAction(layoutConfig: &layoutConfig)
+        
         return UICollectionViewCompositionalLayout.list(using: layoutConfig)
+    }
+    
+    func setupTrailingAction(layoutConfig: inout UICollectionLayoutListConfiguration) {
+        layoutConfig.trailingSwipeActionsConfigurationProvider = { indexPath in
+            
+            guard let item = self.dataSource?.itemIdentifier(for: indexPath),
+                  let section = self.dataSource?.snapshot().sectionIdentifier(containingItem: item)
+            else { return nil }
+            
+            let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
+                self?.presenter.deleteList(item: item)
+            }
+            
+            switch (section, item) {
+                case (.basic, _): return nil
+                case (.grouped, .group): return nil
+                default: return UISwipeActionsConfiguration(actions: [action])
+            }
+        }
     }
     
     func collectionViewDataSource() -> DataSourceType {

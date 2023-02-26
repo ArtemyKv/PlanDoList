@@ -19,7 +19,8 @@ protocol TaskManagerProtocol {
     func addGroup(name: String)
     func addList(to group: Group?)
     func renameGroup(group: Group, name: String)
-    func ungroupLists(from group: Group)
+    func deleteGroup(_ group: Group)
+    func deleteList(_ list: List)
 }
 
 class TaskManager: TaskManagerProtocol {
@@ -125,7 +126,7 @@ class TaskManager: TaskManagerProtocol {
         coreDataStack.saveContext()
     }
     
-    func ungroupLists(from group: Group) {
+    func deleteGroup(_ group: Group) {
         guard let groupIndex = groups.firstIndex(of: group) else { return }
         groups.remove(at: groupIndex)
         coreDataStack.managedContext.delete(group)
@@ -136,6 +137,14 @@ class TaskManager: TaskManagerProtocol {
                 ungroupedLists.append(list)
             }
         }
+    }
+    
+    func deleteList(_ list: List) {
+        coreDataStack.managedContext.delete(list)
+        if let index = ungroupedLists.firstIndex(of: list) {
+            ungroupedLists.remove(at: index)
+        }
+        coreDataStack.saveContext()
     }
     
 }

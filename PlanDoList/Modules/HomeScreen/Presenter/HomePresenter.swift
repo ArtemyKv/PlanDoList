@@ -21,6 +21,7 @@ protocol HomePresenterProtocol: AnyObject {
     func addGroup(name: String)
     func getViewModelItems(ofKind itemKind: HomeViewModel.Item.ItemKind) -> [HomeViewModel.Item]
     func getGroupedListItems(forGroupItem groupItem: HomeViewModel.Item) -> [HomeViewModel.Item]
+    func deleteList(item: HomeViewModel.Item)
 }
 
 final class HomePresenter: HomePresenterProtocol {
@@ -70,7 +71,7 @@ final class HomePresenter: HomePresenterProtocol {
         view.applyChanges()
     }
     
-    func addListAction(groupItem: HomeViewModel.Item) {
+    private func addListAction(groupItem: HomeViewModel.Item) {
         if case let .group(group) = groupItem {
             taskManager.addList(to: group)
             view.applyChanges()
@@ -90,7 +91,7 @@ final class HomePresenter: HomePresenterProtocol {
     
     func ungroupListsAction(groupItem: HomeViewModel.Item) {
         guard case let .group(group) = groupItem else { return }
-        taskManager.ungroupLists(from: group)
+        taskManager.deleteGroup(group)
         view.applyChanges()
     }
     
@@ -115,5 +116,11 @@ final class HomePresenter: HomePresenterProtocol {
                 }
             default: return []
         }
+    }
+    
+    func deleteList(item: HomeViewModel.Item) {
+        guard case let .list(list) = item else { return }
+        taskManager.deleteList(list)
+        view.applyChanges()
     }
 }
