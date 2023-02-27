@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainCoordinatorProtocol: Coordinator {
-    
+    func presentListScreen(list: List)
 }
 
 class MainCoordinator: MainCoordinatorProtocol {
@@ -24,6 +24,11 @@ class MainCoordinator: MainCoordinatorProtocol {
     func start() {
         let homeVC = builder.homeScreen(coordinator: self)
         navigationController.pushViewController(homeVC, animated: true)
+    }
+    
+    func presentListScreen(list: List) {
+        let listVC = builder.listScreen(coordinator: self, list: list)
+        navigationController.pushViewController(listVC, animated: true)
     }
     
 }

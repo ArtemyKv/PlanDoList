@@ -22,7 +22,7 @@
 		9C13809E29A47BEE00BE1486 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809229A47BEE00BE1486 /* Group+CoreDataProperties.swift */; };
 		9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809629A47BEE00BE1486 /* List+CoreDataClass.swift */; };
 		9C1380A029A47BEE00BE1486 /* Subtask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809529A47BEE00BE1486 /* Subtask+CoreDataClass.swift */; };
-		9C1380A229A47E5100BE1486 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1380A129A47E5100BE1486 /* TaskManager.swift */; };
+		9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1380A129A47E5100BE1486 /* GroupManager.swift */; };
 		9C1380AA29A489ED00BE1486 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1380A929A489ED00BE1486 /* HomePresenter.swift */; };
 		9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1380AB29A489F800BE1486 /* HomeView.swift */; };
 		9C1380AE29A48A0500BE1486 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1380AD29A48A0500BE1486 /* HomeViewController.swift */; };
@@ -31,6 +31,11 @@
 		9C1380B429A48E0100BE1486 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1380B329A48E0100BE1486 /* Coordinator.swift */; };
 		9C2B2AF829A76DCE00BD8F63 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2AF729A76DCE00BD8F63 /* HomeCollectionViewCell.swift */; };
 		9C2B2AFA29A7702B00BD8F63 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2AF929A7702B00BD8F63 /* HomeViewModel.swift */; };
+		9C2B2AFE29AB159E00BD8F63 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2AFD29AB159E00BD8F63 /* ListViewController.swift */; };
+		9C2B2B0229AB15C600BD8F63 /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0129AB15C600BD8F63 /* ListPresenter.swift */; };
+		9C2B2B0529AB202200BD8F63 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0429AB202200BD8F63 /* ListView.swift */; };
+		9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0629ABA8D400BD8F63 /* ListManager.swift */; };
+		9C2B2B0929ABADB000BD8F63 /* ModelManagerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0829ABADB000BD8F63 /* ModelManagerBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +57,7 @@
 		9C13809629A47BEE00BE1486 /* List+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "List+CoreDataClass.swift"; path = "/Users/artemy/Documents/Study/Training Apps/PlanDoList/PlanDoList/Model/List+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		9C13809729A47BEE00BE1486 /* List+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "List+CoreDataProperties.swift"; path = "/Users/artemy/Documents/Study/Training Apps/PlanDoList/PlanDoList/Model/List+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		9C13809829A47BEE00BE1486 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "/Users/artemy/Documents/Study/Training Apps/PlanDoList/PlanDoList/Model/Task+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		9C1380A129A47E5100BE1486 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
+		9C1380A129A47E5100BE1486 /* GroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManager.swift; sourceTree = "<group>"; };
 		9C1380A929A489ED00BE1486 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		9C1380AB29A489F800BE1486 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9C1380AD29A48A0500BE1486 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +66,11 @@
 		9C1380B329A48E0100BE1486 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		9C2B2AF729A76DCE00BD8F63 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C2B2AF929A7702B00BD8F63 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		9C2B2AFD29AB159E00BD8F63 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		9C2B2B0129AB15C600BD8F63 /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
+		9C2B2B0429AB202200BD8F63 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		9C2B2B0629ABA8D400BD8F63 /* ListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListManager.swift; sourceTree = "<group>"; };
+		9C2B2B0829ABADB000BD8F63 /* ModelManagerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManagerBuilder.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,7 +159,9 @@
 		9C1380A329A47E5700BE1486 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				9C1380A129A47E5100BE1486 /* TaskManager.swift */,
+				9C2B2B0829ABADB000BD8F63 /* ModelManagerBuilder.swift */,
+				9C1380A129A47E5100BE1486 /* GroupManager.swift */,
+				9C2B2B0629ABA8D400BD8F63 /* ListManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -158,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				9C1380A529A4896E00BE1486 /* HomeScreen */,
+				9C2B2AFF29AB15A300BD8F63 /* ListScreen */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -196,6 +209,32 @@
 				9C2B2AF929A7702B00BD8F63 /* HomeViewModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9C2B2AFF29AB15A300BD8F63 /* ListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9C2B2B0029AB15B100BD8F63 /* View */,
+				9C2B2B0329AB15CD00BD8F63 /* Presenter */,
+			);
+			path = ListScreen;
+			sourceTree = "<group>";
+		};
+		9C2B2B0029AB15B100BD8F63 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C2B2AFD29AB159E00BD8F63 /* ListViewController.swift */,
+				9C2B2B0429AB202200BD8F63 /* ListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9C2B2B0329AB15CD00BD8F63 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9C2B2B0129AB15C600BD8F63 /* ListPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		B15A1AB1FCA9036CDD8D819B /* Frameworks */ = {
@@ -328,7 +367,10 @@
 				9C13808129A4615F00BE1486 /* PlanDoList.xcdatamodeld in Sources */,
 				9C1380B429A48E0100BE1486 /* Coordinator.swift in Sources */,
 				9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */,
+				9C2B2B0529AB202200BD8F63 /* ListView.swift in Sources */,
+				9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */,
 				9C13809C29A47BEE00BE1486 /* Subtask+CoreDataProperties.swift in Sources */,
+				9C2B2B0929ABADB000BD8F63 /* ModelManagerBuilder.swift in Sources */,
 				9C13809D29A47BEE00BE1486 /* Task+CoreDataClass.swift in Sources */,
 				9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */,
 				9C13809A29A47BEE00BE1486 /* List+CoreDataProperties.swift in Sources */,
@@ -336,10 +378,12 @@
 				9C13809B29A47BEE00BE1486 /* Task+CoreDataProperties.swift in Sources */,
 				9C13807929A4615F00BE1486 /* SceneDelegate.swift in Sources */,
 				9C2B2AF829A76DCE00BD8F63 /* HomeCollectionViewCell.swift in Sources */,
+				9C2B2AFE29AB159E00BD8F63 /* ListViewController.swift in Sources */,
+				9C2B2B0229AB15C600BD8F63 /* ListPresenter.swift in Sources */,
 				9C2B2AFA29A7702B00BD8F63 /* HomeViewModel.swift in Sources */,
 				9C1380B229A48A6C00BE1486 /* MainBuilder.swift in Sources */,
 				9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */,
-				9C1380A229A47E5100BE1486 /* TaskManager.swift in Sources */,
+				9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */,
 				9C13809E29A47BEE00BE1486 /* Group+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

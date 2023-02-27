@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-protocol TaskManagerProtocol {
+protocol GroupManagerProtocol {
     var wrappedGroups: [Group] { get }
     var wrappedUngroupedLists: [List] { get }
     var groupsCount: Int { get }
@@ -23,7 +23,7 @@ protocol TaskManagerProtocol {
     func deleteList(_ list: List)
 }
 
-class TaskManager: TaskManagerProtocol {
+class GroupManager: GroupManagerProtocol {
     // MARK: - Private Properties
     
     lazy private var coreDataStack = CoreDataStack(modelName: "PlanDoList")
@@ -34,7 +34,8 @@ class TaskManager: TaskManagerProtocol {
     private var groupFetchRequest: NSFetchRequest<Group>?
     private var ungroupedListsFetchRequest: NSFetchRequest<List>?
     
-    init() {
+    init(coreDataStack: CoreDataStack) {
+        self.coreDataStack = coreDataStack
         loadData()
     }
     

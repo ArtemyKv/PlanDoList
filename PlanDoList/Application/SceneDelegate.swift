@@ -17,8 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         let navController = UINavigationController()
-        let taskManager = TaskManager()
-        let mainBuilder = MainBuilder(taskManager: taskManager)
+        let modelManagerBuilder = ModelManagerBuilder()
+        let mainBuilder = MainBuilder(modelManagerBuilder: modelManagerBuilder)
         let mainCoordinator = MainCoordinator(navigationController: navController, builder: mainBuilder)
         mainCoordinator.start()
         

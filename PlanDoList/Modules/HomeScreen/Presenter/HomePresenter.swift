@@ -14,7 +14,7 @@ protocol HomeViewProtocol: AnyObject {
 }
 
 protocol HomePresenterProtocol: AnyObject {
-    init(taskManager: TaskManagerProtocol, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol)
+    init(groupManager: GroupManagerProtocol, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol)
     
     func configureCell(_ cell: HomeCollectionViewCell, with item: HomeViewModel.Item)
     func presentNewGroupAlert()
@@ -22,17 +22,20 @@ protocol HomePresenterProtocol: AnyObject {
     func getViewModelItems(ofKind itemKind: HomeViewModel.Item.ItemKind) -> [HomeViewModel.Item]
     func getGroupedListItems(forGroupItem groupItem: HomeViewModel.Item) -> [HomeViewModel.Item]
     func deleteList(item: HomeViewModel.Item)
+    
+    func didSelectItem(_ item: HomeViewModel.Item)
+    
 }
 
 final class HomePresenter: HomePresenterProtocol {
     
-    var taskManager: TaskManagerProtocol!
+    var groupManager: GroupManagerProtocol!
     
     weak var view: HomeViewProtocol!
     weak var coordinator: MainCoordinatorProtocol!
     
-    init(taskManager: TaskManagerProtocol, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol) {
-        self.taskManager = taskManager
+    init(groupManager: GroupManagerProtocol, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol) {
+        self.groupManager = groupManager
         self.view = view
         self.coordinator = coordinator
     }
@@ -67,13 +70,13 @@ final class HomePresenter: HomePresenterProtocol {
     }
     
     func addGroup(name: String) {
-        taskManager.addGroup(name: name)
+        groupManager.addGroup(name: name)
         view.applyChanges()
     }
     
     private func addListAction(groupItem: HomeViewModel.Item) {
         if case let .group(group) = groupItem {
-            taskManager.addList(to: group)
+            groupManager.addList(to: group)
             view.applyChanges()
         }
     }
@@ -84,14 +87,14 @@ final class HomePresenter: HomePresenterProtocol {
         let buttonName = "Rename"
         let text = group.name ?? ""
         view.presentGroupAlert(title: alertTitle, buttonName: buttonName, text: text) { [weak self] name in
-            self?.taskManager.renameGroup(group: group, name: name)
+            self?.groupManager.renameGroup(group: group, name: name)
             self?.view.reloadItem(item: groupItem)
         }
     }
     
     func ungroupListsAction(groupItem: HomeViewModel.Item) {
         guard case let .group(group) = groupItem else { return }
-        taskManager.deleteGroup(group)
+        groupManager.deleteGroup(group)
         view.applyChanges()
     }
     
@@ -100,9 +103,9 @@ final class HomePresenter: HomePresenterProtocol {
             case .basic:
                 return HomeViewModel.BasicItem.allCases.map { HomeViewModel.Item.basic($0) }
             case .group:
-                return taskManager.wrappedGroups.map { HomeViewModel.Item.group($0) }
+                return groupManager.wrappedGroups.map { HomeViewModel.Item.group($0) }
             case .list:
-                return taskManager.wrappedUngroupedLists.map { HomeViewModel.Item.list($0) }
+                return groupManager.wrappedUngroupedLists.map { HomeViewModel.Item.list($0) }
         }
     }
     
@@ -120,7 +123,13 @@ final class HomePresenter: HomePresenterProtocol {
     
     func deleteList(item: HomeViewModel.Item) {
         guard case let .list(list) = item else { return }
-        taskManager.deleteList(list)
+        groupManager.deleteList(list)
         view.applyChanges()
+    }
+    
+    func didSelectItem(_ item: HomeViewModel.Item) {
+        if case let .list(list) = item {
+            coordinator.presentListScreen(list: list)
+        }
     }
 }

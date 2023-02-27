@@ -35,6 +35,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = "PlanDo List"
         homeView.delegate = self
+        collectionView.delegate = self
         dataSource = collectionViewDataSource()
         collectionView.collectionViewLayout = collectionViewLayout()
         collectionView.dataSource = dataSource
@@ -44,6 +45,8 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
+    // MARK: - Layout and Data Source
+    
     func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         var layoutConfig = UICollectionLayoutListConfiguration(appearance: .grouped)
         layoutConfig.headerMode = .none
@@ -120,6 +123,16 @@ extension HomeViewController {
     
 }
 
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let item = dataSource?.itemIdentifier(for: indexPath) else { return }
+        presenter.didSelectItem(item)
+    }
+}
+
+//MARK: - View Protocol Conformance
 extension HomeViewController: HomeViewProtocol {
     func applyChanges() {
         applySnapshots()
@@ -164,6 +177,7 @@ extension HomeViewController: HomeViewProtocol {
     
 }
 
+//MARK: - View Delegate Conformance
 extension HomeViewController: HomeViewDelegate {
     func addTaskButtonTapped() {
         

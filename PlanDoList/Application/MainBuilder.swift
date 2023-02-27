@@ -8,24 +8,33 @@
 import Foundation
 
 protocol Builder: AnyObject {
-    init(taskManager: TaskManagerProtocol)
+    init(modelManagerBuilder: ModelManagerBuilderProtocol)
     
     func homeScreen(coordinator: MainCoordinatorProtocol) -> HomeViewController
+    func listScreen(coordinator: MainCoordinatorProtocol, list: List) -> ListViewController
 }
 
 final class MainBuilder: Builder {
-    var taskManager: TaskManagerProtocol!
+    var modelManagerBuilder: ModelManagerBuilderProtocol!
     
-    init(taskManager: TaskManagerProtocol) {
-        self.taskManager = taskManager
+    init(modelManagerBuilder: ModelManagerBuilderProtocol) {
+        self.modelManagerBuilder = modelManagerBuilder
     }
     
     func homeScreen(coordinator: MainCoordinatorProtocol) -> HomeViewController {
         let homeVC = HomeViewController()
-        let presenter = HomePresenter(taskManager: taskManager, view: homeVC, coordinator: coordinator)
+        let groupManager = modelManagerBuilder.groupManager()
+        let presenter = HomePresenter(groupManager: groupManager, view: homeVC, coordinator: coordinator)
         homeVC.presenter = presenter
         return homeVC
     }
     
+    func listScreen(coordinator: MainCoordinatorProtocol, list: List) -> ListViewController {
+        let listVC = ListViewController()
+        let listManager = modelManagerBuilder.listManager(list: list)
+        let listPresenter = ListPresenter(listManager: listManager, view: listVC, coordinator: coordinator)
+        listVC.presenter = listPresenter
+        return listVC
+    }
     
 }
