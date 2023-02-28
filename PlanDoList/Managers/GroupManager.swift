@@ -138,6 +138,7 @@ class GroupManager: GroupManagerProtocol {
                 ungroupedLists.append(list)
             }
         }
+        coreDataStack.saveContext()
     }
     
     func deleteList(_ list: List) {
