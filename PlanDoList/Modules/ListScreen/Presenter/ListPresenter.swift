@@ -16,6 +16,8 @@ protocol ListViewProtocol: AnyObject {
 }
 
 protocol ListPresenterProtocol: AnyObject {
+    init(listManager: ListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol)
+    
     var numberOfSections: Int { get }
     var uncompletedTasksCount: Int { get }
     var completedTasksCount: Int { get }
