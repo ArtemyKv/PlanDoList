@@ -40,7 +40,12 @@ class HomeViewController: UIViewController {
         collectionView.collectionViewLayout = collectionViewLayout()
         collectionView.dataSource = dataSource
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.reuseIdentifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         applySnapshots()
+        collectionView.reloadData()
     }
 }
 

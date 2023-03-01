@@ -8,6 +8,7 @@
 import Foundation
 
 protocol ListViewProtocol: AnyObject {
+    func configure(with title: String)
     func reloadData()
     func deleteRows(at indexPath: IndexPath)
     func insertRows(at indexPath: IndexPath)
@@ -18,12 +19,12 @@ protocol ListPresenterProtocol: AnyObject {
     var uncompletedTasksCount: Int { get }
     var completedTasksCount: Int { get }
     
-    func start()
+    func configureView()
     func numberOfRowsInSection(sectionIndex: Int) -> Int
     func configureCell(_ cell: TaskTableViewCell, at indexPath: IndexPath)
-    
     func addTask()
     func deleteRowAt(_ indexPath: IndexPath)
+    func setViewTitle(_ title: String)
 }
 
 class ListPresenter: ListPresenterProtocol {
@@ -70,8 +71,9 @@ class ListPresenter: ListPresenterProtocol {
         self.coordinator = coordinator
     }
     
-    func start() {
-        
+    func configureView() {
+        let listName = listManager.listName
+        view.configure(with: listName)
     }
     
     func numberOfRowsInSection(sectionIndex: Int) -> Int {
@@ -114,5 +116,9 @@ class ListPresenter: ListPresenterProtocol {
                 listManager.deleteCompletedTask(at: indexPath.row)
         }
         view.deleteRows(at: indexPath)
+    }
+    
+    func setViewTitle(_ title: String) {
+        listManager.setListName(title)
     }
 }

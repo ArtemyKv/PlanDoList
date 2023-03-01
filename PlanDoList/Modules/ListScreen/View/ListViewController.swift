@@ -27,20 +27,26 @@ class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
-        listView.backgroundColor = .systemBackground
-        listView.nameTextField.text = "Hello world"
+        configureTableView()
         listView.addTaskButtonAction = {
             self.presenter.addTask()
         }
-        
-        presenter.start()
+        listView.setTextFieldDelegate(self)
+        presenter.configureView()
+    }
+    
+    func configureTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
     }
 }
 
 extension ListViewController: ListViewProtocol {
+    func configure(with title: String) {
+        listView.configure(with: title)
+    }
+    
     func deleteRows(at indexPath: IndexPath) {
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
@@ -82,5 +88,18 @@ extension ListViewController: UITableViewDelegate {
         return 44
     }
     
+}
+
+extension ListViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text, let placeholder = textField.placeholder else { return }
+        let viewTitle = !text.isEmpty ? text : placeholder
+        textField.text = viewTitle
+        presenter.setViewTitle(viewTitle)
+    }
 }
 

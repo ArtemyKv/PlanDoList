@@ -8,6 +8,7 @@
 import Foundation
 
 protocol ListManagerProtocol {
+    var listName: String { get }
     var uncompletedTasksCount: Int { get }
     var completedTasksCount: Int { get }
     
@@ -16,6 +17,7 @@ protocol ListManagerProtocol {
     func addTask()
     func deleteUncompletedTask(at index: Int)
     func deleteCompletedTask(at index: Int)
+    func setListName(_ name: String)
 }
 
 class ListManager: ListManagerProtocol {
@@ -26,6 +28,10 @@ class ListManager: ListManagerProtocol {
     
     private var uncompletedTasks: [Task] = []
     private var completedTasks: [Task] = []
+    
+    var listName: String {
+        return list.wrappedName
+    }
     
     var uncompletedTasksCount: Int {
         return uncompletedTasks.count
@@ -91,6 +97,11 @@ class ListManager: ListManagerProtocol {
         guard index < completedTasksCount else { return }
         let task = completedTasks.remove(at: index)
         list .removeFromTasks(task)
+        coreDataStack.saveContext()
+    }
+    
+    func setListName(_ name: String) {
+        list.name = name
         coreDataStack.saveContext()
     }
 }

@@ -12,20 +12,21 @@ class ListView: UIView {
     
     var addTaskButtonAction: (() -> Void)?
     
-    let nameTextField: UITextField = {
+    private let nameTextField: UITextField = {
         let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         textField.font = .systemFont(ofSize: 34, weight: .bold)
         textField.textAlignment = .left
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 25
+        textField.placeholder = "Untitled List"
         return textField
     }()
     
     let tableView = UITableView()
     
-    let tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+    private let tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
     
-    let addTaskButton: UIButton = {
+    private let addTaskButton: UIButton = {
         let button = UIButton()
         button.setTitle("Add Task", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -43,7 +44,8 @@ class ListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView() {
+    private func setupView() {
+        backgroundColor = .systemBackground
         addSubview(tableView)
         addSubview(addTaskButton)
         
@@ -56,7 +58,7 @@ class ListView: UIView {
         makeConstraints()
     }
     
-    func makeConstraints() {
+    private func makeConstraints() {
         nameTextField.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
         }
@@ -74,12 +76,16 @@ class ListView: UIView {
         }
     }
     
-    func configureView(name: String) {
-        nameTextField.text = name
+    @objc private func addTaskButtonTapped() {
+        addTaskButtonAction?()
     }
     
-    @objc func addTaskButtonTapped() {
-        addTaskButtonAction?()
+    func configure(with title: String) {
+        nameTextField.text = title
+    }
+    
+    func setTextFieldDelegate(_ delegate: UITextFieldDelegate) {
+        nameTextField.delegate = delegate
     }
     
     
