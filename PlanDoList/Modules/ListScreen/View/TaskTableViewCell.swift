@@ -10,7 +10,7 @@ import SnapKit
 
 //Protocol for implementing tapping checkmark feature
 protocol TaskTableViewCellDelegate: AnyObject {
-    func checkmarkTapped(sender: UITableViewCell)
+    func checkmarkTapped(sender: TaskTableViewCell)
 }
 
 class TaskTableViewCell: UITableViewCell {

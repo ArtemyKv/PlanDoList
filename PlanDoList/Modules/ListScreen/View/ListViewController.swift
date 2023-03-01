@@ -55,6 +55,11 @@ extension ListViewController: ListViewProtocol {
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
+    func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+        tableView.moveRow(at: indexPath, to: newIndexPath)
+        tableView.reloadRows(at: [newIndexPath], with: .automatic)
+    }
+    
     func reloadData() {
         tableView.reloadData()
     }
@@ -73,6 +78,7 @@ extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as! TaskTableViewCell
         presenter.configureCell(cell, at: indexPath)
+        cell.delegate = self
         return cell
     }
     
@@ -100,6 +106,13 @@ extension ListViewController: UITextFieldDelegate {
         let viewTitle = !text.isEmpty ? text : placeholder
         textField.text = viewTitle
         presenter.setViewTitle(viewTitle)
+    }
+}
+
+extension ListViewController: TaskTableViewCellDelegate {
+    func checkmarkTapped(sender: TaskTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        presenter.cellCheckmarkTapped(cell: sender, at: indexPath)
     }
 }
 

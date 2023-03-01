@@ -22,7 +22,7 @@ class ListView: UIView {
         return textField
     }()
     
-    let tableView = UITableView()
+    let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
     private let tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
     
@@ -51,6 +51,7 @@ class ListView: UIView {
         
         tableHeaderView.addSubview(nameTextField)
         tableView.tableHeaderView = tableHeaderView
+        tableView.backgroundColor = .systemBackground
         
         addTaskButton.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
         

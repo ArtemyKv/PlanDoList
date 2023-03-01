@@ -12,6 +12,7 @@ protocol ListViewProtocol: AnyObject {
     func reloadData()
     func deleteRows(at indexPath: IndexPath)
     func insertRows(at indexPath: IndexPath)
+    func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath)
 }
 
 protocol ListPresenterProtocol: AnyObject {
@@ -25,6 +26,7 @@ protocol ListPresenterProtocol: AnyObject {
     func addTask()
     func deleteRowAt(_ indexPath: IndexPath)
     func setViewTitle(_ title: String)
+    func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
 }
 
 class ListPresenter: ListPresenterProtocol {
@@ -120,5 +122,15 @@ class ListPresenter: ListPresenterProtocol {
     
     func setViewTitle(_ title: String) {
         listManager.setListName(title)
+    }
+    
+    func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath) {
+        let taskShouldBeComplete = indexPath.section == 0 ? true : false
+        let newSectionNumber = indexPath.section == 0 ? 1 : 0
+        let newRowNumber = newSectionNumber == 0 ? listManager.uncompletedTasksCount : 0
+        let newIndexPath = IndexPath(row: newRowNumber, section: newSectionNumber)
+        
+        listManager.toggleTaskCompletion(at: indexPath.row, shouldBeComplete: taskShouldBeComplete)
+        view.moveRow(at: indexPath, to: newIndexPath)
     }
 }

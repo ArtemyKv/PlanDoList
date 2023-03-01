@@ -18,6 +18,7 @@ protocol ListManagerProtocol {
     func deleteUncompletedTask(at index: Int)
     func deleteCompletedTask(at index: Int)
     func setListName(_ name: String)
+    func toggleTaskCompletion(at index: Int, shouldBeComplete: Bool)
 }
 
 class ListManager: ListManagerProtocol {
@@ -28,7 +29,7 @@ class ListManager: ListManagerProtocol {
     
     private var uncompletedTasks: [Task] = []
     private var completedTasks: [Task] = []
-    
+        
     var listName: String {
         return list.wrappedName
     }
@@ -47,6 +48,10 @@ class ListManager: ListManagerProtocol {
         getTasks()
     }
     
+    deinit {
+        updateTasksOrder()
+    }
+    
     private func getTasks() {
         guard let tasks = list.tasks?.array as? [Task] else { return }
         
@@ -58,6 +63,13 @@ class ListManager: ListManagerProtocol {
         }
         uncompletedTasks.sort { $0.order > $1.order }
         completedTasks.sort { $0.completionDate! > $1.completionDate! }
+    }
+    
+    private func updateTasksOrder() {
+        for (index, task) in uncompletedTasks.enumerated() {
+            task.order = Int32(index)
+        }
+        coreDataStack.saveContext()
     }
     
     func uncompletedTask(at index: Int) -> Task? {
@@ -76,14 +88,11 @@ class ListManager: ListManagerProtocol {
         task.name = "New Task"
         task.complete = false
         task.creationDate = Date()
-        task.order = Int32(uncompletedTasksCount)
         task.id = UUID()
         task.important = false
-        
         list.addToTasks(task)
-        coreDataStack.saveContext()
-        
         uncompletedTasks.append(task)
+        coreDataStack.saveContext()
     }
     
     func deleteUncompletedTask(at index: Int) {
@@ -102,6 +111,20 @@ class ListManager: ListManagerProtocol {
     
     func setListName(_ name: String) {
         list.name = name
+        coreDataStack.saveContext()
+    }
+    
+    func toggleTaskCompletion(at index: Int, shouldBeComplete: Bool) {        
+        let task = shouldBeComplete ? uncompletedTasks.remove(at: index) : completedTasks.remove(at: index)
+        task.complete.toggle()
+        task.completionDate = shouldBeComplete ? Date() : nil
+        
+        if shouldBeComplete {
+            task.order = 0
+            completedTasks.append(task)
+        } else {
+            uncompletedTasks.append(task)
+        }
         coreDataStack.saveContext()
     }
 }
