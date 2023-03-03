@@ -97,9 +97,9 @@ class ListManager: ListManagerProtocol {
         list.addToTasks(task)
         
         if complete {
-            completedTasks.append(task)
+            completedTasks.insert(task, at: 0)
         } else {
-            uncompletedTasks.insert(task, at: 0)
+            uncompletedTasks.append(task)
         }
         
         coreDataStack.saveContext()
@@ -131,7 +131,7 @@ class ListManager: ListManagerProtocol {
         
         if shouldBeComplete {
             task.order = 0
-            completedTasks.append(task)
+            completedTasks.insert(task, at: 0)
         } else {
             uncompletedTasks.append(task)
         }
