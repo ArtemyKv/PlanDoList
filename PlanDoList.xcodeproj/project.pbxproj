@@ -37,6 +37,9 @@
 		9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0629ABA8D400BD8F63 /* ListManager.swift */; };
 		9C2B2B0929ABADB000BD8F63 /* ModelManagerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0829ABADB000BD8F63 /* ModelManagerBuilder.swift */; };
 		9C2B2B0B29AE2E9D00BD8F63 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0A29AE2E9D00BD8F63 /* TaskTableViewCell.swift */; };
+		9C2B2B0E29AF0DF700BD8F63 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0D29AF0DF700BD8F63 /* AddTaskViewController.swift */; };
+		9C2B2B1129AF0E0D00BD8F63 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B1029AF0E0D00BD8F63 /* AddTaskView.swift */; };
+		9C2B2B1329AF0E1800BD8F63 /* AddTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B1229AF0E1800BD8F63 /* AddTaskPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +76,9 @@
 		9C2B2B0629ABA8D400BD8F63 /* ListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListManager.swift; sourceTree = "<group>"; };
 		9C2B2B0829ABADB000BD8F63 /* ModelManagerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManagerBuilder.swift; sourceTree = "<group>"; };
 		9C2B2B0A29AE2E9D00BD8F63 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		9C2B2B0D29AF0DF700BD8F63 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		9C2B2B1029AF0E0D00BD8F63 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		9C2B2B1229AF0E1800BD8F63 /* AddTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPresenter.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -173,6 +179,7 @@
 			children = (
 				9C1380A529A4896E00BE1486 /* HomeScreen */,
 				9C2B2AFF29AB15A300BD8F63 /* ListScreen */,
+				9C2B2B0C29AF0DCE00BD8F63 /* AddTaskScreen */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -236,6 +243,32 @@
 			isa = PBXGroup;
 			children = (
 				9C2B2B0129AB15C600BD8F63 /* ListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9C2B2B0C29AF0DCE00BD8F63 /* AddTaskScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9C2B2B0F29AF0E0100BD8F63 /* View */,
+				9C2B2B1429AF0E1D00BD8F63 /* Presenter */,
+			);
+			path = AddTaskScreen;
+			sourceTree = "<group>";
+		};
+		9C2B2B0F29AF0E0100BD8F63 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C2B2B0D29AF0DF700BD8F63 /* AddTaskViewController.swift */,
+				9C2B2B1029AF0E0D00BD8F63 /* AddTaskView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9C2B2B1429AF0E1D00BD8F63 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9C2B2B1229AF0E1800BD8F63 /* AddTaskPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -362,6 +395,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C2B2B1129AF0E0D00BD8F63 /* AddTaskView.swift in Sources */,
 				9C1380B029A48A6100BE1486 /* MainCoordinator.swift in Sources */,
 				9C13809029A4752300BE1486 /* CoreDataStack.swift in Sources */,
 				9C13809929A47BEE00BE1486 /* Group+CoreDataClass.swift in Sources */,
@@ -374,7 +408,9 @@
 				9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */,
 				9C13809C29A47BEE00BE1486 /* Subtask+CoreDataProperties.swift in Sources */,
 				9C2B2B0B29AE2E9D00BD8F63 /* TaskTableViewCell.swift in Sources */,
+				9C2B2B1329AF0E1800BD8F63 /* AddTaskPresenter.swift in Sources */,
 				9C2B2B0929ABADB000BD8F63 /* ModelManagerBuilder.swift in Sources */,
+				9C2B2B0E29AF0DF700BD8F63 /* AddTaskViewController.swift in Sources */,
 				9C13809D29A47BEE00BE1486 /* Task+CoreDataClass.swift in Sources */,
 				9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */,
 				9C13809A29A47BEE00BE1486 /* List+CoreDataProperties.swift in Sources */,

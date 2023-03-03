@@ -14,7 +14,7 @@ protocol ListManagerProtocol {
     
     func uncompletedTask(at index: Int) -> Task?
     func completedTask(at index: Int) -> Task?
-    func addTask()
+    func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?)
     func deleteUncompletedTask(at index: Int)
     func deleteCompletedTask(at index: Int)
     func setListName(_ name: String)
@@ -83,15 +83,25 @@ class ListManager: ListManagerProtocol {
         return completedTasks[index]
     }
     
-    func addTask() {
+    func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?) {
         let task = Task(context: coreDataStack.managedContext)
-        task.name = "New Task"
-        task.complete = false
+        task.name = name
+        task.complete = complete
         task.creationDate = Date()
+        task.completionDate = complete ? Date() : nil
         task.id = UUID()
         task.important = false
+        task.myDay = myDay
+        task.remindDate = remindDate
+        task.dueDate = dueDate
         list.addToTasks(task)
-        uncompletedTasks.append(task)
+        
+        if complete {
+            completedTasks.append(task)
+        } else {
+            uncompletedTasks.insert(task, at: 0)
+        }
+        
         coreDataStack.saveContext()
     }
     

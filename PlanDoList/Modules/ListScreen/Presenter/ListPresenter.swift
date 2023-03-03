@@ -69,7 +69,7 @@ class ListPresenter: ListPresenterProtocol {
         }
     }
     
-    init(listManager: ListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol) {
+    required init(listManager: ListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol) {
         self.listManager = listManager
         self.view = view
         self.coordinator = coordinator
@@ -106,8 +106,9 @@ class ListPresenter: ListPresenterProtocol {
     
     
     func addTask() {
-        listManager.addTask()
-        view.insertRows(at: IndexPath(row: 0, section: 0))
+        coordinator.presentAddTaskScreen(delegate: self)
+//        listManager.addTask()
+//        view.insertRows(at: IndexPath(row: 0, section: 0))
     }
     
     func deleteRowAt(_ indexPath: IndexPath) {
@@ -135,4 +136,16 @@ class ListPresenter: ListPresenterProtocol {
         listManager.toggleTaskCompletion(at: indexPath.row, shouldBeComplete: taskShouldBeComplete)
         view.moveRow(at: indexPath, to: newIndexPath)
     }
+}
+
+extension ListPresenter: AddTaskPresenterDelegate {
+    func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?) {
+        listManager.addTask(name: name, complete: complete, myDay: myDay, remindDate: remindDate, dueDate: dueDate)
+        
+        let section = complete ? 1 : 0
+        let row = complete ? 0 : listManager.uncompletedTasksCount - 1
+        view.insertRows(at: IndexPath(row: row, section: section))
+    }
+    
+    
 }
