@@ -11,6 +11,7 @@ protocol MainCoordinatorProtocol: Coordinator {
     func presentListScreen(list: List)
     func presentAddTaskScreen(delegate: AddTaskPresenterDelegate)
     func dismissAddTaskScreen()
+    func presentTaskScreen(task: Task)
 }
 
 class MainCoordinator: MainCoordinatorProtocol {
@@ -41,6 +42,11 @@ class MainCoordinator: MainCoordinatorProtocol {
     
     func dismissAddTaskScreen() {
         navigationController.viewControllers.last?.dismiss(animated: false)
+    }
+    
+    func presentTaskScreen(task: Task) {
+        let taskVC = builder.taskScreen(coordinator: self, task: task)
+        navigationController.pushViewController(taskVC, animated: true)
     }
     
     

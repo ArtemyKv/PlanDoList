@@ -10,6 +10,7 @@ import Foundation
 protocol ModelManagerBuilderProtocol {
     func groupManager() -> GroupManagerProtocol
     func listManager(list: List) -> ListManagerProtocol
+    func taskManager(task: Task) -> TaskManagerProtocol
 }
 
 class ModelManagerBuilder: ModelManagerBuilderProtocol {
@@ -25,5 +26,10 @@ class ModelManagerBuilder: ModelManagerBuilderProtocol {
         let listManager = ListManager(coreDataStack: coreDataStack, list: list)
         return listManager
         
+    }
+    
+    func taskManager(task: Task) -> TaskManagerProtocol {
+        let taskManager = TaskManager(coreDataStack: coreDataStack, task: task)
+        return taskManager
     }
 }

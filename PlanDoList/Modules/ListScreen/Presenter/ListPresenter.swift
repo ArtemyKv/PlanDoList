@@ -29,6 +29,7 @@ protocol ListPresenterProtocol: AnyObject {
     func deleteRowAt(_ indexPath: IndexPath)
     func setViewTitle(_ title: String)
     func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
+    func didSelectRow(at indexPath: IndexPath)
 }
 
 class ListPresenter: ListPresenterProtocol {
@@ -135,6 +136,14 @@ class ListPresenter: ListPresenterProtocol {
         
         listManager.toggleTaskCompletion(at: indexPath.row, shouldBeComplete: taskShouldBeComplete)
         view.moveRow(at: indexPath, to: newIndexPath)
+    }
+    
+    func didSelectRow(at indexPath: IndexPath) {
+        guard let task = indexPath.section == 0 ?
+                listManager.uncompletedTask(at: indexPath.row) : listManager.completedTask(at: indexPath.row)
+        else { return }
+        coordinator.presentTaskScreen(task: task)
+
     }
 }
 

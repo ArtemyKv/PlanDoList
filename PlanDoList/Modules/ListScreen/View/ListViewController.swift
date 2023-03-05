@@ -94,6 +94,12 @@ extension ListViewController: UITableViewDelegate {
         return 44
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        presenter.didSelectRow(at: indexPath)
+        
+    }
+    
 }
 
 extension ListViewController: UITextFieldDelegate {

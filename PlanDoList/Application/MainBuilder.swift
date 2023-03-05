@@ -13,6 +13,7 @@ protocol Builder: AnyObject {
     func homeScreen(coordinator: MainCoordinatorProtocol) -> HomeViewController
     func listScreen(coordinator: MainCoordinatorProtocol, list: List) -> ListViewController
     func addTaskScreen(coordinator: MainCoordinatorProtocol, delegate: AddTaskPresenterDelegate) -> AddTaskViewController
+    func taskScreen(coordinator: MainCoordinatorProtocol, task: Task) -> TaskViewController
 }
 
 final class MainBuilder: Builder {
@@ -44,6 +45,14 @@ final class MainBuilder: Builder {
         addTaskPresenter.delegate = delegate
         addTaskVC.presenter = addTaskPresenter
         return addTaskVC
+    }
+    
+    func taskScreen(coordinator: MainCoordinatorProtocol, task: Task) -> TaskViewController {
+        let taskVC = TaskViewController()
+        let taskManager = modelManagerBuilder.taskManager(task: task)
+        let presenter = TaskPresenter(taskManager: taskManager, view: taskVC, coordinator: coordinator)
+        taskVC.presenter = presenter
+        return taskVC
     }
     
 }
