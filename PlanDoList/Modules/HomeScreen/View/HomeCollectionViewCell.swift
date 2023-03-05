@@ -53,4 +53,9 @@ class HomeCollectionViewCell: UICollectionViewListCell {
         self.accessories = [.customView(configuration: customAccessoryConfig), .outlineDisclosure(options: disclosureOptions)]
         
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.accessories = []
+    }
 }

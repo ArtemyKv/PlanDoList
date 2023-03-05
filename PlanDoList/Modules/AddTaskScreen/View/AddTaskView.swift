@@ -20,7 +20,7 @@ class AddTaskView: UIView {
     weak var delegate: AddTaskViewDelegate?
     
     //MARK: - Constants
-    private let defaultHeightConstant: CGFloat = 180
+    private let defaultHeightConstant: CGFloat = 150
     private let dismissableHeight: CGFloat = 200
     private let maxHeight: CGFloat = 800
     private let defaultRowHeightConstant: CGFloat = 44
@@ -106,6 +106,7 @@ class AddTaskView: UIView {
         textField.font = .systemFont(ofSize: 16)
         textField.borderStyle = .none
         textField.placeholder = "New task"
+        textField.returnKeyType = .done
         textField.setContentHuggingPriority(UILayoutPriority(249), for: .horizontal)
         return textField
     }()
@@ -114,6 +115,7 @@ class AddTaskView: UIView {
         let button = UIButton()
         button.setTitle("", for: .normal)
         button.setImage(uncompleteImage, for: .normal)
+        button.setImage(completeImage, for: .selected)
         return button
     }()
     
@@ -275,6 +277,7 @@ class AddTaskView: UIView {
     private func setupControlsActions() {
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         createButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
+        checkmarkButton.addTarget(self, action: #selector(checkmarkButtonTapped), for: .touchUpInside)
         myDayButton.addTarget(self, action: #selector(myDayButtonTapped), for: .touchUpInside)
         remindButton.addTarget(self, action: #selector(dateButtonPressed(sender:)), for: .touchUpInside)
         dueButton.addTarget(self, action: #selector(dateButtonPressed(sender:)), for: .touchUpInside)
@@ -301,13 +304,13 @@ class AddTaskView: UIView {
     //MARK: - View Appearance and Dismiss Animations
     
     func appear() {
+        nameTextField.becomeFirstResponder()
         dimmedView.alpha = 0
         tapGestureView.alpha = 0
         
         UIView.animate(withDuration: 0.3) {
             self.bottomAnchorConstraint?.update(offset: 0)
             self.layoutIfNeeded()
-            
         }
         
         UIView.animate(withDuration: 0.4) {
@@ -416,9 +419,12 @@ class AddTaskView: UIView {
     }
     
     @objc private func createButtonTapped() {
-//        delegate.createButtonTapped()
         nameTextField.resignFirstResponder()
         delegate?.createButtonTapped()
+    }
+    
+    @objc private func checkmarkButtonTapped() {
+        checkmarkButton.isSelected.toggle()
     }
     
     @objc private func textFieldEditingChanged() {
