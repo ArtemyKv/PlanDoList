@@ -21,6 +21,7 @@ class TaskViewController: UIViewController {
     
     //MARK: - Properties
     var presenter: TaskPresenterProtocol!
+    var subtasksDataSource: SubtaskTableViewDataSource!
     
     //Cells
     let taskNameCell = TaskNameCell()
@@ -97,7 +98,15 @@ class TaskViewController: UIViewController {
         super .viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        setupSubtasksTableView()
         presenter.updateView()
+    }
+    
+    func setupSubtasksTableView() {
+        subtasksTableView.register(SubtaskTableViewCell.self, forCellReuseIdentifier: SubtaskTableViewCell.reuseIdentifier)
+        subtasksDataSource = SubtaskTableViewDataSource(taskPresenter: presenter)
+        subtasksTableView.dataSource = subtasksDataSource
+        subtasksTableView.delegate = subtasksDataSource
     }
     
     
@@ -146,12 +155,22 @@ extension TaskViewController: UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return Section.allCases[section].rawValue
+    }
     
 }
 
 extension TaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        let defaultHeight = CGFloat(44)
+        
+        switch indexPath {
+            case subtaskTableViewIndexPath:
+                return CGFloat(presenter.numberOfRowsInSubtasksTable()) * defaultHeight
+            default:
+                return UITableView.automaticDimension
+        }
     }
 }
 

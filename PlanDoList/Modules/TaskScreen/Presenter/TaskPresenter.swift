@@ -15,6 +15,8 @@ protocol TaskPresenterProtocol {
     init(taskManager: TaskManagerProtocol, view: TaskViewProtocol, coordinator: MainCoordinatorProtocol)
     
     func updateView()
+    func numberOfRowsInSubtasksTable() -> Int
+    func updateSubtaskCell(_ cell: SubtaskTableViewCell, at indexPath: IndexPath)
 }
 
 class TaskPresenter: TaskPresenterProtocol {
@@ -37,6 +39,17 @@ class TaskPresenter: TaskPresenterProtocol {
         let myday = taskManager.taskIsInMyDay
         
         view.updateNameSection(with: name, completeButtonSelected: complete, importantButtonSelected: important)
+    }
+    
+    func numberOfRowsInSubtasksTable() -> Int {
+        taskManager.subtasks.count
+    }
+    
+    func updateSubtaskCell(_ cell: SubtaskTableViewCell, at indexPath: IndexPath) {
+        guard indexPath.row < taskManager.subtasks.count else { return }
+        let subtask = taskManager.subtasks[indexPath.row]
+        
+        cell.update(with: subtask.wrappedName, isComplete: subtask.complete)
     }
     
 }
