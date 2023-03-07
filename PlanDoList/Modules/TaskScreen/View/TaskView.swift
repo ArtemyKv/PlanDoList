@@ -8,7 +8,7 @@
 import UIKit
 
 class TaskView: UIView {
-    let tableView = UITableView(frame: CGRect.zero, style: .grouped)
+    let tableView = UITableView(frame: CGRect.zero, style: .plain)
     
     override init(frame: CGRect) {
         super .init(frame: frame)

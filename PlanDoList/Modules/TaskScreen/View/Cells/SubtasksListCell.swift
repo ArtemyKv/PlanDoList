@@ -21,6 +21,7 @@ class SubtasksListCell: UITableViewCell {
     }
     
     private func setupCell() {
+        tableView.separatorStyle = .none
         self.contentView.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
