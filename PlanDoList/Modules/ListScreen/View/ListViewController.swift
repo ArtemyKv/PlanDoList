@@ -35,6 +35,16 @@ class ListViewController: UIViewController {
         presenter.configureView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter.viewWillDisappear()
+        super.viewWillDisappear(animated)
+    }
+    
     func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self

@@ -22,6 +22,8 @@ protocol ListPresenterProtocol: AnyObject {
     var uncompletedTasksCount: Int { get }
     var completedTasksCount: Int { get }
     
+    func viewWillAppear()
+    func viewWillDisappear()
     func configureView()
     func numberOfRowsInSection(sectionIndex: Int) -> Int
     func configureCell(_ cell: TaskTableViewCell, at indexPath: IndexPath)
@@ -76,6 +78,15 @@ class ListPresenter: ListPresenterProtocol {
         self.coordinator = coordinator
     }
     
+    func viewWillAppear() {
+        listManager.getTasks()
+        view.reloadData()
+    }
+    
+    func viewWillDisappear() {
+        listManager.updateTasksOrder()
+    }
+    
     func configureView() {
         let listName = listManager.listName
         view.configure(with: listName)
@@ -108,8 +119,6 @@ class ListPresenter: ListPresenterProtocol {
     
     func addTask() {
         coordinator.presentAddTaskScreen(delegate: self)
-//        listManager.addTask()
-//        view.insertRows(at: IndexPath(row: 0, section: 0))
     }
     
     func deleteRowAt(_ indexPath: IndexPath) {

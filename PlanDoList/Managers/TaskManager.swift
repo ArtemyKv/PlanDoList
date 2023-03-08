@@ -17,6 +17,10 @@ protocol TaskManagerProtocol {
     var taskDueDate: Date? { get }
     var taskRemindDate: Date? { get }
     var taskNotes: String { get }
+    
+    func setTaskIsComplete(_ complete: Bool)
+    func setTaskIsImportant(_ important: Bool)
+    func setTaskName(with text: String)
 }
 
 class TaskManager: TaskManagerProtocol {
@@ -59,5 +63,22 @@ class TaskManager: TaskManagerProtocol {
     init(coreDataStack: CoreDataStack, task: Task) {
         self.coreDataStack = coreDataStack
         self.task = task
+    }
+    
+    func setTaskIsComplete(_ complete: Bool) {
+        task.complete = complete
+        task.completionDate = complete ? Date() : nil
+        task.order = 0
+        coreDataStack.saveContext()
+    }
+    
+    func setTaskIsImportant(_ important: Bool) {
+        task.important = important
+        coreDataStack.saveContext()
+    }
+    
+    func setTaskName(with text: String) {
+        task.name = text
+        coreDataStack.saveContext()
     }
 }

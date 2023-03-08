@@ -17,6 +17,9 @@ protocol TaskPresenterProtocol {
     func updateView()
     func numberOfRowsInSubtasksTable() -> Int
     func updateSubtaskCell(_ cell: SubtaskTableViewCell, at indexPath: IndexPath)
+    func completeButtonTapped(selected: Bool)
+    func importantButtonTapped(selected: Bool)
+    func nameTextViewDidChange(text: String)
 }
 
 class TaskPresenter: TaskPresenterProtocol {
@@ -52,4 +55,17 @@ class TaskPresenter: TaskPresenterProtocol {
         cell.update(with: subtask.wrappedName, isComplete: subtask.complete)
     }
     
+    func completeButtonTapped(selected: Bool) {
+        taskManager.setTaskIsComplete(selected)
+        updateView()
+    }
+    
+    func importantButtonTapped(selected: Bool) {
+        taskManager.setTaskIsImportant(selected)
+        updateView()
+    }
+    
+    func nameTextViewDidChange(text: String) {
+        taskManager.setTaskName(with: text)
+    }
 }

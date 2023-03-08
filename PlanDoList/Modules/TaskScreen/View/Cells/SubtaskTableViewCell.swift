@@ -19,8 +19,8 @@ class SubtaskTableViewCell: UITableViewCell {
     
     private let completeButton: UIButton = {
         let button = UIButton()
-        button.setImage(Constants.Image.Checkmark.uncompleteMedium, for: .normal)
-        button.setImage(Constants.Image.Checkmark.completeMedium, for: .selected)
+        button.setImage(Constants.Image.Checkmark.uncheckedMedium, for: .normal)
+        button.setImage(Constants.Image.Checkmark.checkedMedium, for: .selected)
         return button
     }()
     

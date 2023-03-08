@@ -12,6 +12,8 @@ protocol ListManagerProtocol {
     var uncompletedTasksCount: Int { get }
     var completedTasksCount: Int { get }
     
+    func getTasks()
+    func updateTasksOrder()
     func uncompletedTask(at index: Int) -> Task?
     func completedTask(at index: Int) -> Task?
     func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?)
@@ -45,15 +47,13 @@ class ListManager: ListManagerProtocol {
     init(coreDataStack: CoreDataStack, list: List) {
         self.coreDataStack = coreDataStack
         self.list = list
-        getTasks()
     }
     
-    deinit {
-        updateTasksOrder()
-    }
     
-    private func getTasks() {
+    func getTasks() {
         guard let tasks = list.tasks?.array as? [Task] else { return }
+        uncompletedTasks = []
+        completedTasks = []
         
         for task in tasks {
             switch task.complete {
@@ -61,11 +61,11 @@ class ListManager: ListManagerProtocol {
                 case false : uncompletedTasks.append(task)
             }
         }
-        uncompletedTasks.sort { $0.order > $1.order }
+        uncompletedTasks.sort { $0.order < $1.order }
         completedTasks.sort { $0.completionDate! > $1.completionDate! }
     }
     
-    private func updateTasksOrder() {
+    func updateTasksOrder() {
         for (index, task) in uncompletedTasks.enumerated() {
             task.order = Int32(index)
         }

@@ -99,6 +99,7 @@ class TaskViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         setupSubtasksTableView()
+        setCellDelegates()
         presenter.updateView()
     }
     
@@ -109,7 +110,25 @@ class TaskViewController: UIViewController {
         subtasksTableView.delegate = subtasksDataSource
     }
     
+    func setCellDelegates() {
+        taskNameCell.delegate = self
+    }
+}
+
+extension TaskViewController: TaskNameCellDelegate {
+    func completeButtonTapped(selected: Bool) {
+        presenter.completeButtonTapped(selected: selected)
+    }
     
+    func importantButtonTapped(selected: Bool) {
+        presenter.importantButtonTapped(selected: selected)
+    }
+    
+    func nameTextViewDidChange(text: String) {
+        presenter.nameTextViewDidChange(text: text)
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
 }
 
 extension TaskViewController: UITableViewDataSource {
@@ -171,6 +190,10 @@ extension TaskViewController: UITableViewDelegate {
             default:
                 return UITableView.automaticDimension
         }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
     }
 }
 
