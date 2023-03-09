@@ -22,6 +22,9 @@ protocol TaskManagerProtocol {
     func setTaskIsImportant(_ important: Bool)
     func setTaskName(with text: String)
     func addSubtask(name: String)
+    func setSubtaskCompletion(at index: Int, isComplete: Bool)
+    func deleteSubtask(at index: Int)
+    func moveSubtask(at sourceIndex: Int, to destinationIndex: Int)
 }
 
 class TaskManager: TaskManagerProtocol {
@@ -88,6 +91,27 @@ class TaskManager: TaskManagerProtocol {
         subtask.name = name
         subtask.complete = false
         task.addToSubtasks(subtask)
+        coreDataStack.saveContext()
+    }
+    
+    func setSubtaskCompletion(at index: Int, isComplete: Bool) {
+        guard index < subtasks.count else { return }
+        let subtask = subtasks[index]
+        subtask.complete = isComplete
+        coreDataStack.saveContext()
+    }
+    
+    func deleteSubtask(at index: Int) {
+        guard index < subtasks.count else { return }
+        task.removeFromSubtasks(at: index)
+        coreDataStack.saveContext()
+    }
+    
+    func moveSubtask(at sourceIndex: Int, to destinationIndex: Int) {
+        guard sourceIndex < subtasks.count, destinationIndex < subtasks.count else { return }
+        let subtask = subtasks[sourceIndex]
+        task.removeFromSubtasks(at: sourceIndex)
+        task.insertIntoSubtasks(subtask, at: destinationIndex)
         coreDataStack.saveContext()
     }
 }

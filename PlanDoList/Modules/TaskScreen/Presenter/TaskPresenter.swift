@@ -10,6 +10,8 @@ import Foundation
 protocol TaskViewProtocol: AnyObject {
     func updateNameSection(with namefieldText: String, completeButtonSelected: Bool, importantButtonSelected: Bool)
     func insertRowInSubtasksTableView(at indexPath: IndexPath)
+    func deleteRowInSubtasksTableView(at indexPath: IndexPath)
+    func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
 }
 
 protocol TaskPresenterProtocol {
@@ -22,6 +24,9 @@ protocol TaskPresenterProtocol {
     func importantButtonTapped(selected: Bool)
     func nameTextViewDidChange(text: String)
     func newSubtaskTextFieldDidEndEditing(with text: String)
+    func subtaskCellCompleteButtonTapped(at indexPath: IndexPath, isSelected: Bool)
+    func subtaskCellDeleteButtonTapped(at indexPath: IndexPath)
+    func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
 }
 
 class TaskPresenter: TaskPresenterProtocol {
@@ -40,7 +45,6 @@ class TaskPresenter: TaskPresenterProtocol {
         let name = taskManager.taskName
         let complete = taskManager.taskIsComplete
         let important = taskManager.taskIsImportant
-        let subtasks = taskManager.subtasks
         let myday = taskManager.taskIsInMyDay
         
         view.updateNameSection(with: name, completeButtonSelected: complete, importantButtonSelected: important)
@@ -76,5 +80,19 @@ class TaskPresenter: TaskPresenterProtocol {
         taskManager.addSubtask(name: text)
         let newSubtaskIndexPath = IndexPath(row: taskManager.subtasks.count - 1, section: 0)
         view.insertRowInSubtasksTableView(at: newSubtaskIndexPath)
+    }
+    
+    func subtaskCellCompleteButtonTapped(at indexPath: IndexPath, isSelected: Bool) {
+        taskManager.setSubtaskCompletion(at: indexPath.row, isComplete: isSelected)
+    }
+    
+    func subtaskCellDeleteButtonTapped(at indexPath: IndexPath) {
+        taskManager.deleteSubtask(at: indexPath.row)
+        view.deleteRowInSubtasksTableView(at: indexPath)
+    }
+    
+    func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        taskManager.moveSubtask(at: sourceIndexPath.row, to: destinationIndexPath.row)
+        
     }
 }

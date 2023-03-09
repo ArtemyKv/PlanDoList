@@ -8,8 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol SubtaskTableViewCellDelegate: AnyObject {
+    func completeButtonTapped(isSeleted: Bool, in cell: SubtaskTableViewCell)
+    func deleteButtonTapped(in cell: SubtaskTableViewCell)
+}
+
 class SubtaskTableViewCell: UITableViewCell {
     static let reuseIdentifier = "SubtaskTableViewCell"
+    
+    weak var delegate: SubtaskTableViewCellDelegate?
     
     private let nameTextField: UITextField = {
         let textField = UITextField()
@@ -51,6 +58,7 @@ class SubtaskTableViewCell: UITableViewCell {
     private func setupCell() {
         addSubviews()
         setupConstraints()
+        addTargets()
     }
     
     private func addSubviews() {
@@ -70,9 +78,44 @@ class SubtaskTableViewCell: UITableViewCell {
         }
     }
     
+    private func addTargets() {
+        completeButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func buttonTapped(_ sender: UIButton) {
+        switch sender {
+            case completeButton:
+                completeButton.isSelected.toggle()
+                delegate?.completeButtonTapped(isSeleted: completeButton.isSelected, in: self)
+                updateTextStyle()
+            case deleteButton:
+                delegate?.deleteButtonTapped(in: self)
+            default:
+                break
+                
+        }
+    }
+    
     func update(with name: String, isComplete: Bool) {
         nameTextField.text = name
         completeButton.isSelected = isComplete
+        updateTextStyle()
+    }
+    
+    private func updateTextStyle() {
+        guard let text = nameTextField.text else { return }
+        let attributedString = NSMutableAttributedString(string: text)
+        let attributeRange = NSRange(location: 0, length: attributedString.length)
+        if completeButton.isSelected {
+            attributedString.addAttribute(NSMutableAttributedString.Key.strikethroughStyle, value: 2, range: attributeRange)
+            nameTextField.attributedText = attributedString
+            nameTextField.textColor = .systemGray
+        } else {
+            attributedString.removeAttribute(NSMutableAttributedString.Key.strikethroughStyle, range: attributeRange)
+            nameTextField.attributedText = attributedString
+            nameTextField.textColor = .black
+        }
     }
     
 }

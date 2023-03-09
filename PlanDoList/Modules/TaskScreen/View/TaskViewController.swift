@@ -105,9 +105,10 @@ class TaskViewController: UIViewController {
     
     func setupSubtasksTableView() {
         subtasksTableView.register(SubtaskTableViewCell.self, forCellReuseIdentifier: SubtaskTableViewCell.reuseIdentifier)
-        subtasksDataSource = SubtaskTableViewDataSource(taskPresenter: presenter)
+        subtasksDataSource = SubtaskTableViewDataSource(taskPresenter: presenter, tableView: subtasksTableView)
         subtasksTableView.dataSource = subtasksDataSource
         subtasksTableView.delegate = subtasksDataSource
+        subtasksTableView.dragDelegate = subtasksDataSource
     }
     
     func setCellDelegates() {
@@ -194,6 +195,16 @@ extension TaskViewController: TaskViewProtocol {
         tableView.beginUpdates()
         subtasksTableView.insertRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
+    }
+    
+    func deleteRowInSubtasksTableView(at indexPath: IndexPath) {
+        tableView.beginUpdates()
+        subtasksTableView.deleteRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
+    }
+    
+    func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        subtasksTableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
     }
 }
 
