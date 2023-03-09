@@ -112,22 +112,7 @@ class TaskViewController: UIViewController {
     
     func setCellDelegates() {
         taskNameCell.delegate = self
-    }
-}
-
-extension TaskViewController: TaskNameCellDelegate {
-    func completeButtonTapped(selected: Bool) {
-        presenter.completeButtonTapped(selected: selected)
-    }
-    
-    func importantButtonTapped(selected: Bool) {
-        presenter.importantButtonTapped(selected: selected)
-    }
-    
-    func nameTextViewDidChange(text: String) {
-        presenter.nameTextViewDidChange(text: text)
-        tableView.beginUpdates()
-        tableView.endUpdates()
+        newSubataskCell.delegate = self
     }
 }
 
@@ -203,6 +188,35 @@ extension TaskViewController: TaskViewProtocol {
         nameTextView.text = namefieldText
         completeButton.isSelected = completeButtonSelected
         importantButton.isSelected = importantButtonSelected
+    }
+    
+    func insertRowInSubtasksTableView(at indexPath: IndexPath) {
+        tableView.beginUpdates()
+        subtasksTableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
+    }
+}
+
+//MARK: - Cell Delegates
+extension TaskViewController: TaskNameCellDelegate {
+    func completeButtonTapped(selected: Bool) {
+        presenter.completeButtonTapped(selected: selected)
+    }
+    
+    func importantButtonTapped(selected: Bool) {
+        presenter.importantButtonTapped(selected: selected)
+    }
+    
+    func nameTextViewDidChange(text: String) {
+        presenter.nameTextViewDidChange(text: text)
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+}
+
+extension TaskViewController: NewSubtaskCellDelegate {
+    func nameTextFieldEditingDidEnd(with text: String) {
+        presenter.newSubtaskTextFieldDidEndEditing(with: text)
     }
     
     

@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol NewSubtaskCellDelegate: AnyObject {
+    func nameTextFieldEditingDidEnd(with text: String)
+}
+
 class NewSubtaskCell: UITableViewCell {
+    
+    weak var delegate: NewSubtaskCellDelegate?
     
     let plusButton: UIButton = {
         let button = UIButton()
@@ -22,6 +28,7 @@ class NewSubtaskCell: UITableViewCell {
         textField.font = .systemFont(ofSize: 17)
         textField.textAlignment = .left
         textField.placeholder = "New step"
+        textField.returnKeyType = .done
         return textField
     }()
     
@@ -47,6 +54,8 @@ class NewSubtaskCell: UITableViewCell {
     private func setupCell() {
         addSubviews()
         setupConstraints()
+        
+        nameTextField.delegate = self
     }
     
     private func addSubviews() {
@@ -62,5 +71,17 @@ class NewSubtaskCell: UITableViewCell {
             make.horizontalEdges.equalTo(self.layoutMarginsGuide)
             make.verticalEdges.equalTo(self)
         }
+    }
+}
+
+extension NewSubtaskCell: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        nameTextField.text = ""
+        delegate?.nameTextFieldEditingDidEnd(with: text)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nameTextField.endEditing(false)
     }
 }

@@ -21,6 +21,7 @@ protocol TaskManagerProtocol {
     func setTaskIsComplete(_ complete: Bool)
     func setTaskIsImportant(_ important: Bool)
     func setTaskName(with text: String)
+    func addSubtask(name: String)
 }
 
 class TaskManager: TaskManagerProtocol {
@@ -79,6 +80,14 @@ class TaskManager: TaskManagerProtocol {
     
     func setTaskName(with text: String) {
         task.name = text
+        coreDataStack.saveContext()
+    }
+    
+    func addSubtask(name: String) {
+        let subtask = Subtask(context: coreDataStack.managedContext)
+        subtask.name = name
+        subtask.complete = false
+        task.addToSubtasks(subtask)
         coreDataStack.saveContext()
     }
 }

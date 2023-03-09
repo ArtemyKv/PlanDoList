@@ -9,6 +9,7 @@ import Foundation
 
 protocol TaskViewProtocol: AnyObject {
     func updateNameSection(with namefieldText: String, completeButtonSelected: Bool, importantButtonSelected: Bool)
+    func insertRowInSubtasksTableView(at indexPath: IndexPath)
 }
 
 protocol TaskPresenterProtocol {
@@ -20,6 +21,7 @@ protocol TaskPresenterProtocol {
     func completeButtonTapped(selected: Bool)
     func importantButtonTapped(selected: Bool)
     func nameTextViewDidChange(text: String)
+    func newSubtaskTextFieldDidEndEditing(with text: String)
 }
 
 class TaskPresenter: TaskPresenterProtocol {
@@ -67,5 +69,12 @@ class TaskPresenter: TaskPresenterProtocol {
     
     func nameTextViewDidChange(text: String) {
         taskManager.setTaskName(with: text)
+    }
+    
+    func newSubtaskTextFieldDidEndEditing(with text: String) {
+        guard !text.isEmpty else { return }
+        taskManager.addSubtask(name: text)
+        let newSubtaskIndexPath = IndexPath(row: taskManager.subtasks.count - 1, section: 0)
+        view.insertRowInSubtasksTableView(at: newSubtaskIndexPath)
     }
 }
