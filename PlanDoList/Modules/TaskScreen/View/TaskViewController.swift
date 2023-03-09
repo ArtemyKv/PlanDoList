@@ -54,7 +54,9 @@ class TaskViewController: UIViewController {
     
     
     //Dates section
-    var myDayLabel: UILabel!
+    var myDayLabel: UILabel {
+        return myDayCell.myDayLabel
+    }
     var remindDateLabel: UILabel!
     var dueDateLabel: UILabel!
     var reminderDatePicker: UIDatePicker!
@@ -171,15 +173,27 @@ extension TaskViewController: UITableViewDelegate {
         let defaultHeight = CGFloat(44)
         
         switch indexPath {
+            case nameCellIndexPath:
+                return UITableView.automaticDimension
             case subtaskTableViewIndexPath:
                 return CGFloat(presenter.numberOfRowsInSubtasksTable()) * defaultHeight
             default:
-                return UITableView.automaticDimension
+                return defaultHeight
         }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath {
+            case myDayCellIndexPath:
+                presenter.myDayCellSelected()
+            default:
+                break
+        }
     }
 }
 
@@ -205,6 +219,10 @@ extension TaskViewController: TaskViewProtocol {
     
     func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         subtasksTableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+    }
+    
+    func updateMyDayCell(selected: Bool) {
+        myDayLabel.text = selected ? "Remove from My Day" : "Add to My Day"
     }
 }
 

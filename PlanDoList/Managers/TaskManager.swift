@@ -25,6 +25,7 @@ protocol TaskManagerProtocol {
     func setSubtaskCompletion(at index: Int, isComplete: Bool)
     func deleteSubtask(at index: Int)
     func moveSubtask(at sourceIndex: Int, to destinationIndex: Int)
+    func toggleMyDay() -> Bool
 }
 
 class TaskManager: TaskManagerProtocol {
@@ -113,5 +114,11 @@ class TaskManager: TaskManagerProtocol {
         task.removeFromSubtasks(at: sourceIndex)
         task.insertIntoSubtasks(subtask, at: destinationIndex)
         coreDataStack.saveContext()
+    }
+    
+    func toggleMyDay() -> Bool {
+        task.myDay.toggle()
+        coreDataStack.saveContext()
+        return task.myDay
     }
 }

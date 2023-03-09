@@ -12,6 +12,7 @@ protocol TaskViewProtocol: AnyObject {
     func insertRowInSubtasksTableView(at indexPath: IndexPath)
     func deleteRowInSubtasksTableView(at indexPath: IndexPath)
     func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
+    func updateMyDayCell(selected: Bool)
 }
 
 protocol TaskPresenterProtocol {
@@ -27,6 +28,7 @@ protocol TaskPresenterProtocol {
     func subtaskCellCompleteButtonTapped(at indexPath: IndexPath, isSelected: Bool)
     func subtaskCellDeleteButtonTapped(at indexPath: IndexPath)
     func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
+    func myDayCellSelected()
 }
 
 class TaskPresenter: TaskPresenterProtocol {
@@ -45,9 +47,10 @@ class TaskPresenter: TaskPresenterProtocol {
         let name = taskManager.taskName
         let complete = taskManager.taskIsComplete
         let important = taskManager.taskIsImportant
-        let myday = taskManager.taskIsInMyDay
+        let myDay = taskManager.taskIsInMyDay
         
         view.updateNameSection(with: name, completeButtonSelected: complete, importantButtonSelected: important)
+        view.updateMyDayCell(selected: myDay)
     }
     
     func numberOfRowsInSubtasksTable() -> Int {
@@ -94,5 +97,10 @@ class TaskPresenter: TaskPresenterProtocol {
     func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         taskManager.moveSubtask(at: sourceIndexPath.row, to: destinationIndexPath.row)
         
+    }
+    
+    func myDayCellSelected() {
+        let isInMyDay = taskManager.toggleMyDay()
+        view.updateMyDayCell(selected: isInMyDay)
     }
 }
