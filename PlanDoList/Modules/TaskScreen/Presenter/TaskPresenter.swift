@@ -13,6 +13,8 @@ protocol TaskViewProtocol: AnyObject {
     func deleteRowInSubtasksTableView(at indexPath: IndexPath)
     func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
     func updateMyDayCell(selected: Bool)
+    func updateDueDateCell(with text: String?)
+    func updateRemindDateCell(with text: String?)
 }
 
 protocol TaskPresenterProtocol {
@@ -29,6 +31,10 @@ protocol TaskPresenterProtocol {
     func subtaskCellDeleteButtonTapped(at indexPath: IndexPath)
     func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
     func myDayCellSelected()
+    func remindDateCellDeleteButtonPressed()
+    func dueDateCellDeleteButtonPressed()
+    func remindDatePickerDateChanged(_ date: Date)
+    func dueDatePickerDateChanged(_ date: Date)
 }
 
 class TaskPresenter: TaskPresenterProtocol {
@@ -37,6 +43,13 @@ class TaskPresenter: TaskPresenterProtocol {
     
     weak var view: TaskViewProtocol!
     
+    var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
     required init(taskManager: TaskManagerProtocol, view: TaskViewProtocol, coordinator: MainCoordinatorProtocol) {
         self.taskManager = taskManager
         self.coordinator = coordinator
@@ -44,13 +57,28 @@ class TaskPresenter: TaskPresenterProtocol {
     }
     
     func updateView() {
+        updateNameSection()
+        updateDatesSection()
+    }
+    
+    private func updateNameSection() {
         let name = taskManager.taskName
         let complete = taskManager.taskIsComplete
         let important = taskManager.taskIsImportant
-        let myDay = taskManager.taskIsInMyDay
-        
         view.updateNameSection(with: name, completeButtonSelected: complete, importantButtonSelected: important)
+    }
+        
+    private func updateDatesSection() {
+        let myDay = taskManager.taskIsInMyDay
+        let remindDate = taskManager.taskRemindDate
+        let dueDate = taskManager.taskDueDate
+        let dueDateString = (dueDate != nil) ? dateFormatter.string(from: dueDate!) : nil
+        let remindDateString = (remindDate != nil) ? dateFormatter.string(from: remindDate!) : nil
+        
         view.updateMyDayCell(selected: myDay)
+        view.updateDueDateCell(with: dueDateString)
+        view.updateRemindDateCell(with: remindDateString)
+        
     }
     
     func numberOfRowsInSubtasksTable() -> Int {
@@ -102,5 +130,25 @@ class TaskPresenter: TaskPresenterProtocol {
     func myDayCellSelected() {
         let isInMyDay = taskManager.toggleMyDay()
         view.updateMyDayCell(selected: isInMyDay)
+    }
+    
+    func remindDateCellDeleteButtonPressed() {
+        taskManager.setRemindDate(nil)
+        updateDatesSection()
+    }
+    
+    func dueDateCellDeleteButtonPressed() {
+        taskManager.setDueDate(nil)
+        updateDatesSection()
+    }
+    
+    func remindDatePickerDateChanged(_ date: Date) {
+        taskManager.setRemindDate(date)
+        updateDatesSection()
+    }
+    
+    func dueDatePickerDateChanged(_ date: Date) {
+        taskManager.setDueDate(date)
+        updateDatesSection()
     }
 }

@@ -26,6 +26,8 @@ protocol TaskManagerProtocol {
     func deleteSubtask(at index: Int)
     func moveSubtask(at sourceIndex: Int, to destinationIndex: Int)
     func toggleMyDay() -> Bool
+    func setRemindDate(_ date: Date?)
+    func setDueDate(_ date: Date?)
 }
 
 class TaskManager: TaskManagerProtocol {
@@ -120,5 +122,15 @@ class TaskManager: TaskManagerProtocol {
         task.myDay.toggle()
         coreDataStack.saveContext()
         return task.myDay
+    }
+    
+    func setRemindDate(_ date: Date?) {
+        task.remindDate = date
+        coreDataStack.saveContext()
+    }
+    
+    func setDueDate(_ date: Date?) {
+        task.dueDate = date
+        coreDataStack.saveContext()
     }
 }

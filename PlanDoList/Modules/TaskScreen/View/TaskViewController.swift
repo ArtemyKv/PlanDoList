@@ -64,6 +64,25 @@ class TaskViewController: UIViewController {
     var deleteRemindDateButton: UIButton!
     var deleteDueDateButton: UIButton!
     
+    var remindDatePickerIsHidden: Bool = true {
+        didSet {
+            if !remindDatePickerIsHidden && !dueDatePickerIsHidden {
+                dueDatePickerIsHidden = true
+            }
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
+    var dueDatePickerIsHidden: Bool = true {
+        didSet {
+            if !dueDatePickerIsHidden && !remindDatePickerIsHidden {
+                remindDatePickerIsHidden = true
+            }
+            tableView.beginUpdates()
+            tableView.endUpdates()            
+        }
+    }
+    
     //Notes section
     var notesTextView: UITextView!
     
@@ -101,6 +120,7 @@ class TaskViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         setupSubtasksTableView()
+        setupDateCells()
         setCellDelegates()
         presenter.updateView()
     }
@@ -113,9 +133,18 @@ class TaskViewController: UIViewController {
         subtasksTableView.dragDelegate = subtasksDataSource
     }
     
+    func setupDateCells() {
+        remindDateCell.setupCell(type: .remind)
+        dueDateCell.setupCell(type: .due)
+    }
+    
     func setCellDelegates() {
         taskNameCell.delegate = self
         newSubataskCell.delegate = self
+        remindDateCell.delegate = self
+        dueDateCell.delegate = self
+        remindDatePickerCell.delegate = self
+        dueDatePickerCell.delegate = self
     }
 }
 
@@ -177,13 +206,31 @@ extension TaskViewController: UITableViewDelegate {
                 return UITableView.automaticDimension
             case subtaskTableViewIndexPath:
                 return CGFloat(presenter.numberOfRowsInSubtasksTable()) * defaultHeight
+            case remindDatePickerIndexPath:
+                return remindDatePickerIsHidden ? 0 : 216
+            case dueDatePickerIndexPath:
+                return dueDatePickerIsHidden ? 0 : 216
             default:
                 return defaultHeight
         }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        switch indexPath {
+            case remindDatePickerIndexPath, dueDatePickerIndexPath:
+                return 216
+            default:
+                return 44
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        switch indexPath {
+            case nameCellIndexPath:
+                return nil
+            default:
+                return indexPath
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -191,6 +238,10 @@ extension TaskViewController: UITableViewDelegate {
         switch indexPath {
             case myDayCellIndexPath:
                 presenter.myDayCellSelected()
+            case remindMeCellIndexPath:
+                remindDatePickerIsHidden.toggle()
+            case dueDateCellIndexPath:
+                dueDatePickerIsHidden.toggle()
             default:
                 break
         }
@@ -224,6 +275,14 @@ extension TaskViewController: TaskViewProtocol {
     func updateMyDayCell(selected: Bool) {
         myDayLabel.text = selected ? "Remove from My Day" : "Add to My Day"
     }
+    
+    func updateRemindDateCell(with text: String?) {
+        remindDateCell.updateCell(dateText: text)
+    }
+    
+    func updateDueDateCell(with text: String?) {
+        dueDateCell.updateCell(dateText: text)
+    }
 }
 
 //MARK: - Cell Delegates
@@ -247,6 +306,32 @@ extension TaskViewController: NewSubtaskCellDelegate {
     func nameTextFieldEditingDidEnd(with text: String) {
         presenter.newSubtaskTextFieldDidEndEditing(with: text)
     }
+}
+
+extension TaskViewController: DateCellDelegate {
+    func deleteButtonTapped(in cell: DateCell) {
+        switch cell {
+            case remindDateCell:
+                presenter.remindDateCellDeleteButtonPressed()
+            case dueDateCell:
+                presenter.dueDateCellDeleteButtonPressed()
+            default:
+                break
+        }
+    }
     
     
+}
+
+extension TaskViewController: DatePickerCellDelegate {
+    func datePickerValueChanged(in cell: DatePickerCell, date: Date) {
+        switch cell {
+            case remindDatePickerCell:
+                presenter.remindDatePickerDateChanged(date)
+            case dueDatePickerCell:
+                presenter.dueDatePickerDateChanged(date)
+            default:
+                break
+        }
+    }
 }
