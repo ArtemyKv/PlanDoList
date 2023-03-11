@@ -13,7 +13,8 @@ class TaskViewController: UIViewController {
         case name = "Name"
         case subtasks = "Subtasks"
         case dates = "Dates"
-        case attachements = "Attachements"
+        //TODO: - Implement attachements
+//        case attachements = "Attachements"
         case notes = "Notes"
         
         
@@ -32,7 +33,8 @@ class TaskViewController: UIViewController {
     let remindDatePickerCell = DatePickerCell()
     let dueDateCell = DateCell()
     let dueDatePickerCell = DatePickerCell()
-    let attachementsCell = AttachementsCell()
+    //TODO: -Implement attachements
+//    let attachementsCell = AttachementsCell()
     let notesCell = NotesCell()
     
     //Name section
@@ -100,8 +102,8 @@ class TaskViewController: UIViewController {
     let remindDatePickerIndexPath = IndexPath(row: 2, section: 2)
     let dueDateCellIndexPath = IndexPath(row: 3, section: 2)
     let dueDatePickerIndexPath = IndexPath(row: 4, section: 2)
-    let attachementsIndexPath = IndexPath(row: 0, section: 3)
-    let notesIndexPath = IndexPath(row: 0, section: 4)
+//    let attachementsIndexPath = IndexPath(row: 0, section: 3)
+    let notesIndexPath = IndexPath(row: 0, section: 3)
     
     //MARK: - Life cycle
     
@@ -207,8 +209,8 @@ extension TaskViewController: UITableViewDataSource {
                 return dueDateCell
             case dueDatePickerIndexPath:
                 return dueDatePickerCell
-            case attachementsIndexPath:
-                return attachementsCell
+//            case attachementsIndexPath:
+//                return attachementsCell
             case notesIndexPath:
                 return notesCell
             default:
