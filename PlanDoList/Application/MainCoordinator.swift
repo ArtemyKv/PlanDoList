@@ -23,6 +23,13 @@ class MainCoordinator: MainCoordinatorProtocol {
     init(navigationController: UINavigationController, builder: Builder) {
         self.navigationController = navigationController
         self.builder = builder
+        setupNavigationController()
+    }
+    
+    private func setupNavigationController() {
+        navigationController.navigationBar.barTintColor = .systemBackground
+        navigationController.toolbar.barTintColor = .systemBackground
+
     }
     
     func start() {
