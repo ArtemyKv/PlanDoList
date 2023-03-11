@@ -37,7 +37,7 @@ class TaskManager: TaskManagerProtocol {
     private let coreDataStack: CoreDataStack
     
     //TODO: - refactor this: add _task property and task computed property. Then delete all this computed variables
-    let task: Task
+    private let task: Task
     
     var taskName: String {
         return task.wrappedName
