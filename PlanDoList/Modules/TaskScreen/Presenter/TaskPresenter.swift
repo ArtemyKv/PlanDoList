@@ -15,12 +15,15 @@ protocol TaskViewProtocol: AnyObject {
     func updateMyDayCell(selected: Bool)
     func updateDueDateCell(with text: String?)
     func updateRemindDateCell(with text: String?)
+    func updateToolbar(with text: String)
+    func presentDeleteAlert(title: String, message: String)
+    
 }
 
 protocol TaskPresenterProtocol {
     init(taskManager: TaskManagerProtocol, view: TaskViewProtocol, coordinator: MainCoordinatorProtocol)
     
-    func updateView()
+    func setupView()
     func numberOfRowsInSubtasksTable() -> Int
     func updateSubtaskCell(_ cell: SubtaskTableViewCell, at indexPath: IndexPath)
     func completeButtonTapped(selected: Bool)
@@ -35,6 +38,8 @@ protocol TaskPresenterProtocol {
     func dueDateCellDeleteButtonPressed()
     func remindDatePickerDateChanged(_ date: Date)
     func dueDatePickerDateChanged(_ date: Date)
+    func deleteToolbarButtonPressed()
+    func deleteActionPressed()
 }
 
 class TaskPresenter: TaskPresenterProtocol {
@@ -56,9 +61,10 @@ class TaskPresenter: TaskPresenterProtocol {
         self.view = view
     }
     
-    func updateView() {
+    func setupView() {
         updateNameSection()
         updateDatesSection()
+        updateToolbar()
     }
     
     private func updateNameSection() {
@@ -81,6 +87,14 @@ class TaskPresenter: TaskPresenterProtocol {
         
     }
     
+    private func updateToolbar() {
+        let prefix = taskManager.taskIsComplete ? "Completed" : "Created"
+        let date = taskManager.taskIsComplete ? taskManager.completionDate : taskManager.creationDate
+        let dateText = dateFormatter.string(from: date!)
+        let text = prefix + " at " + dateText
+        view.updateToolbar(with: text)
+    }
+    
     func numberOfRowsInSubtasksTable() -> Int {
         taskManager.subtasks.count
     }
@@ -94,12 +108,12 @@ class TaskPresenter: TaskPresenterProtocol {
     
     func completeButtonTapped(selected: Bool) {
         taskManager.setTaskIsComplete(selected)
-        updateView()
+        updateNameSection()
     }
     
     func importantButtonTapped(selected: Bool) {
         taskManager.setTaskIsImportant(selected)
-        updateView()
+        updateNameSection()
     }
     
     func nameTextViewDidChange(text: String) {
@@ -150,5 +164,14 @@ class TaskPresenter: TaskPresenterProtocol {
     func dueDatePickerDateChanged(_ date: Date) {
         taskManager.setDueDate(date)
         updateDatesSection()
+    }
+    
+    func deleteToolbarButtonPressed() {
+        view.presentDeleteAlert(title: "Delete task?", message: "This can't be undone")
+    }
+    
+    func deleteActionPressed() {
+        taskManager.deleteTask()
+        coordinator.dismissCurrentScreen()
     }
 }

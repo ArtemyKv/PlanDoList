@@ -86,6 +86,10 @@ class TaskViewController: UIViewController {
     //Notes section
     var notesTextView: UITextView!
     
+    //Toolbar
+    var deleteToolbarButton: UIBarButtonItem!
+    var dateToolbarButton: UIBarButtonItem!
+    
     //MARK: IndexPaths for cells
     
     let nameCellIndexPath = IndexPath(row: 0, section: 0)
@@ -122,7 +126,28 @@ class TaskViewController: UIViewController {
         setupSubtasksTableView()
         setupDateCells()
         setCellDelegates()
-        presenter.updateView()
+        setupToolbar()
+        presenter.setupView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setToolbarHidden(true, animated: false)
+        super.viewWillDisappear(animated)
+    }
+    
+    func setupToolbar() {
+        let leftFlexSpace = UIBarButtonItem(systemItem: .flexibleSpace)
+        let rightFlexSpace = UIBarButtonItem(systemItem: .flexibleSpace)
+        dateToolbarButton = UIBarButtonItem()
+        dateToolbarButton.title = "Hello!"
+        dateToolbarButton.isEnabled = false
+        deleteToolbarButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(deleteToolbarButtonPressed))
+        navigationController?.setToolbarHidden(false, animated: false)
+        setToolbarItems([leftFlexSpace, dateToolbarButton, rightFlexSpace, deleteToolbarButton], animated: false)
+    }
+    
+    @objc func deleteToolbarButtonPressed() {
+        presenter.deleteToolbarButtonPressed()
     }
     
     func setupSubtasksTableView() {
@@ -282,6 +307,21 @@ extension TaskViewController: TaskViewProtocol {
     
     func updateDueDateCell(with text: String?) {
         dueDateCell.updateCell(dateText: text)
+    }
+    
+    func updateToolbar(with text: String) {
+        dateToolbarButton.title = text
+    }
+    
+    func presentDeleteAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.presenter.deleteActionPressed()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true)
     }
 }
 

@@ -10,6 +10,8 @@ import CoreData
 
 protocol TaskManagerProtocol {
     var taskName: String { get }
+    var creationDate: Date? { get }
+    var completionDate: Date? { get }
     var taskIsComplete: Bool { get }
     var taskIsImportant: Bool { get }
     var subtasks: [Subtask] { get }
@@ -28,15 +30,25 @@ protocol TaskManagerProtocol {
     func toggleMyDay() -> Bool
     func setRemindDate(_ date: Date?)
     func setDueDate(_ date: Date?)
+    func deleteTask()
 }
 
 class TaskManager: TaskManagerProtocol {
     private let coreDataStack: CoreDataStack
     
+    //TODO: - refactor this: add _task property and task computed property. Then delete all this computed variables
     let task: Task
     
     var taskName: String {
         return task.wrappedName
+    }
+    
+    var creationDate: Date? {
+        return task.creationDate
+    }
+    
+    var completionDate: Date? {
+        return task.completionDate
     }
     
     var taskIsComplete: Bool {
@@ -131,6 +143,11 @@ class TaskManager: TaskManagerProtocol {
     
     func setDueDate(_ date: Date?) {
         task.dueDate = date
+        coreDataStack.saveContext()
+    }
+    
+    func deleteTask() {
+        coreDataStack.managedContext.delete(task)
         coreDataStack.saveContext()
     }
 }
