@@ -71,7 +71,7 @@ extension HomeViewController {
             else { return nil }
             
             let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
-                self?.presenter.deleteList(item: item)
+                self?.presenter.deleteSwipeActionTapped(for: item)
             }
             
             switch (section, item) {
@@ -189,11 +189,11 @@ extension HomeViewController: HomeViewDelegate {
     }
     
     func addListButtonTapped() {
-        
+        presenter.addListButtonTapped()
     }
     
     func addGroupButtonTapped() {
-        presenter.presentNewGroupAlert()
+        presenter.addGroupButtonTapped()
     }
     
     

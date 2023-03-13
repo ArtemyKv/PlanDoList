@@ -17,11 +17,11 @@ protocol HomePresenterProtocol: AnyObject {
     init(groupManager: GroupManagerProtocol, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol)
     
     func configureCell(_ cell: HomeCollectionViewCell, with item: HomeViewModel.Item)
-    func presentNewGroupAlert()
-    func addGroup(name: String)
+    func addGroupButtonTapped()
+    func addListButtonTapped()
     func getViewModelItems(ofKind itemKind: HomeViewModel.Item.ItemKind) -> [HomeViewModel.Item]
     func getGroupedListItems(forGroupItem groupItem: HomeViewModel.Item) -> [HomeViewModel.Item]
-    func deleteList(item: HomeViewModel.Item)
+    func deleteSwipeActionTapped(for item: HomeViewModel.Item)
     
     func didSelectItem(_ item: HomeViewModel.Item)
     
@@ -60,7 +60,7 @@ final class HomePresenter: HomePresenterProtocol {
         }
     }
     
-    func presentNewGroupAlert() {
+    func addGroupButtonTapped() {
         let alertTitle = "New Group"
         let buttonName = "Create"
         let text = "New Group"
@@ -69,8 +69,13 @@ final class HomePresenter: HomePresenterProtocol {
         })
     }
     
-    func addGroup(name: String) {
+    private func addGroup(name: String) {
         groupManager.addGroup(name: name)
+        view.applyChanges()
+    }
+    
+    func addListButtonTapped() {
+        groupManager.addList(to: nil)
         view.applyChanges()
     }
     
@@ -121,7 +126,7 @@ final class HomePresenter: HomePresenterProtocol {
         }
     }
     
-    func deleteList(item: HomeViewModel.Item) {
+    func deleteSwipeActionTapped(for item: HomeViewModel.Item) {
         guard case let .list(list) = item else { return }
         groupManager.deleteList(list)
         view.applyChanges()
