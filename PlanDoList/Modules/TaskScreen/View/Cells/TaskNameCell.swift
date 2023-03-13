@@ -80,7 +80,6 @@ class TaskNameCell: UITableViewCell {
         importantButton.snp.contentHuggingHorizontalPriority = 251
         completeButton.snp.contentCompressionResistanceHorizontalPriority = 751
         importantButton.snp.contentCompressionResistanceHorizontalPriority = 751
-        stack.translatesAutoresizingMaskIntoConstraints = false
         
         stack.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(self.contentView.layoutMarginsGuide)

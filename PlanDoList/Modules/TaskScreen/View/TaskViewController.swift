@@ -172,6 +172,7 @@ class TaskViewController: UIViewController {
         dueDateCell.delegate = self
         remindDatePickerCell.delegate = self
         dueDatePickerCell.delegate = self
+        notesCell.delegate = self
     }
 }
 
@@ -237,6 +238,8 @@ extension TaskViewController: UITableViewDelegate {
                 return remindDatePickerIsHidden ? 0 : 216
             case dueDatePickerIndexPath:
                 return dueDatePickerIsHidden ? 0 : 216
+            case notesIndexPath:
+                return UITableView.automaticDimension
             default:
                 return defaultHeight
         }
@@ -246,6 +249,8 @@ extension TaskViewController: UITableViewDelegate {
         switch indexPath {
             case remindDatePickerIndexPath, dueDatePickerIndexPath:
                 return 216
+            case notesIndexPath:
+                return 132
             default:
                 return 44
         }
@@ -309,6 +314,10 @@ extension TaskViewController: TaskViewProtocol {
     
     func updateDueDateCell(with text: String?) {
         dueDateCell.updateCell(dateText: text)
+    }
+    
+    func updateNotesCell(with text: String) {
+        notesCell.updateCell(with: text)
     }
     
     func updateToolbar(with text: String) {
@@ -375,5 +384,22 @@ extension TaskViewController: DatePickerCellDelegate {
             default:
                 break
         }
+    }
+}
+
+extension TaskViewController: NotesCellDelegate {
+    func keyboardWillShow(with keyboardHeight: CGFloat) {
+        taskView.updateBottomConstraint(inset: keyboardHeight)
+        tableView.scrollToRow(at: notesIndexPath, at: .none, animated: true)
+    }
+    
+    func keyboardWillHide() {
+        taskView.updateBottomConstraint(inset: 0)
+    }
+    
+    func notesTextViewDidChange(with text: String) {
+        presenter.notesTextDidChange(text)
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }

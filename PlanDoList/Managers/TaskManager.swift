@@ -30,6 +30,7 @@ protocol TaskManagerProtocol {
     func toggleMyDay() -> Bool
     func setRemindDate(_ date: Date?)
     func setDueDate(_ date: Date?)
+    func setNotes(with text: String)
     func deleteTask()
 }
 
@@ -143,6 +144,11 @@ class TaskManager: TaskManagerProtocol {
     
     func setDueDate(_ date: Date?) {
         task.dueDate = date
+        coreDataStack.saveContext()
+    }
+    
+    func setNotes(with text: String) {
+        task.notes = text
         coreDataStack.saveContext()
     }
     

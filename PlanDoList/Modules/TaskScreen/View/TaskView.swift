@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class TaskView: UIView {
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -19,7 +20,7 @@ class TaskView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView() {
+    private func setupView() {
         tableView.backgroundColor = .systemBackground
         addSubview(tableView)
         
@@ -27,4 +28,12 @@ class TaskView: UIView {
             make.edges.equalToSuperview()
         }
     }
+    
+    func updateBottomConstraint(inset: CGFloat) {
+        tableView.snp.updateConstraints { make in
+            make.bottom.equalToSuperview().inset(inset)
+        }
+        layoutIfNeeded()
+    }
+    
 }

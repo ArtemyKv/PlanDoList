@@ -15,6 +15,7 @@ protocol TaskViewProtocol: AnyObject {
     func updateMyDayCell(selected: Bool)
     func updateDueDateCell(with text: String?)
     func updateRemindDateCell(with text: String?)
+    func updateNotesCell(with text: String)
     func updateToolbar(with text: String)
     func presentDeleteAlert(title: String, message: String)
     
@@ -38,6 +39,7 @@ protocol TaskPresenterProtocol {
     func dueDateCellDeleteButtonPressed()
     func remindDatePickerDateChanged(_ date: Date)
     func dueDatePickerDateChanged(_ date: Date)
+    func notesTextDidChange(_ text: String)
     func deleteToolbarButtonPressed()
     func deleteActionPressed()
 }
@@ -80,10 +82,12 @@ class TaskPresenter: TaskPresenterProtocol {
         let dueDate = taskManager.taskDueDate
         let dueDateString = (dueDate != nil) ? dateFormatter.string(from: dueDate!) : nil
         let remindDateString = (remindDate != nil) ? dateFormatter.string(from: remindDate!) : nil
+        let notes = taskManager.taskNotes
         
         view.updateMyDayCell(selected: myDay)
         view.updateDueDateCell(with: dueDateString)
         view.updateRemindDateCell(with: remindDateString)
+        view.updateNotesCell(with: notes)
         
     }
     
@@ -164,6 +168,10 @@ class TaskPresenter: TaskPresenterProtocol {
     func dueDatePickerDateChanged(_ date: Date) {
         taskManager.setDueDate(date)
         updateDatesSection()
+    }
+    
+    func notesTextDidChange(_ text: String) {
+        taskManager.setNotes(with: text)
     }
     
     func deleteToolbarButtonPressed() {
