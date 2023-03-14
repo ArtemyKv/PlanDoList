@@ -49,6 +49,8 @@ class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        tableView.dragDelegate = self
+        tableView.dragInteractionEnabled = true
     }
 }
 
@@ -97,6 +99,17 @@ extension ListViewController: UITableViewDataSource {
             presenter.deleteRowAt(indexPath)
         }
     }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        switch indexPath.section {
+            case 1: return false
+            default: return true
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        presenter.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+    }
 }
 
 extension ListViewController: UITableViewDelegate {
@@ -107,7 +120,14 @@ extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         presenter.didSelectRow(at: indexPath)
-        
+    }
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if sourceIndexPath.section == 1 || proposedDestinationIndexPath.section == 1 {
+            return sourceIndexPath
+        } else {
+            return proposedDestinationIndexPath
+        }
     }
     
 }
@@ -130,5 +150,13 @@ extension ListViewController: TaskTableViewCellDelegate {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         presenter.cellCheckmarkTapped(cell: sender, at: indexPath)
     }
+}
+
+extension ListViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return []
+    }
+    
+    
 }
 

@@ -21,6 +21,7 @@ protocol ListManagerProtocol {
     func deleteCompletedTask(at index: Int)
     func setListName(_ name: String)
     func toggleTaskCompletion(at index: Int, shouldBeComplete: Bool)
+    func moveUncompletedTask(at sourceIndex: Int, to destinationIndex: Int)
 }
 
 class ListManager: ListManagerProtocol {
@@ -135,6 +136,13 @@ class ListManager: ListManagerProtocol {
         } else {
             uncompletedTasks.append(task)
         }
+        coreDataStack.saveContext()
+    }
+    
+    func moveUncompletedTask(at sourceIndex: Int, to destinationIndex: Int) {
+        guard sourceIndex <= uncompletedTasksCount, destinationIndex <= uncompletedTasksCount else { return }
+        let task = uncompletedTasks.remove(at: sourceIndex)
+        uncompletedTasks.insert(task, at: destinationIndex)
         coreDataStack.saveContext()
     }
 }

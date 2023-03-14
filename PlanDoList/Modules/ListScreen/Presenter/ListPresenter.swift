@@ -32,6 +32,7 @@ protocol ListPresenterProtocol: AnyObject {
     func setViewTitle(_ title: String)
     func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
     func didSelectRow(at indexPath: IndexPath)
+    func moveRow(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
 }
 
 class ListPresenter: ListPresenterProtocol {
@@ -153,6 +154,10 @@ class ListPresenter: ListPresenterProtocol {
         else { return }
         coordinator.presentTaskScreen(task: task)
 
+    }
+    
+    func moveRow(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        listManager.moveUncompletedTask(at: sourceIndexPath.row, to: destinationIndexPath.row)
     }
 }
 
