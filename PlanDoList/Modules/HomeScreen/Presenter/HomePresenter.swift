@@ -24,6 +24,10 @@ protocol HomePresenterProtocol: AnyObject {
     func deleteSwipeActionTapped(for item: HomeViewModel.Item)
     
     func didSelectItem(_ item: HomeViewModel.Item)
+    func willReorder(_ item: HomeViewModel.Item)
+    func didReorder(_ item: HomeViewModel.Item, to targetIndexPath: IndexPath, itemBeforeTarget: HomeViewModel.Item?, at itemBeforeTargetIndexPath: IndexPath)
+    func willCollapseItem(_ item: HomeViewModel.Item)
+    func willExpandItem(_ item: HomeViewModel.Item)
     
 }
 
@@ -136,5 +140,63 @@ final class HomePresenter: HomePresenterProtocol {
         if case let .list(list) = item {
             coordinator.presentListScreen(list: list)
         }
+    }
+    
+    func willReorder(_ item: HomeViewModel.Item) {
+        //Access to associated list or group and handling remove from original backing store
+        switch item {
+            //If item is List then remove it from parent group if it has one or remove from ungroupedLists
+            case .list(let list):
+                if let group = list.group {
+                    groupManager.removeListFromGroup(list, from: group)
+                } else {
+                    groupManager.removeListFromUngrouped(list)
+                }
+            //If item is Group then remove it from groups array
+            case .group(let group):
+                groupManager.removeFromGroups(group)
+            case .basic:
+                break
+        }
+    }
+    
+    func didReorder(_ item: HomeViewModel.Item, to targetIndexPath: IndexPath, itemBeforeTarget: HomeViewModel.Item?, at itemBeforeTargetIndexPath: IndexPath) {
+        let targetSection = HomeViewModel.Section.allCases[targetIndexPath.section]
+        switch (item, itemBeforeTarget, targetSection) {
+            //Item is List cases:
+                //target section is ungroupedLists, we need to insert item to ungroupedLists array and update order property
+            case (.list(let list), _, .ungrouped):
+                groupManager.insertListToUngrouped(list, at: targetIndexPath.row)
+                //item above is list, section is groupedLists, we need to get access to group in propery of list above and insert our list at index
+            case (.list(let list), .list(let listBefore), .grouped):
+                guard let targetGroup = listBefore.group, let listBeforeIndexInGroupLists = targetGroup.lists?.index(of: listBefore) else { return }
+                groupManager.insertList(list, to: targetGroup, at: listBeforeIndexInGroupLists + 1)
+                //item above is group, section is groupedLists, we need to insert our list at first position of lists
+            case (.list(let list), .group(let targetGroup), .grouped):
+                groupManager.insertList(list, to: targetGroup, at: 0)
+            //Item is Group cases:
+                //item above is group, we need to get target index in groups and insert item in groups array at that index. After that update order property of groups
+            case (.group(let group), .group(let groupBefore), .grouped):
+                groupManager.insertToGroups(group, after: groupBefore)
+                //item above is list, we need to get group from its property and get this group index. Insert item in groups at that index and update order
+            case (.group(let group), .list(let list), .grouped):
+                guard let groupBefore = list.group else { return }
+                groupManager.insertToGroups(group, after: groupBefore)
+                //item above is nil(our group supposed to be the first in group list). We need to insert it in groups array at index 0 and update order
+            case (.group(let group), nil, .grouped):
+                groupManager.insertToGroups(group, at: 0)
+            default:
+                break
+        }
+    }
+    
+    func willCollapseItem(_ item: HomeViewModel.Item) {
+        guard case let .group(group) = item else { return }
+        groupManager.setGroupIsExpanded(group, expanded: false)
+    }
+    
+    func willExpandItem(_ item: HomeViewModel.Item) {
+        guard case let .group(group) = item else { return }
+        groupManager.setGroupIsExpanded(group, expanded: true)
     }
 }

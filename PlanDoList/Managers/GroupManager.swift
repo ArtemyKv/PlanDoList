@@ -21,9 +21,21 @@ protocol GroupManagerProtocol {
     func renameGroup(group: Group, name: String)
     func deleteGroup(_ group: Group)
     func deleteList(_ list: List)
+    
+    func removeListFromGroup(_ list: List, from group: Group)
+    func removeListFromUngrouped(_ list: List)
+    func insertList(_ list: List, to group: Group, at index: Int)
+    func insertListToUngrouped(_ list: List, at index: Int)
+    
+    func removeFromGroups(_ group: Group)
+    func insertToGroups(_ group: Group, at index: Int)
+    func insertToGroups(_ group: Group, after groupBefore: Group)
+    
+    func setGroupIsExpanded(_ group: Group, expanded: Bool)
 }
 
 class GroupManager: GroupManagerProtocol {
+    
     // MARK: - Private Properties
     
     lazy private var coreDataStack = CoreDataStack(modelName: "PlanDoList")
@@ -142,10 +154,64 @@ class GroupManager: GroupManagerProtocol {
     }
     
     func deleteList(_ list: List) {
-        coreDataStack.managedContext.delete(list)
         if let index = ungroupedLists.firstIndex(of: list) {
             ungroupedLists.remove(at: index)
+        } else if let group = list.group, group.lists?.count == 1 {
+            group.isExpanded = false
         }
+        coreDataStack.managedContext.delete(list)
+        coreDataStack.saveContext()
+    }
+    
+    func removeListFromGroup(_ list: List, from group: Group) {
+        group.removeFromLists(list)
+        coreDataStack.saveContext()
+    }
+    
+    func removeListFromUngrouped(_ list: List) {
+        guard let index = ungroupedLists.firstIndex(of: list) else { return }
+        ungroupedLists.remove(at: index)
+    }
+    
+    func insertList(_ list: List, to group: Group, at index: Int) {
+        guard let lists = group.lists, index <= lists.count else { return }
+        group.insertIntoLists(list, at: index)
+        coreDataStack.saveContext()
+    }
+    
+    func insertListToUngrouped(_ list: List, at index: Int) {
+        ungroupedLists.insert(list, at: index)
+        for i in 0 ..< ungroupedListsCount {
+            self.ungroupedLists[i].order = Int32(i)
+        }
+        coreDataStack.saveContext()
+    }
+    
+    func removeFromGroups(_ group: Group) {
+        guard let index = groups.firstIndex(of: group) else { return }
+        groups.remove(at: index)
+    }
+    
+    func insertToGroups(_ group: Group, at index: Int) {
+        groups.insert(group, at: index)
+        updateGroupsOrder()
+    }
+    
+    func insertToGroups(_ group: Group, after groupBefore: Group) {
+        guard let indexOfGroupBefore = groups.firstIndex(of: groupBefore) else { return }
+        groups.insert(group, at: indexOfGroupBefore + 1)
+        updateGroupsOrder()
+    }
+    
+    private func updateGroupsOrder() {
+        for i in 0 ..< groupsCount {
+            self.groups[i].order = Int32(i)
+        }
+        coreDataStack.saveContext()
+    }
+    
+    func setGroupIsExpanded(_ group: Group, expanded: Bool) {
+        group.isExpanded = expanded
         coreDataStack.saveContext()
     }
     

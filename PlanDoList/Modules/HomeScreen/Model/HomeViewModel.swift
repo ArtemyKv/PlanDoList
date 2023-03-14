@@ -42,6 +42,15 @@ enum HomeViewModel {
                 case.list: return .list
             }
         }
+        
+        var isExpanded: Bool? {
+            switch self {
+                case .group(let group):
+                    return group.isExpanded
+                default:
+                    return nil
+            }
+        }
     }
     
     enum BasicItem: String, CaseIterable {

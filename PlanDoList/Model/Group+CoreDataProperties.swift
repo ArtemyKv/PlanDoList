@@ -1,8 +1,8 @@
 //
 //  Group+CoreDataProperties.swift
-//  
+//  PlanDoList
 //
-//  Created by Artem Kvashnin on 21.02.2023.
+//  Created by Artem Kvashnin on 14.03.2023.
 //
 //
 
@@ -17,7 +17,7 @@ extension Group {
     }
 
     @NSManaged public var id: UUID?
-    @NSManaged public var isExpanded: Date?
+    @NSManaged public var isExpanded: Bool
     @NSManaged public var name: String?
     @NSManaged public var order: Int32
     @NSManaged public var lists: NSOrderedSet?
@@ -56,5 +56,9 @@ extension Group {
 
     @objc(removeLists:)
     @NSManaged public func removeFromLists(_ values: NSOrderedSet)
+
+}
+
+extension Group : Identifiable {
 
 }

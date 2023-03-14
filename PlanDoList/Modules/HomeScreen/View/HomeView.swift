@@ -12,6 +12,7 @@ protocol HomeViewDelegate: AnyObject {
     func addTaskButtonTapped()
     func addListButtonTapped()
     func addGroupButtonTapped()
+    func handleLongGesture(gesture: UILongPressGestureRecognizer)
 }
 
 class HomeView: UIView {
@@ -62,15 +63,20 @@ class HomeView: UIView {
     
     private func setupView() {
         self.backgroundColor = .systemBackground
+        
+        addSubviews()
+        makeConstraints()
+        setupButtonActions()
+        setupGestures()
+    }
+    
+    private func addSubviews() {
         stackView.addArrangedSubview(addListButton)
         stackView.addArrangedSubview(addTaskButton)
         stackView.addArrangedSubview(addGroupButton)
         bottomBarView.addSubview(stackView)
         addSubview(collectionView)
         addSubview(bottomBarView)
-        
-        makeConstraints()
-        setupButtonActions()
     }
     
     private func makeConstraints() {
@@ -98,6 +104,11 @@ class HomeView: UIView {
 
     }
     
+    private func setupGestures() {
+        let longPressGestureRecogniser = UILongPressGestureRecognizer(target: self, action: #selector(handleLongGesture(gesture:)))
+        collectionView.addGestureRecognizer(longPressGestureRecogniser)
+    }
+    
     @objc private func buttonTapped(_ sender: UIButton) {
         switch sender {
             case addTaskButton:
@@ -110,4 +121,10 @@ class HomeView: UIView {
                 break
         }
     }
+    
+    @objc private func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        delegate?.handleLongGesture(gesture: gesture)
+    }
+    
+    
 }

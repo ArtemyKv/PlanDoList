@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
     
     var presenter: HomePresenterProtocol!
     
-    var dataSource: DataSourceType?
+    var dataSource: DataSourceType!
     
     var homeView: HomeView! {
         guard isViewLoaded else { return nil }
@@ -37,6 +37,7 @@ class HomeViewController: UIViewController {
         homeView.delegate = self
         collectionView.delegate = self
         dataSource = collectionViewDataSource()
+        setupDataSourceHandlers()
         collectionView.collectionViewLayout = collectionViewLayout()
         collectionView.dataSource = dataSource
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.reuseIdentifier)
@@ -91,6 +92,47 @@ extension HomeViewController {
         return dataSource
     }
     
+    func setupDataSourceHandlers() {
+        
+        dataSource.sectionSnapshotHandlers.willCollapseItem = { [weak self] item in
+            self?.presenter.willCollapseItem(item)
+        }
+        
+        dataSource.sectionSnapshotHandlers.willExpandItem = { [weak self] item in
+            self?.presenter.willExpandItem(item)
+        }
+        
+        dataSource.reorderingHandlers.canReorderItem = { [weak self] item in
+            let itemIndexPath = self?.dataSource.indexPath(for: item)
+            //Disable reordering for basic lists
+            if itemIndexPath?.section == 0 {
+                return false
+            }
+            return true
+        }
+        
+        dataSource.reorderingHandlers.willReorder = { [weak self] transaction in
+            //Access to Difference.Change element
+            let element = transaction.difference.removals.first
+            //Access to associated ListItem in Difference.Change element
+            guard case let .remove(offset: _, element: item, associatedWith: _) = element else { return }
+            self?.presenter.willReorder(item)
+        }
+        
+        dataSource.reorderingHandlers.didReorder = { [weak self] transaction in
+            let element = transaction.difference.insertions.first
+            guard
+                case let .insert(offset: _, element: item, associatedWith: _) = element,
+                let targetIndexPath = self?.dataSource.indexPath(for: item)
+            else { return }
+            
+            let itemBeforeTargetIndexPath = IndexPath(row: targetIndexPath.row - 1, section: targetIndexPath.section)
+            let itemBeforeTarget = self?.dataSource.itemIdentifier(for: itemBeforeTargetIndexPath)
+            
+            self?.presenter.didReorder(item, to: targetIndexPath, itemBeforeTarget: itemBeforeTarget, at: itemBeforeTargetIndexPath)
+        }
+    }
+    
     //MARK: - Snapshots
     func applySnapshots() {
         applyBasicSectionSnapshot()
@@ -103,7 +145,7 @@ extension HomeViewController {
         let basicItems = presenter.getViewModelItems(ofKind: .basic)
         basicSectionSnapshot.append(basicItems)
         
-        dataSource?.apply(basicSectionSnapshot, to: .basic)
+        dataSource.apply(basicSectionSnapshot, to: .basic)
     }
     
     func applyGroupedSectionSnapshot() {
@@ -114,8 +156,12 @@ extension HomeViewController {
             let listItems = presenter.getGroupedListItems(forGroupItem: groupItem)
             groupedSectionSnapshot.append([groupItem])
             groupedSectionSnapshot.append(listItems, to: groupItem)
+            
+            if let isExpanded = groupItem.isExpanded, isExpanded == true {
+                groupedSectionSnapshot.expand([groupItem])
+            }
         }
-        dataSource?.apply(groupedSectionSnapshot, to: .grouped)
+        dataSource.apply(groupedSectionSnapshot, to: .grouped)
     }
     
     func applyUngroupedSectionSnapshot() {
@@ -123,7 +169,7 @@ extension HomeViewController {
         let ungroupedItems = presenter.getViewModelItems(ofKind: .list)
         ungroupedSectionSnapshot.append(ungroupedItems)
         
-        dataSource?.apply(ungroupedSectionSnapshot, to: .ungrouped)
+        dataSource.apply(ungroupedSectionSnapshot, to: .ungrouped)
     }
     
 }
@@ -134,6 +180,50 @@ extension HomeViewController: UICollectionViewDelegate {
         
         guard let item = dataSource?.itemIdentifier(for: indexPath) else { return }
         presenter.didSelectItem(item)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveOfItemFromOriginalIndexPath originalIndexPath: IndexPath, atCurrentIndexPath currentIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
+        
+        let isBackwardReordering: Bool = originalIndexPath > proposedIndexPath
+        let originalItem = dataSource.itemIdentifier(for: originalIndexPath)
+        
+        let itemBeforeProposedIndexPath = IndexPath(
+            row: isBackwardReordering ? proposedIndexPath.row - 1 : proposedIndexPath.row,
+            section: proposedIndexPath.section
+        )
+        let itemBeforeProposed = dataSource.itemIdentifier(for: itemBeforeProposedIndexPath)
+        
+        switch (originalItem, itemBeforeProposed) {
+                //TODO: -remove reference to model from here
+            case (.group, .list(let list)):
+                if let targetGroup = list.group, list == targetGroup.lists?.lastObject as! List {
+                    return proposedIndexPath
+                } else {
+                    return originalIndexPath
+                }
+            case (.list, .list):
+                return proposedIndexPath
+            case(.group, .group):
+                let sectionSnapshot = dataSource.snapshot(for: .grouped)
+                if sectionSnapshot.isExpanded(itemBeforeProposed!) {
+                    return originalIndexPath
+                } else {
+                    return proposedIndexPath
+                }
+            case (.list, .group):
+                let groupIsExpanded = itemBeforeProposed!.isExpanded!
+                if groupIsExpanded {
+                    return proposedIndexPath
+                } else {
+                    return originalIndexPath
+                }
+            case (.group, nil) where proposedIndexPath.section == 1:
+                return proposedIndexPath
+            case (.list, nil) where proposedIndexPath.section == 2:
+                return proposedIndexPath
+            default:
+                return originalIndexPath
+        }
     }
 }
 
@@ -146,7 +236,7 @@ extension HomeViewController: HomeViewProtocol {
     func reloadItem(item: HomeViewModel.Item) {
         guard var snapshot = dataSource?.snapshot() else { return }
         snapshot.reloadItems([item])
-        dataSource?.apply(snapshot)
+        dataSource.apply(snapshot)
     }
     
     func presentGroupAlert(title: String, buttonName: String, text: String, actionHandler: @escaping (String) -> Void) {
@@ -194,6 +284,25 @@ extension HomeViewController: HomeViewDelegate {
     
     func addGroupButtonTapped() {
         presenter.addGroupButtonTapped()
+    }
+    
+    func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+            case .began:
+                guard let selectedIndexPath = self.collectionView.indexPathForItem(at: gesture.location(in: self.collectionView)) else { break }
+                collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+            case .changed:
+                collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+            case .ended:
+                collectionView.endInteractiveMovement()
+                applySnapshots()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.collectionView.reloadData()
+                }
+            default:
+                collectionView.cancelInteractiveMovement()
+        }
     }
     
     

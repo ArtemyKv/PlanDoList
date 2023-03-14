@@ -10,7 +10,6 @@
 		9856B608D26B5C39D6BDF8F1 /* Pods_PlanDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */; };
 		9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13807629A4615F00BE1486 /* AppDelegate.swift */; };
 		9C13807929A4615F00BE1486 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13807829A4615F00BE1486 /* SceneDelegate.swift */; };
-		9C13808129A4615F00BE1486 /* PlanDoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C13807F29A4615F00BE1486 /* PlanDoList.xcdatamodeld */; };
 		9C13808329A4616100BE1486 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C13808229A4616100BE1486 /* Assets.xcassets */; };
 		9C13808629A4616100BE1486 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C13808429A4616100BE1486 /* LaunchScreen.storyboard */; };
 		9C13809029A4752300BE1486 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13808F29A4752300BE1486 /* CoreDataStack.swift */; };
@@ -19,7 +18,6 @@
 		9C13809B29A47BEE00BE1486 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809829A47BEE00BE1486 /* Task+CoreDataProperties.swift */; };
 		9C13809C29A47BEE00BE1486 /* Subtask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809129A47BEE00BE1486 /* Subtask+CoreDataProperties.swift */; };
 		9C13809D29A47BEE00BE1486 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809429A47BEE00BE1486 /* Task+CoreDataClass.swift */; };
-		9C13809E29A47BEE00BE1486 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809229A47BEE00BE1486 /* Group+CoreDataProperties.swift */; };
 		9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809629A47BEE00BE1486 /* List+CoreDataClass.swift */; };
 		9C1380A029A47BEE00BE1486 /* Subtask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C13809529A47BEE00BE1486 /* Subtask+CoreDataClass.swift */; };
 		9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1380A129A47E5100BE1486 /* GroupManager.swift */; };
@@ -40,6 +38,8 @@
 		9C2B2B0E29AF0DF700BD8F63 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B0D29AF0DF700BD8F63 /* AddTaskViewController.swift */; };
 		9C2B2B1129AF0E0D00BD8F63 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B1029AF0E0D00BD8F63 /* AddTaskView.swift */; };
 		9C2B2B1329AF0E1800BD8F63 /* AddTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B2B1229AF0E1800BD8F63 /* AddTaskPresenter.swift */; };
+		9C44CCA829C0047C0007555E /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */; };
+		9C44CCAD29C011C70007555E /* PlanDoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CCAB29C011C70007555E /* PlanDoList.xcdatamodeld */; };
 		9C6C1C2F29B4810600DBB1A2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C2E29B4810600DBB1A2 /* TaskViewController.swift */; };
 		9C6C1C3229B4812900DBB1A2 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C3129B4812900DBB1A2 /* TaskView.swift */; };
 		9C6C1C3429B4813500DBB1A2 /* TaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C3329B4813500DBB1A2 /* TaskPresenter.swift */; };
@@ -63,13 +63,11 @@
 		9C13807329A4615F00BE1486 /* PlanDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C13807629A4615F00BE1486 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C13807829A4615F00BE1486 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9C13808029A4615F00BE1486 /* PlanDoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlanDoList.xcdatamodel; sourceTree = "<group>"; };
 		9C13808229A4616100BE1486 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C13808529A4616100BE1486 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C13808729A4616100BE1486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C13808F29A4752300BE1486 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		9C13809129A47BEE00BE1486 /* Subtask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subtask+CoreDataProperties.swift"; path = "/Users/artemy/Documents/Study/Training Apps/PlanDoList/PlanDoList/Model/Subtask+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		9C13809229A47BEE00BE1486 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Group+CoreDataProperties.swift"; path = "/Users/artemy/Documents/Study/Training Apps/PlanDoList/PlanDoList/Model/Group+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		9C13809329A47BEE00BE1486 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Group+CoreDataClass.swift"; path = "/Users/artemy/Documents/Study/Training Apps/PlanDoList/PlanDoList/Model/Group+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		9C13809429A47BEE00BE1486 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "/Users/artemy/Documents/Study/Training Apps/PlanDoList/PlanDoList/Model/Task+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		9C13809529A47BEE00BE1486 /* Subtask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subtask+CoreDataClass.swift"; path = "/Users/artemy/Documents/Study/Training Apps/PlanDoList/PlanDoList/Model/Subtask+CoreDataClass.swift"; sourceTree = "<absolute>"; };
@@ -94,6 +92,8 @@
 		9C2B2B0D29AF0DF700BD8F63 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		9C2B2B1029AF0E0D00BD8F63 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		9C2B2B1229AF0E1800BD8F63 /* AddTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPresenter.swift; sourceTree = "<group>"; };
+		9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9C44CCAC29C011C70007555E /* PlanDoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlanDoList.xcdatamodel; sourceTree = "<group>"; };
 		9C6C1C2E29B4810600DBB1A2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		9C6C1C3129B4812900DBB1A2 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		9C6C1C3329B4813500DBB1A2 /* TaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPresenter.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 				9C13808229A4616100BE1486 /* Assets.xcassets */,
 				9C13808429A4616100BE1486 /* LaunchScreen.storyboard */,
 				9C13808729A4616100BE1486 /* Info.plist */,
-				9C13807F29A4615F00BE1486 /* PlanDoList.xcdatamodeld */,
+				9C44CCAB29C011C70007555E /* PlanDoList.xcdatamodeld */,
 			);
 			path = PlanDoList;
 			sourceTree = "<group>";
@@ -188,7 +188,7 @@
 				9C13809629A47BEE00BE1486 /* List+CoreDataClass.swift */,
 				9C13809729A47BEE00BE1486 /* List+CoreDataProperties.swift */,
 				9C13809329A47BEE00BE1486 /* Group+CoreDataClass.swift */,
-				9C13809229A47BEE00BE1486 /* Group+CoreDataProperties.swift */,
+				9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */,
 				9C13809529A47BEE00BE1486 /* Subtask+CoreDataClass.swift */,
 				9C13809129A47BEE00BE1486 /* Subtask+CoreDataProperties.swift */,
 			);
@@ -479,10 +479,10 @@
 				9C13809029A4752300BE1486 /* CoreDataStack.swift in Sources */,
 				9C6C1C4C29B6D06E00DBB1A2 /* SubtaskTableViewCell.swift in Sources */,
 				9C13809929A47BEE00BE1486 /* Group+CoreDataClass.swift in Sources */,
+				9C44CCA829C0047C0007555E /* Group+CoreDataProperties.swift in Sources */,
 				9C1380AE29A48A0500BE1486 /* HomeViewController.swift in Sources */,
 				9C6C1C3E29B50E4F00DBB1A2 /* NewSubtaskCell.swift in Sources */,
 				9C1380AA29A489ED00BE1486 /* HomePresenter.swift in Sources */,
-				9C13808129A4615F00BE1486 /* PlanDoList.xcdatamodeld in Sources */,
 				9C1380B429A48E0100BE1486 /* Coordinator.swift in Sources */,
 				9C6C1C3429B4813500DBB1A2 /* TaskPresenter.swift in Sources */,
 				9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */,
@@ -500,6 +500,7 @@
 				9C13809D29A47BEE00BE1486 /* Task+CoreDataClass.swift in Sources */,
 				9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */,
 				9C6C1C3C29B50E3D00DBB1A2 /* SubtasksListCell.swift in Sources */,
+				9C44CCAD29C011C70007555E /* PlanDoList.xcdatamodeld in Sources */,
 				9C13809A29A47BEE00BE1486 /* List+CoreDataProperties.swift in Sources */,
 				9C1380A029A47BEE00BE1486 /* Subtask+CoreDataClass.swift in Sources */,
 				9C13809B29A47BEE00BE1486 /* Task+CoreDataProperties.swift in Sources */,
@@ -516,7 +517,6 @@
 				9C1380B229A48A6C00BE1486 /* MainBuilder.swift in Sources */,
 				9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */,
 				9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */,
-				9C13809E29A47BEE00BE1486 /* Group+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,12 +736,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		9C13807F29A4615F00BE1486 /* PlanDoList.xcdatamodeld */ = {
+		9C44CCAB29C011C70007555E /* PlanDoList.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				9C13808029A4615F00BE1486 /* PlanDoList.xcdatamodel */,
+				9C44CCAC29C011C70007555E /* PlanDoList.xcdatamodel */,
 			);
-			currentVersion = 9C13808029A4615F00BE1486 /* PlanDoList.xcdatamodel */;
+			currentVersion = 9C44CCAC29C011C70007555E /* PlanDoList.xcdatamodel */;
 			path = PlanDoList.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
