@@ -46,15 +46,17 @@ final class HomePresenter: HomePresenterProtocol {
     
     func configureCell(_ cell: HomeCollectionViewCell, with item: HomeViewModel.Item) {
         var title = ""
+        var isBoldTitle = false
         switch item {
             case .basic(let basicItem):
                 title = basicItem.name
             case.group(let group):
                 title = group.name ?? ""
+                isBoldTitle = true
             case .list(let list):
                 title = list.name ?? ""
         }
-        cell.configure(title: title, imageName: item.imageName)
+        cell.configure(title: title, imageName: item.imageName, isBoldTitle: isBoldTitle)
         
         if item.itemKind == .group {
             cell.configureMenu(groupItem: item,
