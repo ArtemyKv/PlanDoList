@@ -46,25 +46,28 @@ class ListViewController: UIViewController {
     }
     
     func configureTableView() {
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        tableView.register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: ListHeaderView.identifier)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         tableView.dragDelegate = self
         tableView.dragInteractionEnabled = true
     }
 }
+
+// MARK: - List View Protocol
 
 extension ListViewController: ListViewProtocol {
     func configure(with title: String) {
         listView.configure(with: title)
     }
     
-    func deleteRows(at indexPath: IndexPath) {
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+    func deleteRows(at indexPaths: [IndexPath]) {
+        tableView.deleteRows(at: indexPaths, with: .fade)
     }
     
-    func insertRows(at indexPath: IndexPath) {
-        tableView.insertRows(at: [indexPath], with: .automatic)
+    func insertRows(at indexPaths: [IndexPath]) {
+        tableView.insertRows(at: indexPaths, with: .automatic)
     }
     
     func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath) {
@@ -77,6 +80,8 @@ extension ListViewController: ListViewProtocol {
     }
 }
 
+// MARK: - Table View DataSource
+
 extension ListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -84,7 +89,7 @@ extension ListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRowsInSection(sectionIndex: section)
+        return presenter.numberOfRowsInSection(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,6 +117,8 @@ extension ListViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - Table View Delegate
+
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
@@ -130,7 +137,29 @@ extension ListViewController: UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard presenter.shouldDisplayHeaderViewInSection(section) else { return nil }
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ListHeaderView.identifier) as! ListHeaderView
+        header.delegate = self
+        header.section = section
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard presenter.shouldDisplayHeaderViewInSection(section) else { return 0 }
+        return UITableView.automaticDimension
+    }
 }
+
+// MARK: - Table View Drag Delegate
+
+extension ListViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return []
+    }
+}
+
+// MARK: - Textfield Delegate
 
 extension ListViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -145,6 +174,8 @@ extension ListViewController: UITextFieldDelegate {
     }
 }
 
+//MARK: - Cell Delegate
+
 extension ListViewController: TaskTableViewCellDelegate {
     func checkmarkTapped(sender: TaskTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
@@ -152,11 +183,16 @@ extension ListViewController: TaskTableViewCellDelegate {
     }
 }
 
-extension ListViewController: UITableViewDragDelegate {
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        return []
+// MARK: - Header View Delegate
+
+extension ListViewController: ListHeaderViewDelegate {
+    func headerTapped(sender: UITableViewHeaderFooterView, section: Int) {
+        guard let header = sender as? ListHeaderView else { return }
+        presenter.headerTappedInSection(section, isCollapsed: header.isCollapsed)
     }
     
     
 }
+
+
 

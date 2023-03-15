@@ -10,8 +10,8 @@ import Foundation
 protocol ListViewProtocol: AnyObject {
     func configure(with title: String)
     func reloadData()
-    func deleteRows(at indexPath: IndexPath)
-    func insertRows(at indexPath: IndexPath)
+    func deleteRows(at indexPaths: [IndexPath])
+    func insertRows(at indexPaths: [IndexPath])
     func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath)
 }
 
@@ -25,14 +25,16 @@ protocol ListPresenterProtocol: AnyObject {
     func viewWillAppear()
     func viewWillDisappear()
     func configureView()
-    func numberOfRowsInSection(sectionIndex: Int) -> Int
+    func numberOfRowsInSection(_ sectionIndex: Int) -> Int
     func configureCell(_ cell: TaskTableViewCell, at indexPath: IndexPath)
+    func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool
     func addTask()
     func deleteRowAt(_ indexPath: IndexPath)
     func setViewTitle(_ title: String)
     func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
     func didSelectRow(at indexPath: IndexPath)
     func moveRow(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
+    func headerTappedInSection(_ sectionIndex: Int, isCollapsed: Bool)
 }
 
 class ListPresenter: ListPresenterProtocol {
@@ -42,7 +44,7 @@ class ListPresenter: ListPresenterProtocol {
     
     weak var view: ListViewProtocol!
     
-    let sections = [
+    var sections = [
         Section(type: .uncompleted),
         Section(type: .completed)
     ]
@@ -63,13 +65,9 @@ class ListPresenter: ListPresenterProtocol {
         var type: SectionType
         var isCollapsed: Bool = false
         
-        var name: String {
-            return type.rawValue
-        }
-        
-        enum SectionType: String {
-            case uncompleted = "Current"
-            case completed = "Completed"
+        enum SectionType {
+            case uncompleted
+            case completed
         }
     }
     
@@ -93,11 +91,12 @@ class ListPresenter: ListPresenterProtocol {
         view.configure(with: listName)
     }
     
-    func numberOfRowsInSection(sectionIndex: Int) -> Int {
-        switch sectionIndex {
-            case 0:
+    func numberOfRowsInSection(_ sectionIndex: Int) -> Int {
+        let section = sections[sectionIndex]
+        switch section.type {
+            case .uncompleted:
                 return uncompletedTasksCount
-            case 1:
+            case .completed where !section.isCollapsed:
                 return completedTasksCount
             default:
                 return 0
@@ -116,7 +115,15 @@ class ListPresenter: ListPresenterProtocol {
         cell.update(with: task.wrappedName, complete: task.complete)
     }
     
-    
+    func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool {
+        let section = sections[sectionIndex]
+        switch section.type {
+            case .completed where listManager.completedTasksCount != 0 :
+                return true
+            default:
+                return false
+        }
+    }
     
     func addTask() {
         coordinator.presentAddTaskScreen(delegate: self)
@@ -124,14 +131,13 @@ class ListPresenter: ListPresenterProtocol {
     
     func deleteRowAt(_ indexPath: IndexPath) {
         let section = sections[indexPath.section]
-        
         switch section.type {
             case .uncompleted:
                 listManager.deleteUncompletedTask(at: indexPath.row)
             case .completed:
                 listManager.deleteCompletedTask(at: indexPath.row)
         }
-        view.deleteRows(at: indexPath)
+        view.deleteRows(at: [indexPath])
     }
     
     func setViewTitle(_ title: String) {
@@ -159,6 +165,15 @@ class ListPresenter: ListPresenterProtocol {
     func moveRow(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         listManager.moveUncompletedTask(at: sourceIndexPath.row, to: destinationIndexPath.row)
     }
+    
+    func headerTappedInSection(_ sectionIndex: Int, isCollapsed: Bool) {
+        var indexPaths = [IndexPath]()
+        for i in 0 ..< listManager.completedTasksCount {
+            indexPaths.append(IndexPath(row: i, section: 1))
+        }
+        sections[sectionIndex].isCollapsed = isCollapsed
+        isCollapsed ? view.deleteRows(at: indexPaths) : view.insertRows(at: indexPaths)
+    }
 }
 
 extension ListPresenter: AddTaskPresenterDelegate {
@@ -167,7 +182,7 @@ extension ListPresenter: AddTaskPresenterDelegate {
         
         let section = complete ? 1 : 0
         let row = complete ? 0 : listManager.uncompletedTasksCount - 1
-        view.insertRows(at: IndexPath(row: row, section: section))
+        view.insertRows(at: [IndexPath(row: row, section: section)])
     }
     
     

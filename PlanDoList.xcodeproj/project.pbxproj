@@ -55,6 +55,7 @@
 		9C6C1C4A29B6CEEF00DBB1A2 /* SubtaskTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C4929B6CEEF00DBB1A2 /* SubtaskTableViewDataSource.swift */; };
 		9C6C1C4C29B6D06E00DBB1A2 /* SubtaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C4B29B6D06E00DBB1A2 /* SubtaskTableViewCell.swift */; };
 		9C6C1C4E29B6D5B100DBB1A2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C4D29B6D5B100DBB1A2 /* AppConstants.swift */; };
+		9CA22D3929C14CA900FC83C6 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA22D3829C14CA900FC83C6 /* ListHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +110,7 @@
 		9C6C1C4929B6CEEF00DBB1A2 /* SubtaskTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskTableViewDataSource.swift; sourceTree = "<group>"; };
 		9C6C1C4B29B6D06E00DBB1A2 /* SubtaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskTableViewCell.swift; sourceTree = "<group>"; };
 		9C6C1C4D29B6D5B100DBB1A2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		9CA22D3829C14CA900FC83C6 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -268,6 +270,7 @@
 				9C2B2AFD29AB159E00BD8F63 /* ListViewController.swift */,
 				9C2B2B0429AB202200BD8F63 /* ListView.swift */,
 				9C2B2B0A29AE2E9D00BD8F63 /* TaskTableViewCell.swift */,
+				9CA22D3829C14CA900FC83C6 /* ListHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				9C6C1C3429B4813500DBB1A2 /* TaskPresenter.swift in Sources */,
 				9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */,
 				9C2B2B0529AB202200BD8F63 /* ListView.swift in Sources */,
+				9CA22D3929C14CA900FC83C6 /* ListHeaderView.swift in Sources */,
 				9C6C1C3729B481EA00DBB1A2 /* TaskManager.swift in Sources */,
 				9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */,
 				9C13809C29A47BEE00BE1486 /* Subtask+CoreDataProperties.swift in Sources */,
