@@ -139,8 +139,13 @@ final class HomePresenter: HomePresenterProtocol {
     }
     
     func didSelectItem(_ item: HomeViewModel.Item) {
-        if case let .list(list) = item {
+        switch item {
+        case let .basic(basicItem) where basicItem == .myDay:
+            coordinator.presentMyDayScreen()
+        case let .list(list):
             coordinator.presentListScreen(list: list)
+        default:
+            break
         }
     }
     

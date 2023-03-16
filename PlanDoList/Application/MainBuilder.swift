@@ -14,6 +14,7 @@ protocol Builder: AnyObject {
     func listScreen(coordinator: MainCoordinatorProtocol, list: List) -> ListViewController
     func addTaskScreen(coordinator: MainCoordinatorProtocol, delegate: AddTaskPresenterDelegate) -> AddTaskViewController
     func taskScreen(coordinator: MainCoordinatorProtocol, task: Task) -> TaskViewController
+    func myDayScreen(coordinator: MainCoordinatorProtocol) -> MyDayViewController
 }
 
 final class MainBuilder: Builder {
@@ -53,6 +54,14 @@ final class MainBuilder: Builder {
         let presenter = TaskPresenter(taskManager: taskManager, view: taskVC, coordinator: coordinator)
         taskVC.presenter = presenter
         return taskVC
+    }
+    
+    func myDayScreen(coordinator: MainCoordinatorProtocol) -> MyDayViewController {
+        let myDayVC = MyDayViewController()
+        let myDayListManager = modelManagerBuilder.myDayListManager()
+        let myDayPresenter = MyDayListPresenter(listManager: myDayListManager, view: myDayVC, coordinator: coordinator)
+        myDayVC.presenter = myDayPresenter
+        return myDayVC
     }
     
 }

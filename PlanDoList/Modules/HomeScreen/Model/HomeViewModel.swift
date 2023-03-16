@@ -54,7 +54,7 @@ enum HomeViewModel {
     }
     
     enum BasicItem: String, CaseIterable {
-        case today = "Today"
+        case myDay = "My Day"
         case income = "Income"
         case important = "Important"
         case planned = "Planned"
@@ -65,7 +65,7 @@ enum HomeViewModel {
         
         var imageName: String {
             switch self {
-                case .today:
+                case .myDay:
                     return "sun.max"
                 case .income:
                     return "envelope.open"
