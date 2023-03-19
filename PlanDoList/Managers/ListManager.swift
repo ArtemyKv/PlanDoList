@@ -7,20 +7,11 @@
 
 import Foundation
 
-protocol ListManagerProtocol {
+protocol ListManagerProtocol: BasicListManager {
     var listName: String { get }
-    var uncompletedTasksCount: Int { get }
-    var completedTasksCount: Int { get }
     
-    func getTasks()
     func updateTasksOrder()
-    func uncompletedTask(at index: Int) -> Task?
-    func completedTask(at index: Int) -> Task?
-    func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?)
-    func deleteUncompletedTask(at index: Int)
-    func deleteCompletedTask(at index: Int)
     func setListName(_ name: String)
-    func toggleTaskCompletion(at index: Int, shouldBeComplete: Bool)
     func moveUncompletedTask(at sourceIndex: Int, to destinationIndex: Int)
 }
 

@@ -7,34 +7,12 @@
 
 import Foundation
 
-protocol ListViewProtocol: AnyObject {
-    func configure(with title: String)
-    func reloadData()
-    func deleteRows(at indexPaths: [IndexPath])
-    func insertRows(at indexPaths: [IndexPath])
-    func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath)
-}
-
-protocol ListPresenterProtocol: AnyObject {
+protocol ListPresenterProtocol: BasicListPresenter {
     init(listManager: ListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol)
-    
-    var numberOfSections: Int { get }
-    var uncompletedTasksCount: Int { get }
-    var completedTasksCount: Int { get }
-    
-    func viewWillAppear()
+
     func viewWillDisappear()
-    func configureView()
-    func numberOfRowsInSection(_ sectionIndex: Int) -> Int
-    func configureCell(_ cell: TaskTableViewCell, at indexPath: IndexPath)
-    func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool
-    func addTask()
-    func deleteRowAt(_ indexPath: IndexPath)
     func setViewTitle(_ title: String)
-    func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
-    func didSelectRow(at indexPath: IndexPath)
     func moveRow(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
-    func headerTappedInSection(_ sectionIndex: Int, isCollapsed: Bool)
 }
 
 class ListPresenter: ListPresenterProtocol {
@@ -44,31 +22,13 @@ class ListPresenter: ListPresenterProtocol {
     
     weak var view: ListViewProtocol!
     
-    var sections = [
-        Section(type: .uncompleted),
-        Section(type: .completed)
+    private var sections = [
+        ListViewModel.Section(type: .uncompleted),
+        ListViewModel.Section(type: .completed)
     ]
     
     var numberOfSections: Int {
         return sections.count
-    }
-    
-    var uncompletedTasksCount: Int {
-        return listManager.uncompletedTasksCount
-    }
-    
-    var completedTasksCount: Int {
-        return listManager.completedTasksCount
-    }
-    
-    struct Section {
-        var type: SectionType
-        var isCollapsed: Bool = false
-        
-        enum SectionType {
-            case uncompleted
-            case completed
-        }
     }
     
     required init(listManager: ListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol) {
@@ -88,16 +48,16 @@ class ListPresenter: ListPresenterProtocol {
     
     func configureView() {
         let listName = listManager.listName
-        view.configure(with: listName)
+        view.configure(withTitle: listName, subtitle: nil)
     }
     
     func numberOfRowsInSection(_ sectionIndex: Int) -> Int {
         let section = sections[sectionIndex]
         switch section.type {
             case .uncompleted:
-                return uncompletedTasksCount
+                return listManager.uncompletedTasksCount
             case .completed where !section.isCollapsed:
-                return completedTasksCount
+                return listManager.completedTasksCount
             default:
                 return 0
         }

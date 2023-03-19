@@ -58,7 +58,8 @@ class ListViewController: UIViewController {
 // MARK: - List View Protocol
 
 extension ListViewController: ListViewProtocol {
-    func configure(with title: String) {
+    func configure(withTitle title: String?, subtitle: String?) {
+        guard let title else { return }
         listView.configure(with: title)
     }
     

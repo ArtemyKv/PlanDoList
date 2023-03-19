@@ -7,32 +7,8 @@
 
 import Foundation
 
-protocol MyDayListViewProtocol: AnyObject {
-    func configure(withTitle title: String, subtitle: String)
-    func reloadData()
-    func deleteRows(at indexPaths: [IndexPath])
-    func insertRows(at indexPaths: [IndexPath])
-    func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath)
-}
-
-protocol MyDayListPresenterProtocol: AnyObject {
-    
-    init(listManager: MyDayListManagerProtocol, view: MyDayListViewProtocol, coordinator: MainCoordinatorProtocol)
-    
-    var numberOfSections: Int { get }
-    var uncompletedTasksCount: Int { get }
-    var completedTasksCount: Int { get }
-    
-    func viewWillAppear()
-    func configureView()
-    func numberOfRowsInSection(_ sectionIndex: Int) -> Int
-    func configureCell(_ cell: TaskTableViewCell, at indexPath: IndexPath)
-    func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool
-    func addTask()
-    func deleteRowAt(_ indexPath: IndexPath)
-    func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
-    func didSelectRow(at indexPath: IndexPath)
-    func headerTappedInSection(_ sectionIndex: Int, isCollapsed: Bool)
+protocol MyDayListPresenterProtocol: BasicListPresenter {
+    init(listManager: MyDayListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol)
 }
 
 class MyDayListPresenter: MyDayListPresenterProtocol {
@@ -40,36 +16,18 @@ class MyDayListPresenter: MyDayListPresenterProtocol {
     let coordinator: MainCoordinatorProtocol
     let listManager: MyDayListManagerProtocol
     
-    weak var view: MyDayListViewProtocol!
+    weak var view: ListViewProtocol!
     
-    var sections = [
-        Section(type: .uncompleted),
-        Section(type: .completed)
+    private var sections = [
+        ListViewModel.Section(type: .uncompleted),
+        ListViewModel.Section(type: .completed)
     ]
     
     var numberOfSections: Int {
         return sections.count
     }
     
-    var uncompletedTasksCount: Int {
-        return listManager.uncompletedTasksCount
-    }
-    
-    var completedTasksCount: Int {
-        return listManager.completedTasksCount
-    }
-    
-    struct Section {
-        var type: SectionType
-        var isCollapsed: Bool = false
-        
-        enum SectionType {
-            case uncompleted
-            case completed
-        }
-    }
-    
-    required init(listManager: MyDayListManagerProtocol, view: MyDayListViewProtocol, coordinator: MainCoordinatorProtocol) {
+    required init(listManager: MyDayListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol) {
         self.coordinator = coordinator
         self.listManager = listManager
         self.view = view
@@ -94,9 +52,9 @@ class MyDayListPresenter: MyDayListPresenterProtocol {
         let section = sections[sectionIndex]
         switch section.type {
             case .uncompleted:
-                return uncompletedTasksCount
+                return listManager.uncompletedTasksCount
             case .completed where !section.isCollapsed:
-                return completedTasksCount
+                return listManager.completedTasksCount
             default:
                 return 0
         }

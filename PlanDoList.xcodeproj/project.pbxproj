@@ -60,6 +60,10 @@
 		9CA22D3E29C17B2A00FC83C6 /* MyDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA22D3D29C17B2A00FC83C6 /* MyDayView.swift */; };
 		9CA22D4129C17B5300FC83C6 /* MyDayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA22D4029C17B5300FC83C6 /* MyDayPresenter.swift */; };
 		9CA22D4429C17E6700FC83C6 /* MyDayListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA22D4329C17E6700FC83C6 /* MyDayListManager.swift */; };
+		9CC4885E29C3EFDE004D66D6 /* BasicListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4885D29C3EFDE004D66D6 /* BasicListPresenter.swift */; };
+		9CC4886029C3F08A004D66D6 /* ListViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4885F29C3F08A004D66D6 /* ListViewProtocol.swift */; };
+		9CC4886229C3F0A6004D66D6 /* BasicListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886129C3F0A6004D66D6 /* BasicListManager.swift */; };
+		9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +123,10 @@
 		9CA22D3D29C17B2A00FC83C6 /* MyDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayView.swift; sourceTree = "<group>"; };
 		9CA22D4029C17B5300FC83C6 /* MyDayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayPresenter.swift; sourceTree = "<group>"; };
 		9CA22D4329C17E6700FC83C6 /* MyDayListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayListManager.swift; sourceTree = "<group>"; };
+		9CC4885D29C3EFDE004D66D6 /* BasicListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListPresenter.swift; sourceTree = "<group>"; };
+		9CC4885F29C3F08A004D66D6 /* ListViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewProtocol.swift; sourceTree = "<group>"; };
+		9CC4886129C3F0A6004D66D6 /* BasicListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListManager.swift; sourceTree = "<group>"; };
+		9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -220,6 +228,7 @@
 		9C1380A429A4896000BE1486 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9CC4885C29C3EFBB004D66D6 /* BasicListProtocols */,
 				9C1380A529A4896E00BE1486 /* HomeScreen */,
 				9C2B2AFF29AB15A300BD8F63 /* ListScreen */,
 				9C2B2B0C29AF0DCE00BD8F63 /* AddTaskScreen */,
@@ -268,6 +277,7 @@
 		9C2B2AFF29AB15A300BD8F63 /* ListScreen */ = {
 			isa = PBXGroup;
 			children = (
+				9CC4886329C3F3BF004D66D6 /* Model */,
 				9C2B2B0029AB15B100BD8F63 /* View */,
 				9C2B2B0329AB15CD00BD8F63 /* Presenter */,
 			);
@@ -387,6 +397,24 @@
 				9CA22D4029C17B5300FC83C6 /* MyDayPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9CC4885C29C3EFBB004D66D6 /* BasicListProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				9CC4885D29C3EFDE004D66D6 /* BasicListPresenter.swift */,
+				9CC4885F29C3F08A004D66D6 /* ListViewProtocol.swift */,
+				9CC4886129C3F0A6004D66D6 /* BasicListManager.swift */,
+			);
+			path = BasicListProtocols;
+			sourceTree = "<group>";
+		};
+		9CC4886329C3F3BF004D66D6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B15A1AB1FCA9036CDD8D819B /* Frameworks */ = {
@@ -524,6 +552,7 @@
 				9CA22D3E29C17B2A00FC83C6 /* MyDayView.swift in Sources */,
 				9C6C1C3E29B50E4F00DBB1A2 /* NewSubtaskCell.swift in Sources */,
 				9C1380AA29A489ED00BE1486 /* HomePresenter.swift in Sources */,
+				9CC4885E29C3EFDE004D66D6 /* BasicListPresenter.swift in Sources */,
 				9C1380B429A48E0100BE1486 /* Coordinator.swift in Sources */,
 				9C6C1C3429B4813500DBB1A2 /* TaskPresenter.swift in Sources */,
 				9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */,
@@ -538,6 +567,7 @@
 				9C2B2B0929ABADB000BD8F63 /* ModelManagerBuilder.swift in Sources */,
 				9C6C1C4429B50E9700DBB1A2 /* DatePickerCell.swift in Sources */,
 				9C2B2B0E29AF0DF700BD8F63 /* AddTaskViewController.swift in Sources */,
+				9CC4886229C3F0A6004D66D6 /* BasicListManager.swift in Sources */,
 				9C6C1C4029B50E5F00DBB1A2 /* MyDayCell.swift in Sources */,
 				9C13809D29A47BEE00BE1486 /* Task+CoreDataClass.swift in Sources */,
 				9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */,
@@ -559,8 +589,10 @@
 				9C2B2AFA29A7702B00BD8F63 /* HomeViewModel.swift in Sources */,
 				9CA22D3C29C17B1200FC83C6 /* MyDayViewController.swift in Sources */,
 				9C1380B229A48A6C00BE1486 /* MainBuilder.swift in Sources */,
+				9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */,
 				9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */,
 				9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */,
+				9CC4886029C3F08A004D66D6 /* ListViewProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

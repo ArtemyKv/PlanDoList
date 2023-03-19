@@ -50,9 +50,10 @@ class MyDayViewController: UIViewController {
 
 // MARK: - List View Protocol
 
-extension MyDayViewController: MyDayListViewProtocol {
+extension MyDayViewController: ListViewProtocol {
     
-    func configure(withTitle title: String, subtitle: String) {
+    func configure(withTitle title: String?, subtitle: String?) {
+        guard let title, let subtitle else { return }
         myDayView.configure(withTitle: title, subtitle: subtitle)
     }
     
