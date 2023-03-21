@@ -7,8 +7,30 @@
 
 import Foundation
 
-protocol ListPresenterProtocol: BasicListPresenter {
+protocol ListViewProtocol: AnyObject {
+    
+    func configure(withTitle title: String?, subtitle: String?)
+    func reloadData()
+    func deleteRows(at indexPaths: [IndexPath])
+    func insertRows(at indexPaths: [IndexPath])
+    func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath)
+}
+
+protocol ListPresenterProtocol {
     init(listManager: ListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol)
+    
+    var numberOfSections: Int { get }
+    
+    func viewWillAppear()
+    func configureView()
+    func numberOfRowsInSection(_ sectionIndex: Int) -> Int
+    func configureCell(_ cell: TaskTableViewCell, at indexPath: IndexPath)
+    func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool
+    func addTask()
+    func deleteRowAt(_ indexPath: IndexPath)
+    func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
+    func didSelectRow(at indexPath: IndexPath)
+    func headerTappedInSection(_ sectionIndex: Int, isCollapsed: Bool)
 
     func viewWillDisappear()
     func setViewTitle(_ title: String)

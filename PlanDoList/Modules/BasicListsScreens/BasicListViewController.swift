@@ -1,34 +1,34 @@
 //
-//  MyDayViewController.swift
+//  BasicListVIewController.swift
 //  PlanDoList
 //
-//  Created by Artem Kvashnin on 15.03.2023.
+//  Created by Artemy on 21.03.2023.
 //
 
 import UIKit
 
-class MyDayViewController: UIViewController {
+class BasicListViewController: UIViewController {
     
-    var presenter: MyDayListPresenterProtocol!
+    var presenter: BasicListPresenter!
     
-    var myDayView: MyDayView! {
+    var listView: BasicListView! {
         guard isViewLoaded else { return nil }
-        return (view as! MyDayView)
+        return (view as! BasicListView)
     }
     
     var tableView: UITableView {
-        return myDayView.tableView
+        return listView.tableView
     }
     
     override func loadView() {
-        let myDayView = MyDayView()
+        let myDayView = ListView()
         self.view = myDayView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
-        myDayView.addTaskButtonAction = {
+        listView.addTaskButtonAction = {
             self.presenter.addTask()
         }
         presenter.configureView()
@@ -50,11 +50,11 @@ class MyDayViewController: UIViewController {
 
 // MARK: - List View Protocol
 
-extension MyDayViewController: ListViewProtocol {
+extension BasicListViewController: BasicListViewProtocol {
     
     func configure(withTitle title: String?, subtitle: String?) {
         guard let title, let subtitle else { return }
-        myDayView.configure(withTitle: title, subtitle: subtitle)
+        listView.configure(withTitle: title, subtitle: subtitle)
     }
     
     func deleteRows(at indexPaths: [IndexPath]) {
@@ -77,7 +77,7 @@ extension MyDayViewController: ListViewProtocol {
 
 // MARK: - Table View DataSource
 
-extension MyDayViewController: UITableViewDataSource {
+extension BasicListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return presenter.numberOfSections
@@ -103,7 +103,7 @@ extension MyDayViewController: UITableViewDataSource {
 
 // MARK: - Table View Delegate
 
-extension MyDayViewController: UITableViewDelegate {
+extension BasicListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
@@ -137,7 +137,7 @@ extension MyDayViewController: UITableViewDelegate {
 
 //MARK: - Cell Delegate
 
-extension MyDayViewController: TaskTableViewCellDelegate {
+extension BasicListViewController: TaskTableViewCellDelegate {
     func checkmarkTapped(sender: TaskTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         presenter.cellCheckmarkTapped(cell: sender, at: indexPath)
@@ -146,7 +146,7 @@ extension MyDayViewController: TaskTableViewCellDelegate {
 
 // MARK: - Header View Delegate
 
-extension MyDayViewController: ListHeaderViewDelegate {
+extension BasicListViewController: ListHeaderViewDelegate {
     func headerTapped(sender: UITableViewHeaderFooterView, section: Int) {
         guard let header = sender as? ListHeaderView else { return }
         presenter.headerTappedInSection(section, isCollapsed: header.isCollapsed)

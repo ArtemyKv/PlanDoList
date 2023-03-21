@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ListViewProtocol: AnyObject {
+protocol BasicListViewProtocol: AnyObject {
     
     func configure(withTitle title: String?, subtitle: String?)
     func reloadData()

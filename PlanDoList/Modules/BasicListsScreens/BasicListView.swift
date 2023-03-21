@@ -1,13 +1,15 @@
 //
-//  IncomeView.swift
+//  BasicListView.swift
 //  PlanDoList
 //
-//  Created by Artemy on 20.03.2023.
+//  Created by Artemy on 21.03.2023.
 //
 
 import UIKit
+import SnapKit
 
-class IncomeView: UIView {
+class BasicListView: UIView {
+    
     var addTaskButtonAction: (() -> Void)?
     
     private let titleLabel: UILabel = {

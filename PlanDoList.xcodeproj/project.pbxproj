@@ -42,6 +42,8 @@
 		9C3D1A2C29C7EFCA001DABCC /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A2B29C7EFCA001DABCC /* IncomeView.swift */; };
 		9C3D1A2E29C7EFD9001DABCC /* IncomeListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A2D29C7EFD9001DABCC /* IncomeListPresenter.swift */; };
 		9C3D1A3129C7F4E2001DABCC /* IncomeListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */; };
+		9C3D1A3629C94767001DABCC /* BasicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3529C94767001DABCC /* BasicListViewController.swift */; };
+		9C3D1A3829C949DA001DABCC /* BasicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3729C949DA001DABCC /* BasicListView.swift */; };
 		9C44CCA829C0047C0007555E /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */; };
 		9C44CCAD29C011C70007555E /* PlanDoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CCAB29C011C70007555E /* PlanDoList.xcdatamodeld */; };
 		9C6C1C2F29B4810600DBB1A2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C2E29B4810600DBB1A2 /* TaskViewController.swift */; };
@@ -65,7 +67,7 @@
 		9CA22D4129C17B5300FC83C6 /* MyDayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA22D4029C17B5300FC83C6 /* MyDayPresenter.swift */; };
 		9CA22D4429C17E6700FC83C6 /* MyDayListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA22D4329C17E6700FC83C6 /* MyDayListManager.swift */; };
 		9CC4885E29C3EFDE004D66D6 /* BasicListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4885D29C3EFDE004D66D6 /* BasicListPresenter.swift */; };
-		9CC4886029C3F08A004D66D6 /* ListViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4885F29C3F08A004D66D6 /* ListViewProtocol.swift */; };
+		9CC4886029C3F08A004D66D6 /* BasicListViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4885F29C3F08A004D66D6 /* BasicListViewProtocol.swift */; };
 		9CC4886229C3F0A6004D66D6 /* BasicListManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */; };
 		9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -109,6 +111,8 @@
 		9C3D1A2B29C7EFCA001DABCC /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
 		9C3D1A2D29C7EFD9001DABCC /* IncomeListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeListPresenter.swift; sourceTree = "<group>"; };
 		9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeListManager.swift; sourceTree = "<group>"; };
+		9C3D1A3529C94767001DABCC /* BasicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewController.swift; sourceTree = "<group>"; };
+		9C3D1A3729C949DA001DABCC /* BasicListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListView.swift; sourceTree = "<group>"; };
 		9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9C44CCAC29C011C70007555E /* PlanDoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlanDoList.xcdatamodel; sourceTree = "<group>"; };
 		9C6C1C2E29B4810600DBB1A2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
@@ -132,7 +136,7 @@
 		9CA22D4029C17B5300FC83C6 /* MyDayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayPresenter.swift; sourceTree = "<group>"; };
 		9CA22D4329C17E6700FC83C6 /* MyDayListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayListManager.swift; sourceTree = "<group>"; };
 		9CC4885D29C3EFDE004D66D6 /* BasicListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListPresenter.swift; sourceTree = "<group>"; };
-		9CC4885F29C3F08A004D66D6 /* ListViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewProtocol.swift; sourceTree = "<group>"; };
+		9CC4885F29C3F08A004D66D6 /* BasicListViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewProtocol.swift; sourceTree = "<group>"; };
 		9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListManagerProtocol.swift; sourceTree = "<group>"; };
 		9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,13 +242,11 @@
 		9C1380A429A4896000BE1486 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				9CC4885C29C3EFBB004D66D6 /* BasicListProtocols */,
+				9CC4885C29C3EFBB004D66D6 /* BasicListsScreens */,
 				9C1380A529A4896E00BE1486 /* HomeScreen */,
 				9C2B2AFF29AB15A300BD8F63 /* ListScreen */,
 				9C2B2B0C29AF0DCE00BD8F63 /* AddTaskScreen */,
 				9C6C1C2D29B480ED00DBB1A2 /* TaskScreen */,
-				9CA22D3A29C17AEE00FC83C6 /* MyDayScreen */,
-				9C3D1A2929C7EFB4001DABCC /* IncomeScreen */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -444,13 +446,17 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		9CC4885C29C3EFBB004D66D6 /* BasicListProtocols */ = {
+		9CC4885C29C3EFBB004D66D6 /* BasicListsScreens */ = {
 			isa = PBXGroup;
 			children = (
+				9C3D1A3529C94767001DABCC /* BasicListViewController.swift */,
+				9C3D1A3729C949DA001DABCC /* BasicListView.swift */,
 				9CC4885D29C3EFDE004D66D6 /* BasicListPresenter.swift */,
-				9CC4885F29C3F08A004D66D6 /* ListViewProtocol.swift */,
+				9CC4885F29C3F08A004D66D6 /* BasicListViewProtocol.swift */,
+				9CA22D3A29C17AEE00FC83C6 /* MyDayScreen */,
+				9C3D1A2929C7EFB4001DABCC /* IncomeScreen */,
 			);
-			path = BasicListProtocols;
+			path = BasicListsScreens;
 			sourceTree = "<group>";
 		};
 		9CC4886329C3F3BF004D66D6 /* Model */ = {
@@ -603,6 +609,7 @@
 				9C6C1C3429B4813500DBB1A2 /* TaskPresenter.swift in Sources */,
 				9C3D1A2E29C7EFD9001DABCC /* IncomeListPresenter.swift in Sources */,
 				9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */,
+				9C3D1A3629C94767001DABCC /* BasicListViewController.swift in Sources */,
 				9C2B2B0529AB202200BD8F63 /* ListView.swift in Sources */,
 				9CA22D3929C14CA900FC83C6 /* ListHeaderView.swift in Sources */,
 				9C6C1C3729B481EA00DBB1A2 /* TaskManager.swift in Sources */,
@@ -629,6 +636,7 @@
 				9C3D1A2C29C7EFCA001DABCC /* IncomeView.swift in Sources */,
 				9C6C1C3229B4812900DBB1A2 /* TaskView.swift in Sources */,
 				9C2B2AF829A76DCE00BD8F63 /* HomeCollectionViewCell.swift in Sources */,
+				9C3D1A3829C949DA001DABCC /* BasicListView.swift in Sources */,
 				9C6C1C3929B50E2300DBB1A2 /* TaskNameCell.swift in Sources */,
 				9C6C1C4829B50EB800DBB1A2 /* NotesCell.swift in Sources */,
 				9C6C1C4229B50E7F00DBB1A2 /* DateCell.swift in Sources */,
@@ -640,7 +648,7 @@
 				9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */,
 				9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */,
 				9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */,
-				9CC4886029C3F08A004D66D6 /* ListViewProtocol.swift in Sources */,
+				9CC4886029C3F08A004D66D6 /* BasicListViewProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

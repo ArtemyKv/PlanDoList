@@ -1,21 +1,22 @@
 //
-//  IncomePresenter.swift
+//  MyDayPresenter.swift
 //  PlanDoList
 //
-//  Created by Artemy on 20.03.2023.
+//  Created by Artem Kvashnin on 15.03.2023.
 //
 
 import Foundation
 
-protocol IncomeListPresenterProtocol: BasicListPresenter {
-    init(listManager: IncomeListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol)
+protocol MyDayListPresenterProtocol: BasicListPresenter {
+    init(listManager: MyDayListManagerProtocol, view: BasicListViewProtocol, coordinator: MainCoordinatorProtocol)
 }
 
-class IncomeListPresenter: IncomeListPresenterProtocol {
+class MyDayListPresenter: MyDayListPresenterProtocol {
+
     let coordinator: MainCoordinatorProtocol
-    let listManager: IncomeListManagerProtocol
+    let listManager: MyDayListManagerProtocol
     
-    weak var view: ListViewProtocol!
+    weak var view: BasicListViewProtocol!
     
     private var sections = [
         ListViewModel.Section(type: .uncompleted),
@@ -26,7 +27,7 @@ class IncomeListPresenter: IncomeListPresenterProtocol {
         return sections.count
     }
     
-    required init(listManager: IncomeListManagerProtocol, view: ListViewProtocol, coordinator: MainCoordinatorProtocol) {
+    required init(listManager: MyDayListManagerProtocol, view: BasicListViewProtocol, coordinator: MainCoordinatorProtocol) {
         self.coordinator = coordinator
         self.listManager = listManager
         self.view = view
@@ -39,8 +40,11 @@ class IncomeListPresenter: IncomeListPresenterProtocol {
     
     
     func configureView() {
-        let title = "Income"
-        let subtitle = "Unlisted Tasks"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        let title = "My Day"
+        let subtitle = dateFormatter.string(from: Date())
         view.configure(withTitle: title, subtitle: subtitle)
     }
     
@@ -120,7 +124,7 @@ class IncomeListPresenter: IncomeListPresenterProtocol {
     }
 }
 
-extension IncomeListPresenter: AddTaskPresenterDelegate {
+extension MyDayListPresenter: AddTaskPresenterDelegate {
     func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?) {
         listManager.addTask(name: name, complete: complete, myDay: myDay, remindDate: remindDate, dueDate: dueDate)
         
@@ -131,4 +135,3 @@ extension IncomeListPresenter: AddTaskPresenterDelegate {
     
     
 }
-
