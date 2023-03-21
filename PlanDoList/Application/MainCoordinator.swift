@@ -15,6 +15,7 @@ protocol MainCoordinatorProtocol: Coordinator {
     func presentMyDayScreen()
     func presentIncomeScreen()
     func presentImportantScreen()
+    func presentPlannedScreen()
     func dismissCurrentScreen()
 }
 
@@ -73,6 +74,11 @@ class MainCoordinator: MainCoordinatorProtocol {
     func presentImportantScreen() {
         let importantVC = builder.importantScreen(coordinator: self)
         navigationController.pushViewController(importantVC, animated: true)
+    }
+    
+    func presentPlannedScreen() {
+        let plannedVC = builder.plannedScreen(coordinator: self)
+        navigationController.pushViewController(plannedVC, animated: true)
     }
     
     func dismissCurrentScreen() {

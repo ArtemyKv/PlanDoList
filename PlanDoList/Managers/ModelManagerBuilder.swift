@@ -14,6 +14,7 @@ protocol ModelManagerBuilderProtocol {
     func myDayListManager() -> MyDayListManagerProtocol
     func incomeListManager() -> IncomeListManagerProtocol
     func importantListManager() -> ImportantListManagerProtocol
+    func plannedListManager() -> PlannedListManagerProtocol
 }
 
 class ModelManagerBuilder: ModelManagerBuilderProtocol {
@@ -49,5 +50,10 @@ class ModelManagerBuilder: ModelManagerBuilderProtocol {
     func importantListManager() -> ImportantListManagerProtocol {
         let importantListManager = ImportantListManager(coreDataStack: coreDataStack)
         return importantListManager
+    }
+    
+    func plannedListManager() -> PlannedListManagerProtocol {
+        let plannedListManager = PlannedListManager(coreDataStack: coreDataStack)
+        return plannedListManager
     }
 }

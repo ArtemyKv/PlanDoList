@@ -48,6 +48,10 @@
 		9C3D1A3E29C95D7F001DABCC /* ImportantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3D29C95D7F001DABCC /* ImportantListView.swift */; };
 		9C3D1A4029C95D8C001DABCC /* ImportantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3F29C95D8C001DABCC /* ImportantListPresenter.swift */; };
 		9C3D1A4329C95E86001DABCC /* ImportantListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */; };
+		9C3D1A4629C966B0001DABCC /* PlannedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A4529C966B0001DABCC /* PlannedViewController.swift */; };
+		9C3D1A4929C966BE001DABCC /* PlannedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A4829C966BE001DABCC /* PlannedView.swift */; };
+		9C3D1A4B29C966CB001DABCC /* PlannedListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A4A29C966CB001DABCC /* PlannedListPresenter.swift */; };
+		9C3D1A4E29C96796001DABCC /* PlannedListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A4D29C96796001DABCC /* PlannedListManager.swift */; };
 		9C44CCA829C0047C0007555E /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */; };
 		9C44CCAD29C011C70007555E /* PlanDoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CCAB29C011C70007555E /* PlanDoList.xcdatamodeld */; };
 		9C6C1C2F29B4810600DBB1A2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C2E29B4810600DBB1A2 /* TaskViewController.swift */; };
@@ -121,6 +125,10 @@
 		9C3D1A3D29C95D7F001DABCC /* ImportantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantListView.swift; sourceTree = "<group>"; };
 		9C3D1A3F29C95D8C001DABCC /* ImportantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantListPresenter.swift; sourceTree = "<group>"; };
 		9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantListManager.swift; sourceTree = "<group>"; };
+		9C3D1A4529C966B0001DABCC /* PlannedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedViewController.swift; sourceTree = "<group>"; };
+		9C3D1A4829C966BE001DABCC /* PlannedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedView.swift; sourceTree = "<group>"; };
+		9C3D1A4A29C966CB001DABCC /* PlannedListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedListPresenter.swift; sourceTree = "<group>"; };
+		9C3D1A4D29C96796001DABCC /* PlannedListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedListManager.swift; sourceTree = "<group>"; };
 		9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9C44CCAC29C011C70007555E /* PlanDoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlanDoList.xcdatamodel; sourceTree = "<group>"; };
 		9C6C1C2E29B4810600DBB1A2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +252,7 @@
 				9CA22D4329C17E6700FC83C6 /* MyDayListManager.swift */,
 				9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */,
 				9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */,
+				9C3D1A4D29C96796001DABCC /* PlannedListManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -411,6 +420,32 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		9C3D1A4429C96524001DABCC /* PlannedScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9C3D1A4729C966B4001DABCC /* View */,
+				9C3D1A4C29C966CF001DABCC /* Presenter */,
+			);
+			path = PlannedScreen;
+			sourceTree = "<group>";
+		};
+		9C3D1A4729C966B4001DABCC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C3D1A4529C966B0001DABCC /* PlannedViewController.swift */,
+				9C3D1A4829C966BE001DABCC /* PlannedView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9C3D1A4C29C966CF001DABCC /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9C3D1A4A29C966CB001DABCC /* PlannedListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		9C6C1C2D29B480ED00DBB1A2 /* TaskScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,6 +526,7 @@
 				9CA22D3A29C17AEE00FC83C6 /* MyDayScreen */,
 				9C3D1A2929C7EFB4001DABCC /* IncomeScreen */,
 				9C3D1A3929C95D24001DABCC /* ImportantScreen */,
+				9C3D1A4429C96524001DABCC /* PlannedScreen */,
 			);
 			path = BasicListsScreens;
 			sourceTree = "<group>";
@@ -629,6 +665,8 @@
 				9C1380B029A48A6100BE1486 /* MainCoordinator.swift in Sources */,
 				9CA22D4429C17E6700FC83C6 /* MyDayListManager.swift in Sources */,
 				9C6C1C4A29B6CEEF00DBB1A2 /* SubtaskTableViewDataSource.swift in Sources */,
+				9C3D1A4E29C96796001DABCC /* PlannedListManager.swift in Sources */,
+				9C3D1A4B29C966CB001DABCC /* PlannedListPresenter.swift in Sources */,
 				9C6C1C2F29B4810600DBB1A2 /* TaskViewController.swift in Sources */,
 				9C13809029A4752300BE1486 /* CoreDataStack.swift in Sources */,
 				9C6C1C4C29B6D06E00DBB1A2 /* SubtaskTableViewCell.swift in Sources */,
@@ -660,6 +698,7 @@
 				9C6C1C4429B50E9700DBB1A2 /* DatePickerCell.swift in Sources */,
 				9C2B2B0E29AF0DF700BD8F63 /* AddTaskViewController.swift in Sources */,
 				9CC4886229C3F0A6004D66D6 /* BasicListManagerProtocol.swift in Sources */,
+				9C3D1A4629C966B0001DABCC /* PlannedViewController.swift in Sources */,
 				9C6C1C4029B50E5F00DBB1A2 /* MyDayCell.swift in Sources */,
 				9C13809D29A47BEE00BE1486 /* Task+CoreDataClass.swift in Sources */,
 				9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */,
@@ -671,6 +710,7 @@
 				9C13809B29A47BEE00BE1486 /* Task+CoreDataProperties.swift in Sources */,
 				9C6C1C4629B50EAD00DBB1A2 /* AttachementsCell.swift in Sources */,
 				9C13807929A4615F00BE1486 /* SceneDelegate.swift in Sources */,
+				9C3D1A4929C966BE001DABCC /* PlannedView.swift in Sources */,
 				9C3D1A2C29C7EFCA001DABCC /* IncomeView.swift in Sources */,
 				9C6C1C3229B4812900DBB1A2 /* TaskView.swift in Sources */,
 				9C2B2AF829A76DCE00BD8F63 /* HomeCollectionViewCell.swift in Sources */,

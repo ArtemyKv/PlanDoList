@@ -149,7 +149,7 @@ final class HomePresenter: HomePresenterProtocol {
             case .important:
                 coordinator.presentImportantScreen()
             case .planned:
-                break
+                coordinator.presentPlannedScreen()
             }
         case let .list(list):
             coordinator.presentListScreen(list: list)
