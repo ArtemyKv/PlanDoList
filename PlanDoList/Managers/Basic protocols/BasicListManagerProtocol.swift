@@ -1,32 +1,33 @@
 //
-//  ListManager.swift
+//  BasicListManager.swift
 //  PlanDoList
 //
-//  Created by Artem Kvashnin on 26.02.2023.
+//  Created by Artem Kvashnin on 17.03.2023.
 //
 
 import Foundation
+import CoreData
 
-protocol ListManagerProtocol: BasicListManagerProtocol {
-    var listName: String { get }
+protocol BasicListManagerProtocol: AnyObject {
+    var uncompletedTasksCount: Int { get }
+    var completedTasksCount: Int { get }
     
-    func updateTasksOrder()
-    func setListName(_ name: String)
-    func moveUncompletedTask(at sourceIndex: Int, to destinationIndex: Int)
+    func getTasks()
+    func uncompletedTask(at index: Int) -> Task?
+    func completedTask(at index: Int) -> Task?
+    func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?)
+    func deleteUncompletedTask(at index: Int)
+    func deleteCompletedTask(at index: Int)
+    func toggleTaskCompletion(at index: Int, shouldBeComplete: Bool)
 }
 
-class ListManager: ListManagerProtocol {
+class BasicListManager: BasicListManagerProtocol {
+    let coreDataStack: CoreDataStack
     
-    private let coreDataStack: CoreDataStack
+    var taskFetchRequest: NSFetchRequest<Task>?
     
-    private let list: List
-    
-    private var uncompletedTasks: [Task] = []
-    private var completedTasks: [Task] = []
-        
-    var listName: String {
-        return list.wrappedName
-    }
+    var uncompletedTasks: [Task] = []
+    var completedTasks: [Task] = []
     
     var uncompletedTasksCount: Int {
         return uncompletedTasks.count
@@ -36,32 +37,40 @@ class ListManager: ListManagerProtocol {
         return completedTasks.count
     }
     
-    init(coreDataStack: CoreDataStack, list: List) {
+    init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
-        self.list = list
+    }
+    
+    func setupFetchRequst() {
+        let taskRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        let taskSortDescriptor = NSSortDescriptor(key: #keyPath(Task.creationDate), ascending: false)
+        taskRequest.sortDescriptors = [taskSortDescriptor]
+        taskFetchRequest = taskRequest
+    }
+    
+    func performFetching() {
+        guard let taskFetchRequest else { return }
+        
+        do {
+            let tasks = try coreDataStack.managedContext.fetch(taskFetchRequest)
+            tasks.forEach { task in
+                if task.complete {
+                    completedTasks.append(task)
+                } else {
+                    uncompletedTasks.append(task)
+                    
+                }
+            }
+            
+        } catch let error as NSError {
+            print("Unable to fetch \(error), \(error.userInfo)")
+        }
     }
     
     
     func getTasks() {
-        guard let tasks = list.tasks?.array as? [Task] else { return }
-        uncompletedTasks = []
-        completedTasks = []
-        
-        for task in tasks {
-            switch task.complete {
-                case true: completedTasks.append(task)
-                case false : uncompletedTasks.append(task)
-            }
-        }
-        uncompletedTasks.sort { $0.order < $1.order }
-        completedTasks.sort { $0.completionDate! > $1.completionDate! }
-    }
-    
-    func updateTasksOrder() {
-        for (index, task) in uncompletedTasks.enumerated() {
-            task.order = Int32(index)
-        }
-        coreDataStack.saveContext()
+        setupFetchRequst()
+        performFetching()
     }
     
     func uncompletedTask(at index: Int) -> Task? {
@@ -86,7 +95,6 @@ class ListManager: ListManagerProtocol {
         task.myDay = myDay
         task.remindDate = remindDate
         task.dueDate = dueDate
-        list.addToTasks(task)
         
         if complete {
             completedTasks.insert(task, at: 0)
@@ -99,24 +107,17 @@ class ListManager: ListManagerProtocol {
     
     func deleteUncompletedTask(at index: Int) {
         guard index < uncompletedTasksCount else { return }
-        let task = uncompletedTasks.remove(at: index)
-        list.removeFromTasks(task)
+        uncompletedTasks.remove(at: index)
         coreDataStack.saveContext()
     }
     
     func deleteCompletedTask(at index: Int) {
         guard index < completedTasksCount else { return }
-        let task = completedTasks.remove(at: index)
-        list .removeFromTasks(task)
+        completedTasks.remove(at: index)
         coreDataStack.saveContext()
     }
     
-    func setListName(_ name: String) {
-        list.name = name
-        coreDataStack.saveContext()
-    }
-    
-    func toggleTaskCompletion(at index: Int, shouldBeComplete: Bool) {        
+    func toggleTaskCompletion(at index: Int, shouldBeComplete: Bool) {
         let task = shouldBeComplete ? uncompletedTasks.remove(at: index) : completedTasks.remove(at: index)
         task.complete.toggle()
         task.completionDate = shouldBeComplete ? Date() : nil
@@ -127,13 +128,6 @@ class ListManager: ListManagerProtocol {
         } else {
             uncompletedTasks.append(task)
         }
-        coreDataStack.saveContext()
-    }
-    
-    func moveUncompletedTask(at sourceIndex: Int, to destinationIndex: Int) {
-        guard sourceIndex <= uncompletedTasksCount, destinationIndex <= uncompletedTasksCount else { return }
-        let task = uncompletedTasks.remove(at: sourceIndex)
-        uncompletedTasks.insert(task, at: destinationIndex)
         coreDataStack.saveContext()
     }
 }

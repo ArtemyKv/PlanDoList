@@ -142,6 +142,8 @@ final class HomePresenter: HomePresenterProtocol {
         switch item {
         case let .basic(basicItem) where basicItem == .myDay:
             coordinator.presentMyDayScreen()
+        case let .basic(basicItem) where basicItem == .income:
+            coordinator.presentIncomeScreen()
         case let .list(list):
             coordinator.presentListScreen(list: list)
         default:

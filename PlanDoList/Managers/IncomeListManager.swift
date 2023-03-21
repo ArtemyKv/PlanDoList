@@ -1,21 +1,21 @@
 //
-//  MyDayListManager.swift
+//  IncomeListManager.swift
 //  PlanDoList
 //
-//  Created by Artem Kvashnin on 15.03.2023.
+//  Created by Artemy on 20.03.2023.
 //
 
 import Foundation
 import CoreData
 
-protocol MyDayListManagerProtocol: BasicListManagerProtocol { }
+protocol IncomeListManagerProtocol: BasicListManagerProtocol { }
 
-class MyDayListManager: BasicListManager, MyDayListManagerProtocol {
+class IncomeListManager: BasicListManager, IncomeListManagerProtocol {
     
     override func setupFetchRequst() {
         let taskRequest: NSFetchRequest<Task> = Task.fetchRequest()
         let taskSortDescriptor = NSSortDescriptor(key: #keyPath(Task.creationDate), ascending: false)
-        taskRequest.predicate = NSPredicate(format: "%K == true", #keyPath(Task.myDay))
+        taskRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(Task.list))
         taskRequest.sortDescriptors = [taskSortDescriptor]
         taskFetchRequest = taskRequest
     }
@@ -38,5 +38,4 @@ class MyDayListManager: BasicListManager, MyDayListManagerProtocol {
             print("Unable to fetch \(error), \(error.userInfo)")
         }
     }
-
 }

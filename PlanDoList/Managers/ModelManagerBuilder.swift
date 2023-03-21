@@ -12,6 +12,7 @@ protocol ModelManagerBuilderProtocol {
     func listManager(list: List) -> ListManagerProtocol
     func taskManager(task: Task) -> TaskManagerProtocol
     func myDayListManager() -> MyDayListManagerProtocol
+    func incomeListManager() -> IncomeListManagerProtocol
 }
 
 class ModelManagerBuilder: ModelManagerBuilderProtocol {
@@ -37,5 +38,10 @@ class ModelManagerBuilder: ModelManagerBuilderProtocol {
     func myDayListManager() -> MyDayListManagerProtocol {
         let myDayListManager = MyDayListManager(coreDataStack: coreDataStack)
         return myDayListManager
+    }
+    
+    func incomeListManager() -> IncomeListManagerProtocol {
+        let incomeListManager = IncomeListManager(coreDataStack: coreDataStack)
+        return incomeListManager
     }
 }
