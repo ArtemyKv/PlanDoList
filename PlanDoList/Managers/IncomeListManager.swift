@@ -22,6 +22,8 @@ class IncomeListManager: BasicListManager, IncomeListManagerProtocol {
     
     override func performFetching() {
         guard let taskFetchRequest else { return }
+        uncompletedTasks = []
+        completedTasks = []
         
         do {
             let tasks = try coreDataStack.managedContext.fetch(taskFetchRequest)
