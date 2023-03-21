@@ -44,6 +44,10 @@
 		9C3D1A3129C7F4E2001DABCC /* IncomeListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */; };
 		9C3D1A3629C94767001DABCC /* BasicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3529C94767001DABCC /* BasicListViewController.swift */; };
 		9C3D1A3829C949DA001DABCC /* BasicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3729C949DA001DABCC /* BasicListView.swift */; };
+		9C3D1A3B29C95D6C001DABCC /* ImportantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3A29C95D6C001DABCC /* ImportantViewController.swift */; };
+		9C3D1A3E29C95D7F001DABCC /* ImportantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3D29C95D7F001DABCC /* ImportantListView.swift */; };
+		9C3D1A4029C95D8C001DABCC /* ImportantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A3F29C95D8C001DABCC /* ImportantListPresenter.swift */; };
+		9C3D1A4329C95E86001DABCC /* ImportantListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */; };
 		9C44CCA829C0047C0007555E /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */; };
 		9C44CCAD29C011C70007555E /* PlanDoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CCAB29C011C70007555E /* PlanDoList.xcdatamodeld */; };
 		9C6C1C2F29B4810600DBB1A2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C1C2E29B4810600DBB1A2 /* TaskViewController.swift */; };
@@ -113,6 +117,10 @@
 		9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeListManager.swift; sourceTree = "<group>"; };
 		9C3D1A3529C94767001DABCC /* BasicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewController.swift; sourceTree = "<group>"; };
 		9C3D1A3729C949DA001DABCC /* BasicListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListView.swift; sourceTree = "<group>"; };
+		9C3D1A3A29C95D6C001DABCC /* ImportantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantViewController.swift; sourceTree = "<group>"; };
+		9C3D1A3D29C95D7F001DABCC /* ImportantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantListView.swift; sourceTree = "<group>"; };
+		9C3D1A3F29C95D8C001DABCC /* ImportantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantListPresenter.swift; sourceTree = "<group>"; };
+		9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantListManager.swift; sourceTree = "<group>"; };
 		9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9C44CCAC29C011C70007555E /* PlanDoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlanDoList.xcdatamodel; sourceTree = "<group>"; };
 		9C6C1C2E29B4810600DBB1A2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +243,7 @@
 				9C6C1C3629B481EA00DBB1A2 /* TaskManager.swift */,
 				9CA22D4329C17E6700FC83C6 /* MyDayListManager.swift */,
 				9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */,
+				9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -376,6 +385,32 @@
 			path = "Basic protocols";
 			sourceTree = "<group>";
 		};
+		9C3D1A3929C95D24001DABCC /* ImportantScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9C3D1A3C29C95D74001DABCC /* View */,
+				9C3D1A4129C95D92001DABCC /* Presenter */,
+			);
+			path = ImportantScreen;
+			sourceTree = "<group>";
+		};
+		9C3D1A3C29C95D74001DABCC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C3D1A3A29C95D6C001DABCC /* ImportantViewController.swift */,
+				9C3D1A3D29C95D7F001DABCC /* ImportantListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9C3D1A4129C95D92001DABCC /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9C3D1A3F29C95D8C001DABCC /* ImportantListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		9C6C1C2D29B480ED00DBB1A2 /* TaskScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,6 +490,7 @@
 				9CC4885F29C3F08A004D66D6 /* BasicListViewProtocol.swift */,
 				9CA22D3A29C17AEE00FC83C6 /* MyDayScreen */,
 				9C3D1A2929C7EFB4001DABCC /* IncomeScreen */,
+				9C3D1A3929C95D24001DABCC /* ImportantScreen */,
 			);
 			path = BasicListsScreens;
 			sourceTree = "<group>";
@@ -599,6 +635,7 @@
 				9C13809929A47BEE00BE1486 /* Group+CoreDataClass.swift in Sources */,
 				9C44CCA829C0047C0007555E /* Group+CoreDataProperties.swift in Sources */,
 				9C1380AE29A48A0500BE1486 /* HomeViewController.swift in Sources */,
+				9C3D1A4329C95E86001DABCC /* ImportantListManager.swift in Sources */,
 				9C3D1A3129C7F4E2001DABCC /* IncomeListManager.swift in Sources */,
 				9CA22D3E29C17B2A00FC83C6 /* MyDayView.swift in Sources */,
 				9C3D1A2829C7EFAE001DABCC /* IncomeViewController.swift in Sources */,
@@ -616,6 +653,7 @@
 				9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */,
 				9C13809C29A47BEE00BE1486 /* Subtask+CoreDataProperties.swift in Sources */,
 				9C2B2B0B29AE2E9D00BD8F63 /* TaskTableViewCell.swift in Sources */,
+				9C3D1A3B29C95D6C001DABCC /* ImportantViewController.swift in Sources */,
 				9C6C1C4E29B6D5B100DBB1A2 /* AppConstants.swift in Sources */,
 				9C2B2B1329AF0E1800BD8F63 /* AddTaskPresenter.swift in Sources */,
 				9C2B2B0929ABADB000BD8F63 /* ModelManagerBuilder.swift in Sources */,
@@ -642,6 +680,7 @@
 				9C6C1C4229B50E7F00DBB1A2 /* DateCell.swift in Sources */,
 				9C2B2AFE29AB159E00BD8F63 /* ListViewController.swift in Sources */,
 				9C2B2B0229AB15C600BD8F63 /* ListPresenter.swift in Sources */,
+				9C3D1A4029C95D8C001DABCC /* ImportantListPresenter.swift in Sources */,
 				9C2B2AFA29A7702B00BD8F63 /* HomeViewModel.swift in Sources */,
 				9CA22D3C29C17B1200FC83C6 /* MyDayViewController.swift in Sources */,
 				9C1380B229A48A6C00BE1486 /* MainBuilder.swift in Sources */,
@@ -649,6 +688,7 @@
 				9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */,
 				9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */,
 				9CC4886029C3F08A004D66D6 /* BasicListViewProtocol.swift in Sources */,
+				9C3D1A3E29C95D7F001DABCC /* ImportantListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
