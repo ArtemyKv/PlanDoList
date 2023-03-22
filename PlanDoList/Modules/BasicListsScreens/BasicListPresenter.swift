@@ -19,6 +19,7 @@ protocol BasicListPresenter: AnyObject {
     func addTask()
     func deleteRowAt(_ indexPath: IndexPath)
     func cellCheckmarkTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
+    func cellStarTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
     func didSelectRow(at indexPath: IndexPath)
     func headerTappedInSection(_ sectionIndex: Int, isCollapsed: Bool)
     

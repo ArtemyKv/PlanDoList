@@ -130,6 +130,17 @@ class ListManager: ListManagerProtocol {
         coreDataStack.saveContext()
     }
     
+    func toggleTaskIsImportant(at index: Int, isComplete: Bool) {
+        switch isComplete {
+        case true:
+            guard index < completedTasksCount else { return }
+            completedTasks[index].important.toggle()
+        case false:
+            guard index < uncompletedTasksCount else { return }
+            uncompletedTasks[index].important.toggle()
+        }
+    }
+    
     func moveUncompletedTask(at sourceIndex: Int, to destinationIndex: Int) {
         guard sourceIndex <= uncompletedTasksCount, destinationIndex <= uncompletedTasksCount else { return }
         let task = uncompletedTasks.remove(at: sourceIndex)

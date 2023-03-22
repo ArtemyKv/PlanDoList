@@ -65,7 +65,7 @@ class IncomeListPresenter: IncomeListPresenterProtocol {
             case .completed:
                 task = listManager.completedTask(at: indexPath.row)!
         }
-        cell.update(with: task.wrappedName, complete: task.complete)
+        cell.configure(with: task.wrappedName, isComplete: task.complete, isImportant: task.important)
     }
     
     func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool {
@@ -101,6 +101,11 @@ class IncomeListPresenter: IncomeListPresenterProtocol {
         
         listManager.toggleTaskCompletion(at: indexPath.row, shouldBeComplete: taskShouldBeComplete)
         view.moveRow(at: indexPath, to: newIndexPath)
+    }
+    
+    func cellStarTapped(cell: TaskTableViewCell, at indexPath: IndexPath) {
+        let isComplete = indexPath.section == 1
+        listManager.toggleTaskIsImportant(at: indexPath.row, isComplete: isComplete)
     }
     
     func didSelectRow(at indexPath: IndexPath) {

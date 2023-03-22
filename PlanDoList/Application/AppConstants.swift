@@ -30,6 +30,9 @@ struct Constants {
         struct Star {
             static let uncheckedLarge = UIImage(systemName: "star", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
             static let checkedLarge = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
+            
+            static let uncheckedSmall = UIImage(systemName: "star", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+            static let checkedSmall = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
         }
     }
 }

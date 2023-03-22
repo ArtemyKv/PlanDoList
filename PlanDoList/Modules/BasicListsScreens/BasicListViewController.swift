@@ -105,7 +105,7 @@ extension BasicListViewController: UITableViewDataSource {
 
 extension BasicListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -141,6 +141,11 @@ extension BasicListViewController: TaskTableViewCellDelegate {
     func checkmarkTapped(sender: TaskTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         presenter.cellCheckmarkTapped(cell: sender, at: indexPath)
+    }
+    
+    func starTapped(sender: TaskTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        presenter.cellStarTapped(cell: sender, at: indexPath)
     }
 }
 

@@ -19,6 +19,7 @@ protocol BasicListManagerProtocol: AnyObject {
     func deleteUncompletedTask(at index: Int)
     func deleteCompletedTask(at index: Int)
     func toggleTaskCompletion(at index: Int, shouldBeComplete: Bool)
+    func toggleTaskIsImportant(at index: Int, isComplete: Bool)
 }
 
 class BasicListManager: BasicListManagerProtocol {
@@ -129,5 +130,10 @@ class BasicListManager: BasicListManagerProtocol {
             uncompletedTasks.append(task)
         }
         coreDataStack.saveContext()
+    }
+    
+    func toggleTaskIsImportant(at index: Int, isComplete: Bool) {
+        let task = isComplete ? completedTasks[index] : uncompletedTasks[index]
+        task.important.toggle()
     }
 }

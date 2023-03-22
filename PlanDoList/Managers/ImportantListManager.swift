@@ -40,4 +40,9 @@ class ImportantListManager: BasicListManager, ImportantListManagerProtocol {
             print("Unable to fetch \(error), \(error.userInfo)")
         }
     }
+    
+    override func toggleTaskIsImportant(at index: Int, isComplete: Bool) {
+        let task = isComplete ? completedTasks.remove(at: index) : uncompletedTasks.remove(at: index)
+        task.important.toggle()
+    }
 }

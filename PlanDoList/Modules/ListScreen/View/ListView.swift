@@ -52,6 +52,7 @@ class ListView: UIView {
         tableHeaderView.addSubview(nameTextField)
         tableView.tableHeaderView = tableHeaderView
         tableView.backgroundColor = .systemBackground
+        tableView.separatorStyle = .none
         
         addTaskButton.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
         

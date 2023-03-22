@@ -61,9 +61,10 @@ class BasicListView: UIView {
         addSubviews()
         setupConstraints()
         
-        tableView.tableHeaderView = tableHeaderView
         backgroundColor = .systemBackground
+        tableView.tableHeaderView = tableHeaderView
         tableView.backgroundColor = .systemBackground
+        tableView.separatorStyle = .none
         
         addTaskButton.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
     }

@@ -108,8 +108,8 @@ extension ListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         switch indexPath.section {
-            case 1: return false
-            default: return true
+        case 1: return false
+        default: return true
         }
     }
     
@@ -122,7 +122,7 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -158,6 +158,12 @@ extension ListViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         return []
     }
+    
+    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        let parameters = UIDragPreviewParameters()
+        parameters.backgroundColor = .clear
+        return parameters
+    }
 }
 
 // MARK: - Textfield Delegate
@@ -181,6 +187,11 @@ extension ListViewController: TaskTableViewCellDelegate {
     func checkmarkTapped(sender: TaskTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
         presenter.cellCheckmarkTapped(cell: sender, at: indexPath)
+    }
+    
+    func starTapped(sender: TaskTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        presenter.cellStarTapped(cell: sender, at: indexPath)
     }
 }
 
