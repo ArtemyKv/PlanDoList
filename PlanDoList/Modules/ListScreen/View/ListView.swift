@@ -28,10 +28,14 @@ class ListView: UIView {
     
     private let addTaskButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add Task", for: .normal)
+        button.setTitle("New Task", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 10
+        button.layer.shadowRadius = 2
+        button.layer.shadowOpacity = 0.2
+        button.layer.shadowOffset = CGSize(width: 1, height: 1)
+        button.layer.shadowColor = UIColor.black.cgColor
         return button
     }()
     
@@ -72,7 +76,7 @@ class ListView: UIView {
         }
         
         addTaskButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(50)
         }

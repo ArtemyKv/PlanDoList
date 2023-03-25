@@ -275,7 +275,7 @@ extension HomeViewController: HomeViewProtocol {
 //MARK: - View Delegate Conformance
 extension HomeViewController: HomeViewDelegate {
     func addTaskButtonTapped() {
-        
+        presenter.addTaskButtonTapped()
     }
     
     func addListButtonTapped() {

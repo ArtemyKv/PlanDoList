@@ -32,6 +32,8 @@ protocol GroupManagerProtocol {
     func insertToGroups(_ group: Group, after groupBefore: Group)
     
     func setGroupIsExpanded(_ group: Group, expanded: Bool)
+    
+    func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?)
 }
 
 class GroupManager: GroupManagerProtocol {
@@ -215,4 +217,18 @@ class GroupManager: GroupManagerProtocol {
         coreDataStack.saveContext()
     }
     
+    func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?) {
+        let task = Task(context: coreDataStack.managedContext)
+        task.name = name
+        task.complete = complete
+        task.creationDate = Date()
+        task.completionDate = complete ? Date() : nil
+        task.id = UUID()
+        task.important = false
+        task.myDay = myDay
+        task.remindDate = remindDate
+        task.dueDate = dueDate
+        
+        coreDataStack.saveContext()
+    }
 }

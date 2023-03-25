@@ -19,6 +19,7 @@ protocol HomePresenterProtocol: AnyObject {
     func configureCell(_ cell: HomeCollectionViewCell, with item: HomeViewModel.Item)
     func addGroupButtonTapped()
     func addListButtonTapped()
+    func addTaskButtonTapped()
     func getViewModelItems(ofKind itemKind: HomeViewModel.Item.ItemKind) -> [HomeViewModel.Item]
     func getGroupedListItems(forGroupItem groupItem: HomeViewModel.Item) -> [HomeViewModel.Item]
     func deleteSwipeActionTapped(for item: HomeViewModel.Item)
@@ -83,6 +84,10 @@ final class HomePresenter: HomePresenterProtocol {
     func addListButtonTapped() {
         groupManager.addList(to: nil)
         view.applyChanges()
+    }
+    
+    func addTaskButtonTapped() {
+        coordinator.presentAddTaskScreen(delegate: self)
     }
     
     private func addListAction(groupItem: HomeViewModel.Item) {
@@ -214,5 +219,11 @@ final class HomePresenter: HomePresenterProtocol {
     func willExpandItem(_ item: HomeViewModel.Item) {
         guard case let .group(group) = item else { return }
         groupManager.setGroupIsExpanded(group, expanded: true)
+    }
+}
+
+extension HomePresenter: AddTaskPresenterDelegate {
+    func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?) {
+        groupManager.addTask(name: name, complete: complete, myDay: myDay, remindDate: remindDate, dueDate: dueDate)
     }
 }
