@@ -56,7 +56,7 @@ final class HomePresenter: HomePresenterProtocol {
             case .list(let list):
                 title = list.name ?? ""
         }
-        cell.configure(title: title, imageName: item.imageName, isBoldTitle: isBoldTitle)
+        cell.configure(title: title, imageName: item.imageName, isBoldTitle: isBoldTitle, imageColor: item.imageColor)
         
         if item.itemKind == .group {
             cell.configureMenu(groupItem: item,

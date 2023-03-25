@@ -35,4 +35,13 @@ struct Constants {
             static let checkedSmall = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
         }
     }
+    
+    struct Color {
+        static let myDayIconColor = UIColor(rgb: 0xCFD300)
+        static let incomeIconColor = UIColor(rgb: 0x0069D8)
+        static let importantIconColor = UIColor(rgb: 0x9B1206)
+        static let plannedIconColor = UIColor(rgb: 0x9F9F9F)
+        static let groupIconColor = UIColor.black
+        static let listIconColor = UIColor.darkGray
+    }
 }

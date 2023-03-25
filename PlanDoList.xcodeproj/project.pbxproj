@@ -78,6 +78,8 @@
 		9CC4886029C3F08A004D66D6 /* BasicListViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4885F29C3F08A004D66D6 /* BasicListViewProtocol.swift */; };
 		9CC4886229C3F0A6004D66D6 /* BasicListManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */; };
 		9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */; };
+		B6465D6729CF61190029FD9B /* UIButton+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6629CF61190029FD9B /* UIButton+Animations.swift */; };
+		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -155,6 +157,8 @@
 		9CC4885F29C3F08A004D66D6 /* BasicListViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewProtocol.swift; sourceTree = "<group>"; };
 		9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListManagerProtocol.swift; sourceTree = "<group>"; };
 		9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		B6465D6629CF61190029FD9B /* UIButton+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Animations.swift"; sourceTree = "<group>"; };
+		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -221,6 +225,8 @@
 				9C1380AF29A48A6100BE1486 /* MainCoordinator.swift */,
 				9C1380B129A48A6C00BE1486 /* MainBuilder.swift */,
 				9C6C1C4D29B6D5B100DBB1A2 /* AppConstants.swift */,
+				B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */,
+				B6465D6629CF61190029FD9B /* UIButton+Animations.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -689,6 +695,7 @@
 				9CA22D3929C14CA900FC83C6 /* ListHeaderView.swift in Sources */,
 				9C6C1C3729B481EA00DBB1A2 /* TaskManager.swift in Sources */,
 				9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */,
+				B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */,
 				9C13809C29A47BEE00BE1486 /* Subtask+CoreDataProperties.swift in Sources */,
 				9C2B2B0B29AE2E9D00BD8F63 /* TaskTableViewCell.swift in Sources */,
 				9C3D1A3B29C95D6C001DABCC /* ImportantViewController.swift in Sources */,
@@ -714,6 +721,7 @@
 				9C3D1A2C29C7EFCA001DABCC /* IncomeView.swift in Sources */,
 				9C6C1C3229B4812900DBB1A2 /* TaskView.swift in Sources */,
 				9C2B2AF829A76DCE00BD8F63 /* HomeCollectionViewCell.swift in Sources */,
+				B6465D6729CF61190029FD9B /* UIButton+Animations.swift in Sources */,
 				9C3D1A3829C949DA001DABCC /* BasicListView.swift in Sources */,
 				9C6C1C3929B50E2300DBB1A2 /* TaskNameCell.swift in Sources */,
 				9C6C1C4829B50EB800DBB1A2 /* NotesCell.swift in Sources */,

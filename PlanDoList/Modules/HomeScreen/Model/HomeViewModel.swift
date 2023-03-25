@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit.UIColor
 
 enum HomeViewModel {
     
@@ -35,6 +36,17 @@ enum HomeViewModel {
             }
         }
         
+        var imageColor: UIColor? {
+            switch self {
+            case .basic(let basicItem):
+                return basicItem.imageColor
+            case .group:
+                return Constants.Color.groupIconColor
+            case .list:
+                return Constants.Color.listIconColor
+            }
+        }
+        
         var itemKind: ItemKind {
             switch self {
                 case .basic: return .basic
@@ -55,7 +67,7 @@ enum HomeViewModel {
     
     enum BasicItem: String, CaseIterable {
         case myDay = "My Day"
-        case income = "Income"
+        case income = "Income tasks"
         case important = "Important"
         case planned = "Planned"
         
@@ -74,6 +86,19 @@ enum HomeViewModel {
                 case .planned:
                     return "calendar"
 
+            }
+        }
+        
+        var imageColor: UIColor {
+            switch self {
+            case .myDay:
+                return Constants.Color.myDayIconColor
+            case .income:
+                return Constants.Color.incomeIconColor
+            case .important:
+                return Constants.Color.importantIconColor
+            case .planned:
+                return Constants.Color.plannedIconColor
             }
         }
     }

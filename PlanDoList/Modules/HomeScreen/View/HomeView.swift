@@ -22,16 +22,33 @@ class HomeView: UIView {
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout())
     let bottomBarView = UIView()
     
-    lazy var addListButton: UIButton = {
-        return button(withTitle: "Add list")
+    let addListButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("", for: .normal)
+        button.setImage(UIImage(systemName: "text.badge.plus", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), for: .normal)
+        button.tintColor = .darkGray
+        return button
     }()
     
     lazy var addTaskButton: UIButton = {
-       return button(withTitle: "Add task")
+        let button = UIButton()
+        button.setTitle("New task", for: .normal)
+        button.setTitleColor(.darkText, for: .normal)
+        button.backgroundColor = .systemGray6
+        button.layer.cornerRadius = 10
+        button.layer.shadowRadius = 2
+        button.layer.shadowOpacity = 0.2
+        button.layer.shadowOffset = CGSize(width: 1, height: 1)
+        button.layer.shadowColor = UIColor.black.cgColor
+        return button
     }()
     
-    lazy var addGroupButton: UIButton = {
-        return button(withTitle: "Add group")
+    let addGroupButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("", for: .normal)
+        button.setImage(UIImage(systemName: "folder.badge.plus", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), for: .normal)
+        button.tintColor = .darkGray
+        return button
     }()
     
     let stackView: UIStackView = {
@@ -42,15 +59,6 @@ class HomeView: UIView {
         stack.spacing = 8
         return stack
     }()
-    
-    private func button(withTitle title: String) -> UIButton {
-        let button = UIButton()
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .systemGray6
-        button.layer.cornerRadius = 10
-        return button
-    }
     
     override init(frame: CGRect) {
         super .init(frame: frame)
@@ -81,13 +89,13 @@ class HomeView: UIView {
     
     private func makeConstraints() {
         stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 8, left: 16, bottom: 0, right: 16))
         }
         
         bottomBarView.snp.makeConstraints { make in
-            make.bottom.equalTo(self.safeAreaLayoutGuide)
+            make.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(60)
         }
         
         collectionView.snp.makeConstraints { make in
@@ -98,10 +106,18 @@ class HomeView: UIView {
     }
     
     private func setupButtonActions() {
-        addTaskButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        addListButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        addGroupButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-
+        addTaskButton.addTarget(self, action: #selector(buttonTouchedDown), for: .touchDown)
+        addListButton.addTarget(self, action: #selector(buttonTouchedDown), for: .touchDown)
+        addGroupButton.addTarget(self, action: #selector(buttonTouchedDown), for: .touchDown)
+        
+        addTaskButton.addTarget(self, action: #selector(buttonTouchedUpInside), for: .touchUpInside)
+        addListButton.addTarget(self, action: #selector(buttonTouchedUpInside), for: .touchUpInside)
+        addGroupButton.addTarget(self, action: #selector(buttonTouchedUpInside), for: .touchUpInside)
+        
+        addTaskButton.addTarget(self, action: #selector(buttonTouchedUpOutside), for: .touchUpOutside)
+        addListButton.addTarget(self, action: #selector(buttonTouchedUpOutside), for: .touchUpOutside)
+        addGroupButton.addTarget(self, action: #selector(buttonTouchedUpOutside), for: .touchUpOutside)
+        
     }
     
     private func setupGestures() {
@@ -109,17 +125,26 @@ class HomeView: UIView {
         collectionView.addGestureRecognizer(longPressGestureRecogniser)
     }
     
-    @objc private func buttonTapped(_ sender: UIButton) {
+    @objc private func buttonTouchedDown(_ sender: UIButton) {
+        sender.animateTouchDown()
+    }
+    
+    @objc private func buttonTouchedUpInside(_ sender: UIButton) {
+        sender.animateTouchUp()
         switch sender {
-            case addTaskButton:
-                delegate?.addTaskButtonTapped()
-            case addListButton:
-                delegate?.addListButtonTapped()
-            case addGroupButton:
-                delegate?.addGroupButtonTapped()
-            default:
-                break
+        case addTaskButton:
+            delegate?.addTaskButtonTapped()
+        case addListButton:
+            delegate?.addListButtonTapped()
+        case addGroupButton:
+            delegate?.addGroupButtonTapped()
+        default:
+            break
         }
+    }
+    
+    @objc private func buttonTouchedUpOutside(_ sender: UIButton) {
+        sender.animateTouchUp()
     }
     
     @objc private func handleLongGesture(gesture: UILongPressGestureRecognizer) {

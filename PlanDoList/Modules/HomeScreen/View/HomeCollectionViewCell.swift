@@ -12,11 +12,12 @@ class HomeCollectionViewCell: UICollectionViewListCell {
     static let reuseIdentifier = "HomeCollectionViewCell"
     
     
-    func configure(title: String, imageName: String, isBoldTitle: Bool) {
+    func configure(title: String, imageName: String, isBoldTitle: Bool, imageColor: UIColor? = nil) {
         var content = self.defaultContentConfiguration()
         content.textProperties.font = .systemFont(ofSize: 17, weight: isBoldTitle ? .bold : .regular)
         content.text = title
         content.image = UIImage(systemName: imageName)
+        content.imageProperties.tintColor = imageColor
         self.contentConfiguration = content
         
     }
