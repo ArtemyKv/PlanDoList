@@ -15,6 +15,7 @@ protocol ModelManagerBuilderProtocol {
     func incomeListManager() -> IncomeListManagerProtocol
     func importantListManager() -> ImportantListManagerProtocol
     func plannedListManager() -> PlannedListManagerProtocol
+    func taskCounter() -> TaskCounter
 }
 
 class ModelManagerBuilder: ModelManagerBuilderProtocol {
@@ -55,5 +56,10 @@ class ModelManagerBuilder: ModelManagerBuilderProtocol {
     func plannedListManager() -> PlannedListManagerProtocol {
         let plannedListManager = PlannedListManager(coreDataStack: coreDataStack)
         return plannedListManager
+    }
+    
+    func taskCounter() -> TaskCounter {
+        let homeTaskCounter = HomeTaskCounter(coreDataStack: coreDataStack)
+        return homeTaskCounter
     }
 }

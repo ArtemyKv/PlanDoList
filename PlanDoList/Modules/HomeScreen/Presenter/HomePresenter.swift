@@ -9,12 +9,13 @@ import Foundation
 
 protocol HomeViewProtocol: AnyObject {
     func applyChanges()
-    func reloadItem(item: HomeViewModel.Item)
+    func reloadSection(_ section: HomeViewModel.Section)
+    func reloadItem(_ item: HomeViewModel.Item)
     func presentGroupAlert(title: String, buttonName: String, text: String, actionHandler: @escaping (String) -> Void)
 }
 
 protocol HomePresenterProtocol: AnyObject {
-    init(groupManager: GroupManagerProtocol, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol)
+    init(groupManager: GroupManagerProtocol, taskCounter: TaskCounter, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol)
     
     func configureCell(_ cell: HomeCollectionViewCell, with item: HomeViewModel.Item)
     func addGroupButtonTapped()
@@ -35,35 +36,49 @@ protocol HomePresenterProtocol: AnyObject {
 final class HomePresenter: HomePresenterProtocol {
     
     var groupManager: GroupManagerProtocol!
+    var taskCounter: TaskCounter!
     
     weak var view: HomeViewProtocol!
     weak var coordinator: MainCoordinatorProtocol!
     
-    init(groupManager: GroupManagerProtocol, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol) {
+    init(groupManager: GroupManagerProtocol, taskCounter: TaskCounter, view: HomeViewProtocol, coordinator: MainCoordinatorProtocol) {
         self.groupManager = groupManager
+        self.taskCounter = taskCounter
         self.view = view
         self.coordinator = coordinator
     }
     
     func configureCell(_ cell: HomeCollectionViewCell, with item: HomeViewModel.Item) {
-        var title = ""
+        var secondaryText: String?
         var isBoldTitle = false
-        switch item {
-            case .basic(let basicItem):
-                title = basicItem.name
-            case.group(let group):
-                title = group.name ?? ""
-                isBoldTitle = true
-            case .list(let list):
-                title = list.name ?? ""
-        }
-        cell.configure(title: title, imageName: item.imageName, isBoldTitle: isBoldTitle, imageColor: item.imageColor)
         
-        if item.itemKind == .group {
+        switch item {
+        case .basic(let basicItem):
+            let taskCount = tasksCount(for: basicItem)
+            secondaryText = taskCount == 0 ? nil : String(taskCount)
+        case.group:
+            isBoldTitle = true
             cell.configureMenu(groupItem: item,
                                addListAction: addListAction(groupItem:),
                                renameGroupAction: renameGroupAction(groupItem:),
                                ungroupListsAction: ungroupListsAction(groupItem:))
+        case .list(let list):
+            let taskCount = taskCounter.listTasksCount(list)
+            secondaryText = taskCount == 0 ? nil : String(taskCount)
+        }
+        cell.configure(text: item.name, secondaryText: secondaryText, imageName: item.imageName, isBoldTitle: isBoldTitle, imageColor: item.imageColor)
+    }
+    
+    private func tasksCount(for basicItem: HomeViewModel.BasicItem) -> Int {
+        switch basicItem {
+        case .myDay:
+            return taskCounter.myDayTasksCount()
+        case .income:
+            return taskCounter.incomeTasksCount()
+        case .important:
+            return taskCounter.importantTasksCount()
+        case .planned:
+            return taskCounter.plannedTasksCount()
         }
     }
     
@@ -104,7 +119,7 @@ final class HomePresenter: HomePresenterProtocol {
         let text = group.name ?? ""
         view.presentGroupAlert(title: alertTitle, buttonName: buttonName, text: text) { [weak self] name in
             self?.groupManager.renameGroup(group: group, name: name)
-            self?.view.reloadItem(item: groupItem)
+            self?.view.reloadItem(groupItem)
         }
     }
     
@@ -225,5 +240,6 @@ final class HomePresenter: HomePresenterProtocol {
 extension HomePresenter: AddTaskPresenterDelegate {
     func addTask(name: String, complete: Bool, myDay: Bool, remindDate: Date?, dueDate: Date?) {
         groupManager.addTask(name: name, complete: complete, myDay: myDay, remindDate: remindDate, dueDate: dueDate)
+        view.reloadSection(.basic)
     }
 }

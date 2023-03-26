@@ -31,7 +31,8 @@ final class MainBuilder: Builder {
     func homeScreen(coordinator: MainCoordinatorProtocol) -> HomeViewController {
         let homeVC = HomeViewController()
         let groupManager = modelManagerBuilder.groupManager()
-        let presenter = HomePresenter(groupManager: groupManager, view: homeVC, coordinator: coordinator)
+        let taskCounter = modelManagerBuilder.taskCounter()
+        let presenter = HomePresenter(groupManager: groupManager, taskCounter: taskCounter, view: homeVC, coordinator: coordinator)
         homeVC.presenter = presenter
         return homeVC
     }

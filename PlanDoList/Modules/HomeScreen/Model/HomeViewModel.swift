@@ -25,6 +25,17 @@ enum HomeViewModel {
             case basic, group, list
         }
         
+        var name: String {
+            switch self {
+            case .basic(let basicItem):
+                return basicItem.name
+            case .list(let list):
+                return list.wrappedName
+            case .group(let group):
+                return group.wrappedName
+            }
+        }
+        
         var imageName: String {
             switch self {
                 case .basic(let basicItem):

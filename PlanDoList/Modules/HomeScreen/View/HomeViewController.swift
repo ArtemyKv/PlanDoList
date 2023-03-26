@@ -233,8 +233,14 @@ extension HomeViewController: HomeViewProtocol {
         applySnapshots()
     }
     
-    func reloadItem(item: HomeViewModel.Item) {
-        guard var snapshot = dataSource?.snapshot() else { return }
+    func reloadSection(_ section: HomeViewModel.Section) {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections([section])
+        dataSource.apply(snapshot)
+    }
+    
+    func reloadItem(_ item: HomeViewModel.Item) {
+        var snapshot = dataSource.snapshot()
         snapshot.reloadItems([item])
         dataSource.apply(snapshot)
     }

@@ -40,7 +40,7 @@ class GroupManager: GroupManagerProtocol {
     
     // MARK: - Private Properties
     
-    lazy private var coreDataStack = CoreDataStack(modelName: "PlanDoList")
+    private let coreDataStack: CoreDataStack
     
     private var groups: [Group] = []
     private var ungroupedLists: [List] = []

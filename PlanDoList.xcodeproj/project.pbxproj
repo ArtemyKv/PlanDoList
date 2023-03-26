@@ -79,6 +79,7 @@
 		9CC4886229C3F0A6004D66D6 /* BasicListManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */; };
 		9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */; };
 		B6465D6729CF61190029FD9B /* UIButton+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6629CF61190029FD9B /* UIButton+Animations.swift */; };
+		B6465D6929CF73DE0029FD9B /* TaskCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6829CF73DE0029FD9B /* TaskCounter.swift */; };
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
 /* End PBXBuildFile section */
 
@@ -158,6 +159,7 @@
 		9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListManagerProtocol.swift; sourceTree = "<group>"; };
 		9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		B6465D6629CF61190029FD9B /* UIButton+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Animations.swift"; sourceTree = "<group>"; };
+		B6465D6829CF73DE0029FD9B /* TaskCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCounter.swift; sourceTree = "<group>"; };
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -259,6 +261,7 @@
 				9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */,
 				9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */,
 				9C3D1A4D29C96796001DABCC /* PlannedListManager.swift */,
+				B6465D6829CF73DE0029FD9B /* TaskCounter.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -682,6 +685,7 @@
 				9C3D1A4329C95E86001DABCC /* ImportantListManager.swift in Sources */,
 				9C3D1A3129C7F4E2001DABCC /* IncomeListManager.swift in Sources */,
 				9CA22D3E29C17B2A00FC83C6 /* MyDayView.swift in Sources */,
+				B6465D6929CF73DE0029FD9B /* TaskCounter.swift in Sources */,
 				9C3D1A2829C7EFAE001DABCC /* IncomeViewController.swift in Sources */,
 				9C6C1C3E29B50E4F00DBB1A2 /* NewSubtaskCell.swift in Sources */,
 				9C1380AA29A489ED00BE1486 /* HomePresenter.swift in Sources */,
