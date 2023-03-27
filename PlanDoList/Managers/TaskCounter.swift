@@ -26,22 +26,22 @@ class HomeTaskCounter: TaskCounter {
     }
     
     func myDayTasksCount() -> Int {
-        let predicate = NSPredicate(format: "%K == true", #keyPath(Task.myDay))
+        let predicate = NSPredicate(format: "%K == true AND %K == false", #keyPath(Task.myDay), #keyPath(Task.complete))
         return tasksCount(with: predicate)
     }
     
     func incomeTasksCount() -> Int {
-        let predicate = NSPredicate(format: "%K == nil", #keyPath(Task.list))
+        let predicate = NSPredicate(format: "%K == nil AND %K == false", #keyPath(Task.list), #keyPath(Task.complete))
         return tasksCount(with: predicate)
     }
     
     func importantTasksCount() -> Int {
-        let predicate = NSPredicate(format: "%K == true", #keyPath(Task.important))
+        let predicate = NSPredicate(format: "%K == true AND %K == false", #keyPath(Task.important), #keyPath(Task.complete))
         return tasksCount(with: predicate)
     }
     
     func plannedTasksCount() -> Int {
-        let predicate = NSPredicate(format: "%K != nil OR %K != nil", #keyPath(Task.dueDate), #keyPath(Task.remindDate))
+        let predicate = NSPredicate(format: "(%K != nil OR %K != nil) AND %K == false", #keyPath(Task.dueDate), #keyPath(Task.remindDate), #keyPath(Task.complete))
         return tasksCount(with: predicate)
     }
     
@@ -56,6 +56,6 @@ class HomeTaskCounter: TaskCounter {
 
     
     func listTasksCount(_ list: List) -> Int {
-        return list.tasks?.count ?? 0
+        return (list.tasks?.array as? [Task])?.filter({!$0.complete}).count ?? 0
     }
 }
