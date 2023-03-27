@@ -112,7 +112,7 @@ class TaskTableViewCell: UITableViewCell {
         let attributedString = NSMutableAttributedString(string: title)
         let attributeRange = NSRange(location: 0, length: attributedString.length)
         if isComplete {
-            checkmarkButton.setImage(Constants.Image.Checkmark.uncheckedMedium, for: .normal)
+            checkmarkButton.setImage(Constants.Image.Checkmark.checkedMedium, for: .normal)
             attributedString.addAttribute(NSMutableAttributedString.Key.strikethroughStyle, value: 2, range: attributeRange)
             titleLabel.attributedText = attributedString
             titleLabel.textColor = .systemGray
