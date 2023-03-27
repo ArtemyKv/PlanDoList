@@ -49,7 +49,68 @@ class TaskTableViewCell: UITableViewCell {
         return button
     }()
     
-    let hStack: UIStackView = {
+    let subtaskCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15)
+        label.textColor = .darkGray
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let myDayImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "sun.max", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .darkGray
+        return imageView
+    }()
+    
+    let remindImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "bell", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .darkGray
+        return imageView
+    }()
+    
+    let dueImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .darkGray
+        return imageView
+    }()
+    
+    let spacerView = UIView()
+    
+    let firstRowStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .fill
+        stack.spacing = 8
+        return stack
+    }()
+    
+    let secondRowStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .fill
+        stack.spacing = 16
+        return stack
+    }()
+    
+    let vStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.distribution = .fill
+        stack.spacing = 4
+        return stack
+    }()
+    
+    let containerStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.alignment = .fill
@@ -76,10 +137,22 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     private func addSubviews() {
-        hStack.addArrangedSubview(checkmarkButton)
-        hStack.addArrangedSubview(titleLabel)
-        hStack.addArrangedSubview(starButton)
-        containerView.addSubview(hStack)
+        firstRowStack.addArrangedSubview(titleLabel)
+        
+        secondRowStack.addArrangedSubview(subtaskCountLabel)
+        secondRowStack.addArrangedSubview(myDayImageView)
+        secondRowStack.addArrangedSubview(remindImageView)
+        secondRowStack.addArrangedSubview(dueImageView)
+        secondRowStack.addArrangedSubview(spacerView)
+        
+        vStack.addArrangedSubview(firstRowStack)
+        vStack.addArrangedSubview(secondRowStack)
+        
+        containerStack.addArrangedSubview(checkmarkButton)
+        containerStack.addArrangedSubview(vStack)
+        containerStack.addArrangedSubview(starButton)
+        
+        containerView.addSubview(containerStack)
         contentView.addSubview(containerView)
         backgroundColor = .clear
     }
@@ -91,9 +164,12 @@ class TaskTableViewCell: UITableViewCell {
         starButton.snp.contentHuggingHorizontalPriority = 251
         starButton.snp.contentCompressionResistanceHorizontalPriority = 751
         
-        hStack.snp.makeConstraints { make in
+        spacerView.snp.contentHuggingHorizontalPriority = 249
+        spacerView.snp.contentCompressionResistanceHorizontalPriority = 751
+        
+        containerStack.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(10)
-            make.verticalEdges.equalToSuperview().inset(4)
+            make.verticalEdges.equalToSuperview().inset(8)
         }
         
         containerView.snp.makeConstraints { make in
@@ -108,10 +184,11 @@ class TaskTableViewCell: UITableViewCell {
         starButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
-    func configure(with title: String, isComplete: Bool, isImportant: Bool) {
+    func setupMainInfo(title: String, isComplete: Bool, isImportant: Bool) {
         let attributedString = NSMutableAttributedString(string: title)
         let attributeRange = NSRange(location: 0, length: attributedString.length)
         if isComplete {
+            secondRowStack.isHidden = true
             checkmarkButton.setImage(Constants.Image.Checkmark.checkedMedium, for: .normal)
             attributedString.addAttribute(NSMutableAttributedString.Key.strikethroughStyle, value: 2, range: attributeRange)
             titleLabel.attributedText = attributedString
@@ -124,6 +201,17 @@ class TaskTableViewCell: UITableViewCell {
         }
         
         starButton.isSelected = isImportant
+    }
+    
+    func setupAdditionalInfo(uncompletedSubtasksCount: Int, totalSubtasksCount: Int, myDaySet: Bool, remindDateSet: Bool, dueDateSet: Bool) {
+        subtaskCountLabel.isHidden = (totalSubtasksCount == 0)
+        myDayImageView.isHidden = !myDaySet
+        remindImageView.isHidden = !remindDateSet
+        dueImageView.isHidden = !dueDateSet
+        secondRowStack.setIsHiddenAccordingToContent()
+        if totalSubtasksCount > 0 {
+            subtaskCountLabel.text = "\(uncompletedSubtasksCount) of \(totalSubtasksCount)"
+        }
     }
     
     //Action for button target

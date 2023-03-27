@@ -111,7 +111,7 @@ class DateCell: UITableViewCell {
                 imageButton.setImage(UIImage(systemName: "calendar"), for: .normal)
             case .remind:
                 titleLabel.text = "Remind Me"
-                imageButton.setImage(UIImage(systemName: "clock"), for: .normal)
+                imageButton.setImage(UIImage(systemName: "bell"), for: .normal)
         }
     }
     

@@ -60,12 +60,17 @@ class PlannedListPresenter: PlannedListPresenterProtocol {
         let section = sections[indexPath.section]
         let task: Task
         switch section.type {
-            case .uncompleted:
-                task = listManager.uncompletedTask(at: indexPath.row)!
-            case .completed:
-                task = listManager.completedTask(at: indexPath.row)!
+        case .uncompleted:
+            task = listManager.uncompletedTask(at: indexPath.row)!
+            let totalSubtasksCount = task.subtasks?.count ?? 0
+            let uncompletedSubtasksCount = (task.subtasks?.array as! [Subtask]).filter({$0.complete}).count
+            let remindDateSet =  task.remindDate != nil
+            let dueDateSet = task.dueDate != nil
+            cell.setupAdditionalInfo(uncompletedSubtasksCount: uncompletedSubtasksCount, totalSubtasksCount: totalSubtasksCount, myDaySet: task.myDay, remindDateSet: remindDateSet, dueDateSet: dueDateSet)
+        case .completed:
+            task = listManager.completedTask(at: indexPath.row)!
         }
-        cell.configure(with: task.wrappedName, isComplete: task.complete, isImportant: task.important)
+        cell.setupMainInfo(title: task.wrappedName, isComplete: task.complete, isImportant: task.important)
     }
     
     func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool {
