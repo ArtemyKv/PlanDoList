@@ -11,55 +11,11 @@ import SnapKit
 protocol AddTaskViewDelegate: AnyObject {
     func cancelButtonTapped()
     func createButtonTapped()
-    func draggedDown()
-    func tappedOutside()
 }
 
-class AddTaskView: UIView {
+class AddTaskView: BottomSheetView {
     
-    weak var delegate: AddTaskViewDelegate?
-    
-    //MARK: - Constants
-    private let defaultHeightConstant: CGFloat = 150
-    private let dismissableHeight: CGFloat = 200
-    private let maxHeight: CGFloat = 800
-    private let defaultRowHeightConstant: CGFloat = 44
-    
-    private let maxDimmedAlpha: CGFloat = 0.6
-    
-    private var containerViewHeight: CGFloat {
-        containerView.frame.height
-    }
-    
-    //MARK: - Dynamic constraints
-    private var heightConstraint: Constraint?
-    private var bottomAnchorConstraint: Constraint?
-    
-    private let uncompleteImage = UIImage(systemName: "diamond", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
-    private let completeImage = UIImage(systemName: "checkmark.diamond", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
-    
-    private lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 10
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.clipsToBounds = true
-        return view
-    }()
-    
-    private lazy var dimmedView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        view.alpha = 0
-        return view
-    }()
-    
-    private lazy var tapGestureView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.alpha = 0
-        return view
-    }()
+    weak var addTaskViewDelegate: AddTaskViewDelegate?
     
     //MARK: - Subviews
     //First row
@@ -114,8 +70,8 @@ class AddTaskView: UIView {
     lazy var checkmarkButton: UIButton = {
         let button = UIButton()
         button.setTitle("", for: .normal)
-        button.setImage(uncompleteImage, for: .normal)
-        button.setImage(completeImage, for: .selected)
+        button.setImage(Constants.Image.Checkmark.uncheckedMedium, for: .normal)
+        button.setImage(Constants.Image.Checkmark.checkedMedium, for: .selected)
         return button
     }()
     
@@ -219,51 +175,27 @@ class AddTaskView: UIView {
     }()
     
     //MARK: - Init
-    
-    override init(frame: CGRect) {
-        super .init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    convenience init() {
+        self.init(defaultHeight: 150)
     }
     
     //MARK: - Setup Methods
     
-    private func setupView() {
-        addSubviews()
-        setupConstraints()
-        setupPanGesture()
-        setupTapGesture()
+    override func setupView() {
+        super.setupView()
+        
         setupControlsActions()
         addKeyboardNotificationsObserver()
     }
     
-    private func addSubviews() {
-        addSubview(dimmedView)
-        addSubview(containerView)
-        addSubview(tapGestureView)
-
+    override func addSubviews() {
+        super.addSubviews()
+        
         containerView.addSubview(containerStack)
     }
     
-    private func setupConstraints() {
-        dimmedView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        containerView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            self.heightConstraint = make.height.equalTo(defaultHeightConstant).constraint
-            self.bottomAnchorConstraint = make.bottom.equalToSuperview().offset(defaultHeightConstant).constraint
-        }
-        
-        tapGestureView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalTo(containerView.snp.top)
-        }
+    override func setupConstraints() {
+        super.setupConstraints()
         
         thirdRowHStack.snp.makeConstraints { make in
             make.height.equalTo(32)
@@ -301,96 +233,6 @@ class AddTaskView: UIView {
         return button
     }
     
-    //MARK: - View Appearance and Dismiss Animations
-    
-    func appear() {
-        nameTextField.becomeFirstResponder()
-        dimmedView.alpha = 0
-        tapGestureView.alpha = 0
-        
-        UIView.animate(withDuration: 0.3) {
-            self.bottomAnchorConstraint?.update(offset: 0)
-            self.layoutIfNeeded()
-        }
-        
-        UIView.animate(withDuration: 0.4) {
-            self.dimmedView.alpha = self.maxDimmedAlpha
-            self.tapGestureView.alpha = 0.1
-        }
-    }
-    
-    func dismiss(_ completion: @escaping () -> Void) {
-        UIView.animate(withDuration: 0.3) {
-            self.bottomAnchorConstraint?.update(offset: self.defaultHeightConstant)
-            self.layoutIfNeeded()
-        }
-        
-        UIView.animate(withDuration: 0.4) {
-            self.dimmedView.alpha = 0
-            self.tapGestureView.alpha = 0
-        } completion: { _ in
-            completion()
-        }
-    }
-
-    
-    //MARK: - Gestures
-    
-    private func setupPanGesture() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(gesture:)))
-        
-        panGesture.delaysTouchesBegan = false
-        panGesture.delaysTouchesEnded = false
-        
-        addGestureRecognizer(panGesture)
-    }
-
-    
-    @objc private func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: self)
-        
-        let isDraggingDown = translation.y > 0
-        
-        switch gesture.state {
-            case .changed:
-                let height = isDraggingDown ? (defaultHeightConstant - translation.y) : (defaultHeightConstant - translation.y / 10)
-                self.containerView.snp.updateConstraints { make in
-                    self.heightConstraint = make.height.equalTo(height).constraint
-                }
-                self.layoutIfNeeded()
-            case .ended:
-                if defaultHeightConstant - translation.y < dismissableHeight {
-                    nameTextField.resignFirstResponder()
-                    delegate?.draggedDown()
-                }
-                else {
-                    UIView.animate(withDuration: 0.3) {
-                        self.containerView.snp.updateConstraints { make in
-                            self.heightConstraint = make.height.equalTo(self.defaultHeightConstant).constraint
-                        }
-                        self.layoutIfNeeded()
-                    }
-                }
-            default:
-                break
-        }
-    }
-    
-    private func setupTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(gesture:)))
-        tapGesture.delaysTouchesEnded = false
-        tapGesture.delaysTouchesBegan = false
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        
-        tapGestureView.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc private func handleTapGesture(gesture: UITapGestureRecognizer) {
-        nameTextField.resignFirstResponder()
-        delegate?.tappedOutside()
-    }
-    
     //MARK: managing keyboard appearance
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -415,12 +257,12 @@ class AddTaskView: UIView {
     
     @objc private func cancelButtonTapped() {
         nameTextField.resignFirstResponder()
-        delegate?.cancelButtonTapped()
+        addTaskViewDelegate?.cancelButtonTapped()
     }
     
     @objc private func createButtonTapped() {
         nameTextField.resignFirstResponder()
-        delegate?.createButtonTapped()
+        addTaskViewDelegate?.createButtonTapped()
     }
     
     @objc private func checkmarkButtonTapped() {
@@ -460,14 +302,14 @@ class AddTaskView: UIView {
         UIView.animate(withDuration: 0.25) {
             row.isHidden.toggle()
             if row.isHidden {
-                let newHeight = self.containerViewHeight - self.defaultRowHeightConstant
+                self.containerViewHeight = self.containerViewHeight - self.defaultRowHeightConstant
                 self.containerView.snp.updateConstraints { make in
-                    self.heightConstraint = make.height.equalTo(newHeight).constraint
+                    self.heightConstraint = make.height.equalTo(self.containerViewHeight).constraint
                 }
             } else {
-                let newHeight = self.containerViewHeight + self.defaultRowHeightConstant
+                self.containerViewHeight = self.containerViewHeight + self.defaultRowHeightConstant
                 self.containerView.snp.updateConstraints { make in
-                    make.height.equalTo(newHeight)
+                    make.height.equalTo(self.containerViewHeight)
                 }
             }
             self.layoutIfNeeded()

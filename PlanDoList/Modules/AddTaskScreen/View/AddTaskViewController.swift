@@ -23,11 +23,13 @@ class AddTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTaskView.delegate = self
+        addTaskView.addTaskViewDelegate = self
+        addTaskView.gestureDelegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        addTaskView.nameTextField.becomeFirstResponder()
         addTaskView.appear()
     }
     
@@ -72,14 +74,16 @@ extension AddTaskViewController: AddTaskViewDelegate {
     func createButtonTapped() {
         presenter.createButtonTapped()
     }
-    
+}
+
+extension AddTaskViewController: BottomSheetViewGestureDelegate {
     func draggedDown() {
+        addTaskView.nameTextField.resignFirstResponder()
         presenter.draggedDown()
     }
     
     func tappedOutside() {
+        addTaskView.nameTextField.resignFirstResponder()
         presenter.tappedOutside()
     }
-    
-    
 }

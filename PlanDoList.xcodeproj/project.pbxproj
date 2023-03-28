@@ -81,6 +81,7 @@
 		B6465D6729CF61190029FD9B /* UIButton+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6629CF61190029FD9B /* UIButton+Animations.swift */; };
 		B6465D6929CF73DE0029FD9B /* TaskCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6829CF73DE0029FD9B /* TaskCounter.swift */; };
 		B6465D6D29D139C90029FD9B /* UIStackView + isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */; };
+		B6465D7829D206960029FD9B /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7729D206960029FD9B /* BottomSheetView.swift */; };
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +163,7 @@
 		B6465D6629CF61190029FD9B /* UIButton+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Animations.swift"; sourceTree = "<group>"; };
 		B6465D6829CF73DE0029FD9B /* TaskCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCounter.swift; sourceTree = "<group>"; };
 		B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + isHidden.swift"; sourceTree = "<group>"; };
+		B6465D7729D206960029FD9B /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -232,6 +234,7 @@
 				B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */,
 				B6465D6629CF61190029FD9B /* UIButton+Animations.swift */,
 				B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */,
+				B6465D7729D206960029FD9B /* BottomSheetView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -701,6 +704,7 @@
 				9C3D1A3629C94767001DABCC /* BasicListViewController.swift in Sources */,
 				9C2B2B0529AB202200BD8F63 /* ListView.swift in Sources */,
 				9CA22D3929C14CA900FC83C6 /* ListHeaderView.swift in Sources */,
+				B6465D7829D206960029FD9B /* BottomSheetView.swift in Sources */,
 				9C6C1C3729B481EA00DBB1A2 /* TaskManager.swift in Sources */,
 				9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */,
 				B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */,
