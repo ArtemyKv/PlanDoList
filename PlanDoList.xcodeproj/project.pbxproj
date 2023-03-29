@@ -81,7 +81,14 @@
 		B6465D6729CF61190029FD9B /* UIButton+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6629CF61190029FD9B /* UIButton+Animations.swift */; };
 		B6465D6929CF73DE0029FD9B /* TaskCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6829CF73DE0029FD9B /* TaskCounter.swift */; };
 		B6465D6D29D139C90029FD9B /* UIStackView + isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */; };
+		B6465D6F29D1F8570029FD9B /* ThemePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6E29D1F8570029FD9B /* ThemePickerView.swift */; };
+		B6465D7129D1F86A0029FD9B /* ThemePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7029D1F86A0029FD9B /* ThemePickerViewController.swift */; };
+		B6465D7529D1F88E0029FD9B /* ThemePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7429D1F88E0029FD9B /* ThemePickerPresenter.swift */; };
 		B6465D7829D206960029FD9B /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7729D206960029FD9B /* BottomSheetView.swift */; };
+		B6465D7A29D3C9840029FD9B /* ThemePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7929D3C9840029FD9B /* ThemePickerViewModel.swift */; };
+		B6465D7D29D3CBA10029FD9B /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7C29D3CBA10029FD9B /* ColorTheme.swift */; };
+		B6465D7F29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7E29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift */; };
+		B6465D8129D3D1850029FD9B /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8029D3D1850029FD9B /* SelectionView.swift */; };
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
 /* End PBXBuildFile section */
 
@@ -163,7 +170,14 @@
 		B6465D6629CF61190029FD9B /* UIButton+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Animations.swift"; sourceTree = "<group>"; };
 		B6465D6829CF73DE0029FD9B /* TaskCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCounter.swift; sourceTree = "<group>"; };
 		B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + isHidden.swift"; sourceTree = "<group>"; };
+		B6465D6E29D1F8570029FD9B /* ThemePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerView.swift; sourceTree = "<group>"; };
+		B6465D7029D1F86A0029FD9B /* ThemePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerViewController.swift; sourceTree = "<group>"; };
+		B6465D7429D1F88E0029FD9B /* ThemePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerPresenter.swift; sourceTree = "<group>"; };
 		B6465D7729D206960029FD9B /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
+		B6465D7929D3C9840029FD9B /* ThemePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerViewModel.swift; sourceTree = "<group>"; };
+		B6465D7C29D3CBA10029FD9B /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
+		B6465D7E29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerCollectionVIewCell.swift; sourceTree = "<group>"; };
+		B6465D8029D3D1850029FD9B /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -280,6 +294,7 @@
 				9C2B2AFF29AB15A300BD8F63 /* ListScreen */,
 				9C2B2B0C29AF0DCE00BD8F63 /* AddTaskScreen */,
 				9C6C1C2D29B480ED00DBB1A2 /* TaskScreen */,
+				B6465D7229D1F86F0029FD9B /* ThemePickerScreen */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -562,6 +577,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B6465D7229D1F86F0029FD9B /* ThemePickerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B6465D7329D1F87C0029FD9B /* View */,
+				B6465D7629D1F8920029FD9B /* Presenter */,
+				B6465D7B29D3C98C0029FD9B /* Model */,
+			);
+			path = ThemePickerScreen;
+			sourceTree = "<group>";
+		};
+		B6465D7329D1F87C0029FD9B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B6465D6E29D1F8570029FD9B /* ThemePickerView.swift */,
+				B6465D7029D1F86A0029FD9B /* ThemePickerViewController.swift */,
+				B6465D7E29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift */,
+				B6465D8029D3D1850029FD9B /* SelectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B6465D7629D1F8920029FD9B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				B6465D7429D1F88E0029FD9B /* ThemePickerPresenter.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		B6465D7B29D3C98C0029FD9B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B6465D7929D3C9840029FD9B /* ThemePickerViewModel.swift */,
+				B6465D7C29D3CBA10029FD9B /* ColorTheme.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -694,11 +747,13 @@
 				B6465D6929CF73DE0029FD9B /* TaskCounter.swift in Sources */,
 				9C3D1A2829C7EFAE001DABCC /* IncomeViewController.swift in Sources */,
 				9C6C1C3E29B50E4F00DBB1A2 /* NewSubtaskCell.swift in Sources */,
+				B6465D6F29D1F8570029FD9B /* ThemePickerView.swift in Sources */,
 				9C1380AA29A489ED00BE1486 /* HomePresenter.swift in Sources */,
 				9CC4885E29C3EFDE004D66D6 /* BasicListPresenter.swift in Sources */,
 				9C1380B429A48E0100BE1486 /* Coordinator.swift in Sources */,
 				9C6C1C3429B4813500DBB1A2 /* TaskPresenter.swift in Sources */,
 				B6465D6D29D139C90029FD9B /* UIStackView + isHidden.swift in Sources */,
+				B6465D7F29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift in Sources */,
 				9C3D1A2E29C7EFD9001DABCC /* IncomeListPresenter.swift in Sources */,
 				9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */,
 				9C3D1A3629C94767001DABCC /* BasicListViewController.swift in Sources */,
@@ -720,6 +775,7 @@
 				9C3D1A4629C966B0001DABCC /* PlannedViewController.swift in Sources */,
 				9C6C1C4029B50E5F00DBB1A2 /* MyDayCell.swift in Sources */,
 				9C13809D29A47BEE00BE1486 /* Task+CoreDataClass.swift in Sources */,
+				B6465D7529D1F88E0029FD9B /* ThemePickerPresenter.swift in Sources */,
 				9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */,
 				9C6C1C3C29B50E3D00DBB1A2 /* SubtasksListCell.swift in Sources */,
 				9C44CCAD29C011C70007555E /* PlanDoList.xcdatamodeld in Sources */,
@@ -731,9 +787,11 @@
 				9C13807929A4615F00BE1486 /* SceneDelegate.swift in Sources */,
 				9C3D1A4929C966BE001DABCC /* PlannedView.swift in Sources */,
 				9C3D1A2C29C7EFCA001DABCC /* IncomeView.swift in Sources */,
+				B6465D7D29D3CBA10029FD9B /* ColorTheme.swift in Sources */,
 				9C6C1C3229B4812900DBB1A2 /* TaskView.swift in Sources */,
 				9C2B2AF829A76DCE00BD8F63 /* HomeCollectionViewCell.swift in Sources */,
 				B6465D6729CF61190029FD9B /* UIButton+Animations.swift in Sources */,
+				B6465D7129D1F86A0029FD9B /* ThemePickerViewController.swift in Sources */,
 				9C3D1A3829C949DA001DABCC /* BasicListView.swift in Sources */,
 				9C6C1C3929B50E2300DBB1A2 /* TaskNameCell.swift in Sources */,
 				9C6C1C4829B50EB800DBB1A2 /* NotesCell.swift in Sources */,
@@ -748,7 +806,9 @@
 				9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */,
 				9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */,
 				9CC4886029C3F08A004D66D6 /* BasicListViewProtocol.swift in Sources */,
+				B6465D7A29D3C9840029FD9B /* ThemePickerViewModel.swift in Sources */,
 				9C3D1A3E29C95D7F001DABCC /* ImportantListView.swift in Sources */,
+				B6465D8129D3D1850029FD9B /* SelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

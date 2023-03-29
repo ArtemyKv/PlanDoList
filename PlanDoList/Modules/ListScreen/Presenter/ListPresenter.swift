@@ -36,6 +36,7 @@ protocol ListPresenterProtocol {
     func viewWillDisappear()
     func setViewTitle(_ title: String)
     func moveRow(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
+    func settingsButtonTapped()
 }
 
 class ListPresenter: ListPresenterProtocol {
@@ -167,6 +168,10 @@ class ListPresenter: ListPresenterProtocol {
         sections[sectionIndex].isCollapsed = isCollapsed
         isCollapsed ? view.deleteRows(at: indexPaths) : view.insertRows(at: indexPaths)
     }
+    
+    func settingsButtonTapped() {
+        coordinator.presentThemePickerScreen(delegate: self)
+    }
 }
 
 extension ListPresenter: AddTaskPresenterDelegate {
@@ -177,6 +182,8 @@ extension ListPresenter: AddTaskPresenterDelegate {
         let row = complete ? 0 : listManager.uncompletedTasksCount - 1
         view.insertRows(at: [IndexPath(row: row, section: section)])
     }
-    
+}
+
+extension ListPresenter: ThemePickerPresenterDelegate {
     
 }

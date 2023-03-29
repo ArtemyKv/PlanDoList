@@ -18,6 +18,7 @@ protocol Builder: AnyObject {
     func incomeScreen(coordinator: MainCoordinatorProtocol) -> IncomeViewController
     func importantScreen(coordinator: MainCoordinatorProtocol) -> ImportantViewController
     func plannedScreen(coordinator: MainCoordinatorProtocol) -> PlannedViewController
+    func themePickerScreen(coordinator: MainCoordinatorProtocol, delegate: ThemePickerPresenterDelegate) -> ThemePickerViewController
 
 }
 
@@ -91,6 +92,14 @@ final class MainBuilder: Builder {
         let plannedPresenter = PlannedListPresenter(listManager: plannedListManager, view: plannedVC, coordinator: coordinator)
         plannedVC.presenter = plannedPresenter
         return plannedVC
+    }
+    
+    func themePickerScreen(coordinator: MainCoordinatorProtocol, delegate: ThemePickerPresenterDelegate) -> ThemePickerViewController {
+        let themePickerVC = ThemePickerViewController()
+        let themePickerPresenter = ThemePickerPresenter(view: themePickerVC, coordinator: coordinator)
+        themePickerPresenter.delegate = delegate
+        themePickerVC.presenter = themePickerPresenter
+        return themePickerVC
     }
     
 }

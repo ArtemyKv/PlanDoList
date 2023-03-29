@@ -16,6 +16,7 @@ protocol MainCoordinatorProtocol: Coordinator {
     func presentIncomeScreen()
     func presentImportantScreen()
     func presentPlannedScreen()
+    func presentThemePickerScreen(delegate: ThemePickerPresenterDelegate)
     func dismissCurrentScreen()
 }
 
@@ -79,6 +80,12 @@ class MainCoordinator: MainCoordinatorProtocol {
     func presentPlannedScreen() {
         let plannedVC = builder.plannedScreen(coordinator: self)
         navigationController.pushViewController(plannedVC, animated: true)
+    }
+    
+    func presentThemePickerScreen(delegate: ThemePickerPresenterDelegate) {
+        let themePickerVC = builder.themePickerScreen(coordinator: self, delegate: delegate)
+        themePickerVC.modalPresentationStyle = .overCurrentContext
+        navigationController.viewControllers.last?.present(themePickerVC, animated: false)
     }
     
     func dismissCurrentScreen() {

@@ -28,6 +28,7 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        configureSettingsButton()
         listView.addTaskButtonAction = {
             self.presenter.addTask()
         }
@@ -53,6 +54,16 @@ class ListViewController: UIViewController {
         tableView.dragDelegate = self
         tableView.dragInteractionEnabled = true
     }
+    
+    func configureSettingsButton() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(settingsButtonTapped))
+        
+    }
+    
+    @objc func settingsButtonTapped() {
+        presenter.settingsButtonTapped()
+    }
+                                                                                    
 }
 
 // MARK: - List View Protocol
