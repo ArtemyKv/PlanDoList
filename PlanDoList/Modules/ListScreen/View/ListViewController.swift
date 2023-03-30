@@ -90,6 +90,10 @@ extension ListViewController: ListViewProtocol {
     func reloadData() {
         tableView.reloadData()
     }
+    
+    func setColors(backgroundColor: UIColor, textColor: UIColor) {
+        listView.setColors(backgroundColor: backgroundColor, textColor: textColor)
+    }
 }
 
 // MARK: - Table View DataSource

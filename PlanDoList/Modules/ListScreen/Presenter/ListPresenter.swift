@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit.UIColor
 
 protocol ListViewProtocol: AnyObject {
     
@@ -14,6 +15,7 @@ protocol ListViewProtocol: AnyObject {
     func deleteRows(at indexPaths: [IndexPath])
     func insertRows(at indexPaths: [IndexPath])
     func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath)
+    func setColors(backgroundColor: UIColor, textColor: UIColor)
 }
 
 protocol ListPresenterProtocol {
@@ -185,5 +187,10 @@ extension ListPresenter: AddTaskPresenterDelegate {
 }
 
 extension ListPresenter: ThemePickerPresenterDelegate {
+    func setTheme(_ theme: ColorTheme) {
+        view.setColors(backgroundColor: theme.backgroudColor, textColor: theme.textColor)
+//        listManager.setListTheme(theme)
+    }
+    
     
 }

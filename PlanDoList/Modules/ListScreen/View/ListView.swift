@@ -94,5 +94,10 @@ class ListView: UIView {
         nameTextField.delegate = delegate
     }
     
+    func setColors(backgroundColor: UIColor, textColor: UIColor) {
+        self.backgroundColor = backgroundColor
+        tableView.backgroundColor = backgroundColor
+        nameTextField.textColor = textColor
+    }
     
 }

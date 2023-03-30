@@ -15,15 +15,24 @@ class ThemePickerCollectionVIewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
+        imageView.layer.borderWidth = 2
         return imageView
     }()
     
     let selectionView = SelectionView()
     
     func setupCell() {
+        addSubviews()
+        setupConstraints()
+        updateSelectionMark()
+    }
+    
+    private func addSubviews() {
         contentView.addSubview(imageView)
         contentView.addSubview(selectionView)
-        
+    }
+    
+    private func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -48,7 +57,12 @@ class ThemePickerCollectionVIewCell: UICollectionViewCell {
     
     func setColor(backgroundColor: UIColor, selectionColor: UIColor) {
         imageView.backgroundColor = backgroundColor
+        imageView.layer.borderColor = selectionColor.cgColor
         selectionView.color = selectionColor
         selectionView.backgroundColor = .clear
+    }
+    
+    func updateSelectionMark() {
+        selectionView.isHidden = !isSelected
     }
 }

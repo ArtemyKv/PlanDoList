@@ -7,27 +7,54 @@
 
 import UIKit
 
-struct ColorTheme: Hashable {
-    var backgroudColor: UIColor
-    var fontColor: UIColor
+class ColorTheme: Hashable, NSSecureCoding {
+    static var supportsSecureCoding: Bool = true
+    
+    let backgroudColor: UIColor
+    let textColor: UIColor
+    
+    init(backgroudColor: UIColor, textColor: UIColor) {
+        self.backgroudColor = backgroudColor
+        self.textColor = textColor
+    }
+    
+    required init?(coder: NSCoder) {
+        self.backgroudColor = coder.decodeObject(forKey: "backgroundColor") as! UIColor
+        self.textColor = coder.decodeObject(forKey: "textColor") as! UIColor
+    }
+    
+    static func == (lhs: ColorTheme, rhs: ColorTheme) -> Bool {
+        lhs.backgroudColor == rhs.backgroudColor && lhs.textColor == rhs.textColor
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(backgroudColor)
+        hasher.combine(textColor)
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(backgroudColor, forKey: "backgroundColor")
+        coder.encode(textColor, forKey: "textColor")
+    }
 }
 
+
 struct PhotoTheme {
-    var backgroundPhoto: UIImage
-    var fontColor: UIColor
+    let backgroundPhoto: UIImage
+    let fontColor: UIColor
 }
 
 struct Themes {
-    static var colorThemes: [ColorTheme] = [
-        ColorTheme(backgroudColor: .systemBackground, fontColor: .black),
-        ColorTheme(backgroudColor: .blue, fontColor: .brown),
-        ColorTheme(backgroudColor: .green, fontColor: .blue),
-        ColorTheme(backgroudColor: .magenta, fontColor: .white),
-        ColorTheme(backgroudColor: .yellow, fontColor: .black),
-        ColorTheme(backgroudColor: .orange, fontColor: .white),
-        ColorTheme(backgroudColor: .systemPink, fontColor: .white),
-        ColorTheme(backgroudColor: .systemTeal, fontColor: .darkGray),
-        ColorTheme(backgroudColor: .systemPurple, fontColor: .systemRed)
+    static let colorThemes: [ColorTheme] = [
+        ColorTheme(backgroudColor: .systemBackground, textColor: .black),
+        ColorTheme(backgroudColor: .blue, textColor: .brown),
+        ColorTheme(backgroudColor: .green, textColor: .blue),
+        ColorTheme(backgroudColor: .magenta, textColor: .white),
+        ColorTheme(backgroudColor: .yellow, textColor: .black),
+        ColorTheme(backgroudColor: .orange, textColor: .white),
+        ColorTheme(backgroudColor: .systemPink, textColor: .white),
+        ColorTheme(backgroudColor: .systemTeal, textColor: .darkGray),
+        ColorTheme(backgroudColor: .systemPurple, textColor: .systemRed)
     ]
     
     var photoTheme: [PhotoTheme] = []

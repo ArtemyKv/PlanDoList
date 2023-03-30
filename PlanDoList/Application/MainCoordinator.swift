@@ -10,7 +10,7 @@ import UIKit
 protocol MainCoordinatorProtocol: Coordinator {
     func presentListScreen(list: List)
     func presentAddTaskScreen(delegate: AddTaskPresenterDelegate)
-    func dismissAddTaskScreen()
+    func dismissModalScreen()
     func presentTaskScreen(task: Task)
     func presentMyDayScreen()
     func presentIncomeScreen()
@@ -53,7 +53,7 @@ class MainCoordinator: MainCoordinatorProtocol {
         navigationController.viewControllers.last?.present(addTaskVC, animated: false)
     }
     
-    func dismissAddTaskScreen() {
+    func dismissModalScreen() {
         navigationController.viewControllers.last?.dismiss(animated: false)
     }
     
