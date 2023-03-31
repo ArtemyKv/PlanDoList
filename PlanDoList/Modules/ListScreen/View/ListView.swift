@@ -30,7 +30,7 @@ class ListView: UIView {
         let button = UIButton()
         button.setTitle("New Task", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .systemGray6
+        button.backgroundColor = .systemBackground
         button.layer.cornerRadius = 10
         button.layer.shadowRadius = 2
         button.layer.shadowOpacity = 0.2

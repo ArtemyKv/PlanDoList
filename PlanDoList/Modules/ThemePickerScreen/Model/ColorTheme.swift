@@ -49,18 +49,23 @@ struct PhotoTheme {
 }
 
 struct Themes {
-    static let defaultTheme = ColorTheme(backgroudColor: .systemBackground, textColor: .black)
+    static let defaultTheme = ColorTheme(backgroudColor: UIColor(named: "ThemeColor1")!, textColor: .white)
     
     static let colorThemes: [ColorTheme] = [
         Themes.defaultTheme,
-        ColorTheme(backgroudColor: .blue, textColor: .brown),
-        ColorTheme(backgroudColor: .green, textColor: .blue),
-        ColorTheme(backgroudColor: .magenta, textColor: .white),
-        ColorTheme(backgroudColor: .yellow, textColor: .black),
-        ColorTheme(backgroudColor: .orange, textColor: .white),
-        ColorTheme(backgroudColor: .systemPink, textColor: .white),
-        ColorTheme(backgroudColor: .systemTeal, textColor: .darkGray),
-        ColorTheme(backgroudColor: .systemPurple, textColor: .systemRed)
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor2")!, textColor: .white),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor3")!, textColor: .white),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor4")!, textColor: .white),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor5")!, textColor: .white),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor6")!, textColor: .white),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor7")!, textColor: .white),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor8")!, textColor: UIColor(named: "ThemeColor1")!),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor9")!, textColor: UIColor(named: "ThemeColor2")!),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor10")!, textColor: UIColor(named: "ThemeColor3")!),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor11")!, textColor: UIColor(named: "ThemeColor4")!),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor12")!, textColor: UIColor(named: "ThemeColor5")!),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor13")!, textColor: UIColor(named: "ThemeColor6")!),
+        ColorTheme(backgroudColor: UIColor(named: "ThemeColor14")!, textColor: UIColor(named: "ThemeColor7")!)
     ]
     
     var photoTheme: [PhotoTheme] = []

@@ -23,7 +23,7 @@ class TaskTableViewCell: UITableViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .systemBackground
         return view
     }()
     

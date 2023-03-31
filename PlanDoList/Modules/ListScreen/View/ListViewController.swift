@@ -43,6 +43,7 @@ class ListViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         presenter.viewWillDisappear()
+        navigationController?.navigationBar.tintColor = .systemBlue
         super.viewWillDisappear(animated)
     }
     
@@ -93,6 +94,7 @@ extension ListViewController: ListViewProtocol {
     
     func setColors(backgroundColor: UIColor, textColor: UIColor) {
         listView.setColors(backgroundColor: backgroundColor, textColor: textColor)
+        navigationController?.navigationBar.tintColor = textColor
     }
 }
 

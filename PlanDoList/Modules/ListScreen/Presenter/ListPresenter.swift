@@ -66,6 +66,7 @@ class ListPresenter: ListPresenterProtocol {
     func viewWillAppear() {
         listManager.getTasks()
         view.reloadData()
+        view.setColors(backgroundColor: listManager.colorTheme.backgroudColor, textColor: listManager.colorTheme.textColor)
     }
     
     func viewWillDisappear() {
