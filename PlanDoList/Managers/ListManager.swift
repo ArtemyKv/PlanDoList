@@ -9,10 +9,12 @@ import Foundation
 
 protocol ListManagerProtocol: BasicListManagerProtocol {
     var listName: String { get }
+    var colorTheme: ColorTheme { get }
     
     func updateTasksOrder()
     func setListName(_ name: String)
     func moveUncompletedTask(at sourceIndex: Int, to destinationIndex: Int)
+    func setListTheme(_ colorTheme: ColorTheme)
 }
 
 class ListManager: ListManagerProtocol {
@@ -26,6 +28,10 @@ class ListManager: ListManagerProtocol {
         
     var listName: String {
         return list.wrappedName
+    }
+    
+    var colorTheme: ColorTheme {
+        return list.colorTheme ??  Themes.defaultTheme
     }
     
     var uncompletedTasksCount: Int {
@@ -145,6 +151,11 @@ class ListManager: ListManagerProtocol {
         guard sourceIndex <= uncompletedTasksCount, destinationIndex <= uncompletedTasksCount else { return }
         let task = uncompletedTasks.remove(at: sourceIndex)
         uncompletedTasks.insert(task, at: destinationIndex)
+        coreDataStack.saveContext()
+    }
+    
+    func setListTheme(_ colorTheme: ColorTheme) {
+        list.colorTheme = colorTheme
         coreDataStack.saveContext()
     }
 }

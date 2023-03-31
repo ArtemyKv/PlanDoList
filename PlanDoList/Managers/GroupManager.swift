@@ -126,6 +126,7 @@ class GroupManager: GroupManagerProtocol {
         let list = List(context: coreDataStack.managedContext)
         list.name = "New List"
         list.order = Int32(ungroupedListsCount)
+        list.colorTheme = Themes.defaultTheme
         if let group {
             group.addToLists(list)
             list.order = Int32(group.lists?.count ?? 0)

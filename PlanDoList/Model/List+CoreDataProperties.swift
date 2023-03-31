@@ -2,7 +2,7 @@
 //  List+CoreDataProperties.swift
 //  
 //
-//  Created by Artem Kvashnin on 21.02.2023.
+//  Created by Artem Kvashnin on 30.03.2023.
 //
 //
 
@@ -19,6 +19,7 @@ extension List {
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
     @NSManaged public var order: Int32
+    @NSManaged public var colorTheme: ColorTheme?
     @NSManaged public var group: Group?
     @NSManaged public var tasks: NSOrderedSet?
 

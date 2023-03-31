@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ColorTheme: Hashable, NSSecureCoding {
-    static var supportsSecureCoding: Bool = true
+public class ColorTheme: NSObject, NSSecureCoding {
+    static public var supportsSecureCoding: Bool = true
     
     let backgroudColor: UIColor
     let textColor: UIColor
@@ -18,21 +18,25 @@ class ColorTheme: Hashable, NSSecureCoding {
         self.textColor = textColor
     }
     
-    required init?(coder: NSCoder) {
-        self.backgroudColor = coder.decodeObject(forKey: "backgroundColor") as! UIColor
-        self.textColor = coder.decodeObject(forKey: "textColor") as! UIColor
+    required public init?(coder: NSCoder) {
+        guard let backgroundColor = coder.decodeObject(forKey: "backgroundColor") as? UIColor,
+              let textColor = coder.decodeObject(forKey: "textColor") as? UIColor
+        else { return nil }
+        self.backgroudColor = backgroundColor
+        self.textColor = textColor
+        
     }
     
     static func == (lhs: ColorTheme, rhs: ColorTheme) -> Bool {
         lhs.backgroudColor == rhs.backgroudColor && lhs.textColor == rhs.textColor
     }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(backgroudColor)
-        hasher.combine(textColor)
+    override public func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? ColorTheme else { return false }
+        return self.backgroudColor == object.backgroudColor && self.textColor == object.textColor
     }
     
-    func encode(with coder: NSCoder) {
+    public func encode(with coder: NSCoder) {
         coder.encode(backgroudColor, forKey: "backgroundColor")
         coder.encode(textColor, forKey: "textColor")
     }
@@ -45,8 +49,10 @@ struct PhotoTheme {
 }
 
 struct Themes {
+    static let defaultTheme = ColorTheme(backgroudColor: .systemBackground, textColor: .black)
+    
     static let colorThemes: [ColorTheme] = [
-        ColorTheme(backgroudColor: .systemBackground, textColor: .black),
+        Themes.defaultTheme,
         ColorTheme(backgroudColor: .blue, textColor: .brown),
         ColorTheme(backgroudColor: .green, textColor: .blue),
         ColorTheme(backgroudColor: .magenta, textColor: .white),

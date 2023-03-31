@@ -74,7 +74,9 @@ class ListPresenter: ListPresenterProtocol {
     
     func configureView() {
         let listName = listManager.listName
+        let colorTheme = listManager.colorTheme
         view.configure(withTitle: listName, subtitle: nil)
+        view.setColors(backgroundColor: colorTheme.backgroudColor, textColor: colorTheme.textColor)
     }
     
     func numberOfRowsInSection(_ sectionIndex: Int) -> Int {
@@ -172,7 +174,7 @@ class ListPresenter: ListPresenterProtocol {
     }
     
     func settingsButtonTapped() {
-        coordinator.presentThemePickerScreen(delegate: self)
+        coordinator.presentThemePickerScreen(delegate: self, colorTheme: listManager.colorTheme)
     }
 }
 
@@ -189,7 +191,7 @@ extension ListPresenter: AddTaskPresenterDelegate {
 extension ListPresenter: ThemePickerPresenterDelegate {
     func setTheme(_ theme: ColorTheme) {
         view.setColors(backgroundColor: theme.backgroudColor, textColor: theme.textColor)
-//        listManager.setListTheme(theme)
+        listManager.setListTheme(theme)
     }
     
     

@@ -8,6 +8,7 @@
         <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="List" inverseName="group" inverseEntity="List"/>
     </entity>
     <entity name="List" representedClassName="List" syncable="YES">
+        <attribute name="colorTheme" optional="YES" attributeType="Transformable" valueTransformerName="ColorThemeAttributeTransformer" customClassName="ColorTheme"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>

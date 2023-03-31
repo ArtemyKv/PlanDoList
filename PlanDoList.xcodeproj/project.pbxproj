@@ -89,6 +89,7 @@
 		B6465D7D29D3CBA10029FD9B /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7C29D3CBA10029FD9B /* ColorTheme.swift */; };
 		B6465D7F29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D7E29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift */; };
 		B6465D8129D3D1850029FD9B /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8029D3D1850029FD9B /* SelectionView.swift */; };
+		B6465D8329D544180029FD9B /* ColorThemeAttributeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */; };
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
 /* End PBXBuildFile section */
 
@@ -178,6 +179,7 @@
 		B6465D7C29D3CBA10029FD9B /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		B6465D7E29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerCollectionVIewCell.swift; sourceTree = "<group>"; };
 		B6465D8029D3D1850029FD9B /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeAttributeTransformer.swift; sourceTree = "<group>"; };
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -611,6 +613,7 @@
 			children = (
 				B6465D7929D3C9840029FD9B /* ThemePickerViewModel.swift */,
 				B6465D7C29D3CBA10029FD9B /* ColorTheme.swift */,
+				B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				9C2B2B0B29AE2E9D00BD8F63 /* TaskTableViewCell.swift in Sources */,
 				9C3D1A3B29C95D6C001DABCC /* ImportantViewController.swift in Sources */,
 				9C6C1C4E29B6D5B100DBB1A2 /* AppConstants.swift in Sources */,
+				B6465D8329D544180029FD9B /* ColorThemeAttributeTransformer.swift in Sources */,
 				9C2B2B1329AF0E1800BD8F63 /* AddTaskPresenter.swift in Sources */,
 				9C2B2B0929ABADB000BD8F63 /* ModelManagerBuilder.swift in Sources */,
 				9C6C1C4429B50E9700DBB1A2 /* DatePickerCell.swift in Sources */,

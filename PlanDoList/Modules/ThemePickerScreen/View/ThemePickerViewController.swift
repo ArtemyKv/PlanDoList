@@ -44,6 +44,7 @@ class ThemePickerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         themePickerView.appear()
+        presenter.selectCellWhenAppear()
     }
     
     func collectionViewDataSource() -> DataSourceType {
@@ -96,6 +97,12 @@ extension ThemePickerViewController: UICollectionViewDelegate {
 }
 
 extension ThemePickerViewController: ThemePickerViewProtocol {
+    func selectCell(at indexPath: IndexPath) {
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
+        let cell = collectionView.cellForItem(at: indexPath) as! ThemePickerCollectionVIewCell
+        cell.updateSelectionMark()
+    }
+    
     func dismiss(completion: @escaping () -> Void) {
         themePickerView.dismiss {
             completion()
