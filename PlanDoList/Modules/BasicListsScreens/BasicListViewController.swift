@@ -39,6 +39,11 @@ class BasicListViewController: UIViewController {
         presenter.viewWillAppear()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.tintColor = .systemBlue
+        super.viewWillDisappear(animated)
+    }
+    
     func configureTableView() {
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         tableView.register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: ListHeaderView.identifier)
@@ -72,6 +77,11 @@ extension BasicListViewController: BasicListViewProtocol {
     
     func reloadData() {
         tableView.reloadData()
+    }
+    
+    func setColors(backgroundColor: UIColor, textColor: UIColor) {
+        listView.setColors(backgroundColor: backgroundColor, textColor: textColor)
+        navigationController?.navigationBar.tintColor = textColor
     }
 }
 

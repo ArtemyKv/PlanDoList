@@ -35,6 +35,12 @@ class IncomeListPresenter: IncomeListPresenterProtocol {
     func viewWillAppear() {
         listManager.getTasks()
         view.reloadData()
+        setViewColorTheme()
+    }
+    
+    private func setViewColorTheme() {
+        let colorTheme = Themes.defaultTheme
+        view.setColors(backgroundColor: colorTheme.backgroudColor, textColor: colorTheme.textColor)
     }
     
     

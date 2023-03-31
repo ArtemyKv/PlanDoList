@@ -108,4 +108,11 @@ class BasicListView: UIView {
         titleLabel.text = title
         subtitleLabel.text = subtitle
     }
+    
+    func setColors(backgroundColor: UIColor, textColor: UIColor) {
+        self.backgroundColor = backgroundColor
+        tableView.backgroundColor = backgroundColor
+        titleLabel.textColor = textColor
+        subtitleLabel.textColor = textColor
+    }
 }
