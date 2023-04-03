@@ -55,7 +55,7 @@ class HomeCollectionViewCell: UICollectionViewListCell {
         )
         let disclosureOptions = UICellAccessory.OutlineDisclosureOptions(style: .header)
         self.accessories = [.customView(configuration: customAccessoryConfig), .outlineDisclosure(options: disclosureOptions)]
-        
+        self.tintColor = .darkGray
     }
     
     override func prepareForReuse() {
