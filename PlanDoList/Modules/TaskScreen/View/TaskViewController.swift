@@ -10,7 +10,6 @@ import UIKit
 class TaskViewController: UIViewController {
     
     enum Section: String, CaseIterable {
-        case name = "Name"
         case subtasks = "Subtasks"
         case dates = "Dates"
         //TODO: - Implement attachements
@@ -25,7 +24,6 @@ class TaskViewController: UIViewController {
     var subtasksDataSource: SubtaskTableViewDataSource!
     
     //Cells
-    let taskNameCell = TaskNameCell()
     let subtasksListCell = SubtasksListCell()
     let newSubataskCell = NewSubtaskCell()
     let myDayCell = MyDayCell()
@@ -39,13 +37,13 @@ class TaskViewController: UIViewController {
     
     //Name section
     var completeButton: UIButton {
-        return taskNameCell.completeButton
+        return taskView.taskViewHeader.completeButton
     }
     var importantButton: UIButton {
-        return taskNameCell.importantButton
+        return taskView.taskViewHeader.importantButton
     }
     var nameTextView: UITextView {
-        return taskNameCell.nameTextview
+        return taskView.taskViewHeader.nameTextview
     }
     
     //Subtasks section
@@ -94,16 +92,15 @@ class TaskViewController: UIViewController {
     
     //MARK: IndexPaths for cells
     
-    let nameCellIndexPath = IndexPath(row: 0, section: 0)
-    let subtaskTableViewIndexPath = IndexPath(row: 0, section: 1)
-    let newSubtaskCellIndexPath = IndexPath(row: 1, section: 1)
-    let myDayCellIndexPath = IndexPath(row: 0, section: 2)
-    let remindMeCellIndexPath = IndexPath(row: 1, section: 2)
-    let remindDatePickerIndexPath = IndexPath(row: 2, section: 2)
-    let dueDateCellIndexPath = IndexPath(row: 3, section: 2)
-    let dueDatePickerIndexPath = IndexPath(row: 4, section: 2)
+    let subtaskTableViewIndexPath = IndexPath(row: 0, section: 0)
+    let newSubtaskCellIndexPath = IndexPath(row: 1, section: 0)
+    let myDayCellIndexPath = IndexPath(row: 0, section: 1)
+    let remindMeCellIndexPath = IndexPath(row: 1, section: 1)
+    let remindDatePickerIndexPath = IndexPath(row: 2, section: 1)
+    let dueDateCellIndexPath = IndexPath(row: 3, section: 1)
+    let dueDatePickerIndexPath = IndexPath(row: 4, section: 1)
 //    let attachementsIndexPath = IndexPath(row: 0, section: 3)
-    let notesIndexPath = IndexPath(row: 0, section: 3)
+    let notesIndexPath = IndexPath(row: 0, section: 2)
     
     //MARK: - Life cycle
     
@@ -166,7 +163,7 @@ class TaskViewController: UIViewController {
     }
     
     func setCellDelegates() {
-        taskNameCell.delegate = self
+        taskView.taskViewHeader.delegate = self
         newSubataskCell.delegate = self
         remindDateCell.delegate = self
         dueDateCell.delegate = self
@@ -183,19 +180,16 @@ extension TaskViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-            case 0: return 1
-            case 1: return 2
-            case 2: return 5
+            case 0: return 2
+            case 1: return 5
+            case 2: return 1
             case 3: return 1
-            case 4: return 1
             default: return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath {
-            case nameCellIndexPath:
-                return taskNameCell
             case subtaskTableViewIndexPath:
                 return subtasksListCell
             case newSubtaskCellIndexPath:
@@ -230,8 +224,6 @@ extension TaskViewController: UITableViewDelegate {
         let defaultHeight = CGFloat(44)
         
         switch indexPath {
-            case nameCellIndexPath:
-                return UITableView.automaticDimension
             case subtaskTableViewIndexPath:
                 return CGFloat(presenter.numberOfRowsInSubtasksTable()) * defaultHeight
             case remindDatePickerIndexPath:
@@ -253,15 +245,6 @@ extension TaskViewController: UITableViewDelegate {
                 return 132
             default:
                 return 44
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        switch indexPath {
-            case nameCellIndexPath:
-                return nil
-            default:
-                return indexPath
         }
     }
     
@@ -337,7 +320,7 @@ extension TaskViewController: TaskViewProtocol {
 }
 
 //MARK: - Cell Delegates
-extension TaskViewController: TaskNameCellDelegate {
+extension TaskViewController: TaskViewHeaderDelegate {
     func completeButtonTapped(selected: Bool) {
         presenter.completeButtonTapped(selected: selected)
     }

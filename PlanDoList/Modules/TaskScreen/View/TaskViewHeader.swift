@@ -1,24 +1,21 @@
 //
-//  TaskNameCell.swift
+//  TaskViewHeader.swift
 //  PlanDoList
 //
-//  Created by Artem Kvashnin on 05.03.2023.
+//  Created by Artem Kvashnin on 03.04.2023.
 //
 
 import UIKit
-import SnapKit
 
-protocol TaskNameCellDelegate: AnyObject {
+protocol TaskViewHeaderDelegate: AnyObject {
     func completeButtonTapped(selected: Bool)
     func importantButtonTapped(selected: Bool)
     func nameTextViewDidChange(text: String)
 }
 
-class TaskNameCell: UITableViewCell {
+class TaskViewHeader: UIView {
     
-    static let reuseIdentifier = String(describing: TaskNameCell.self)
-    
-    weak var delegate: TaskNameCellDelegate?
+    weak var delegate: TaskViewHeaderDelegate?
     
     lazy var completeButton: UIButton = {
         let button = UIButton()
@@ -52,8 +49,8 @@ class TaskNameCell: UITableViewCell {
         return stack
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super .init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super .init(frame: frame)
         setupCell()
     }
     
@@ -72,7 +69,7 @@ class TaskNameCell: UITableViewCell {
         stack.addArrangedSubview(completeButton)
         stack.addArrangedSubview(nameTextview)
         stack.addArrangedSubview(importantButton)
-        self.contentView.addSubview(stack)
+        self.addSubview(stack)
     }
     
     private func setupConstraints() {
@@ -82,8 +79,8 @@ class TaskNameCell: UITableViewCell {
         importantButton.snp.contentCompressionResistanceHorizontalPriority = 751
         
         stack.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(self.contentView.layoutMarginsGuide)
-            make.verticalEdges.equalTo(self.contentView)
+            make.horizontalEdges.equalTo(self.layoutMarginsGuide)
+            make.verticalEdges.equalToSuperview()
         }
     }
     
@@ -105,7 +102,7 @@ class TaskNameCell: UITableViewCell {
     }
 }
 
-extension TaskNameCell: UITextViewDelegate {
+extension TaskViewHeader: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         guard let text = textView.text else { return }
         delegate?.nameTextViewDidChange(text: text)
@@ -119,4 +116,5 @@ extension TaskNameCell: UITextViewDelegate {
         return true
     }
 }
+
 

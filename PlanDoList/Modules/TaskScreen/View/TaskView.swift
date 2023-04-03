@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class TaskView: UIView {
+    let taskViewHeader = TaskViewHeader()
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
     override init(frame: CGRect) {
@@ -21,17 +22,26 @@ class TaskView: UIView {
     }
     
     private func setupView() {
+        self.backgroundColor = .systemBackground
         tableView.backgroundColor = .systemBackground
+        addSubview(taskViewHeader)
         addSubview(tableView)
         
+        taskViewHeader.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(taskViewHeader.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
     
     func updateBottomConstraint(inset: CGFloat) {
         tableView.snp.updateConstraints { make in
-            make.bottom.equalToSuperview().inset(inset)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(inset)
         }
         layoutIfNeeded()
     }
