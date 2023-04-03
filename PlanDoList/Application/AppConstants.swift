@@ -13,11 +13,11 @@ struct Constants {
     struct Image {
         
         struct Checkmark {
-            static let uncheckedMedium = UIImage(systemName: "diamond", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
-            static let checkedMedium = UIImage(systemName: "checkmark.diamond", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
+            static let uncheckedMedium = UIImage(systemName: "circle", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
+            static let checkedMedium = UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
             
-            static let uncheckedLarge = UIImage(systemName: "diamond", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
-            static let checkedLarge = UIImage(systemName: "checkmark.diamond", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
+            static let uncheckedLarge = UIImage(systemName: "circle", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
+            static let checkedLarge = UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
         }
         
         struct Xmark {

@@ -189,7 +189,7 @@ class TaskTableViewCell: UITableViewCell {
         let attributeRange = NSRange(location: 0, length: attributedString.length)
         if isComplete {
             secondRowStack.isHidden = true
-            checkmarkButton.setImage(Constants.Image.Checkmark.checkedMedium, for: .normal)
+            checkmarkButton.setImage(Constants.Image.Checkmark.checkedLarge, for: .normal)
             attributedString.addAttribute(NSMutableAttributedString.Key.strikethroughStyle, value: 2, range: attributeRange)
             titleLabel.attributedText = attributedString
             titleLabel.textColor = .systemGray
@@ -197,7 +197,7 @@ class TaskTableViewCell: UITableViewCell {
             attributedString.removeAttribute(NSMutableAttributedString.Key.strikethroughStyle, range: attributeRange)
             titleLabel.attributedText = attributedString
             titleLabel.textColor = .black
-            checkmarkButton.setImage(Constants.Image.Checkmark.uncheckedMedium, for: .normal)
+            checkmarkButton.setImage(Constants.Image.Checkmark.uncheckedLarge, for: .normal)
         }
         
         starButton.isSelected = isImportant
