@@ -15,7 +15,7 @@ PlanDo List is an advanced task tracker and todo app
  ## Screenshots
 | Main screen | List screen | Task screen | New task screen |
 :---:|:---:|:---:|:---:
-![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 09 26](https://user-images.githubusercontent.com/90643294/229880653-45341d3b-7054-4b70-b9b0-53f249f3ec99.gif) | ![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 11 02](https://user-images.githubusercontent.com/90643294/229881036-a1571307-aa93-4927-936a-d44e990041a9.gif) | ![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 15 48](https://user-images.githubusercontent.com/90643294/229882062-f2ab4c23-95f0-4dba-859b-67ce947e9555.gif) | ![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 22 35](https://user-images.githubusercontent.com/90643294/229883653-5ffd8142-68e1-4ead-8fcc-7aed68e201b3.gif)
+![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 09 26](https://user-images.githubusercontent.com/90643294/229880653-45341d3b-7054-4b70-b9b0-53f249f3ec99.gif) | ![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 26 07](https://user-images.githubusercontent.com/90643294/229884328-b5452bda-afab-4f48-9d97-f62d010feed2.gif) | ![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 15 48](https://user-images.githubusercontent.com/90643294/229882062-f2ab4c23-95f0-4dba-859b-67ce947e9555.gif) | ![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 22 35](https://user-images.githubusercontent.com/90643294/229883653-5ffd8142-68e1-4ead-8fcc-7aed68e201b3.gif)
 
 
 
