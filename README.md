@@ -13,9 +13,10 @@ PlanDo List is an advanced task tracker and todo app
 - Authorise in app with your email (under development)
  
  ## Screenshots
-| Locations | Search | Weather Details |
+| Main screen | List screen | Task screen |
 :---:|:---:|:---:
-![Simulator Screen Shot - iPhone 14 Pro - 2023-02-10 at 22 37 20](https://user-images.githubusercontent.com/90643294/218159027-b9c41b3d-7fe8-4693-8816-1bbdb06d96ba.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-02-10 at 22 40 42](https://user-images.githubusercontent.com/90643294/218159427-aa01ead1-3bee-440f-92fd-c077b15f6c31.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-02-10 at 22 41 41](https://user-images.githubusercontent.com/90643294/218159633-39562c59-816f-4d8a-b6e2-3474b1148e57.png)
+![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 09 26](https://user-images.githubusercontent.com/90643294/229880653-45341d3b-7054-4b70-b9b0-53f249f3ec99.gif) | ![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 11 02](https://user-images.githubusercontent.com/90643294/229881036-a1571307-aa93-4927-936a-d44e990041a9.gif) | ![Simulator Screen Recording - iPhone 14 Pro - 2023-04-04 at 23 15 48](https://user-images.githubusercontent.com/90643294/229882062-f2ab4c23-95f0-4dba-859b-67ce947e9555.gif)
+
 
 
  ## Technologies stack
