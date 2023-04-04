@@ -91,6 +91,7 @@
 		B6465D8329D544180029FD9B /* ColorThemeAttributeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */; };
 		B6465D8529DA7F930029FD9B /* TaskViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8429DA7F930029FD9B /* TaskViewHeader.swift */; };
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
+		B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4F10629DBE822002553B8 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,6 +182,7 @@
 		B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeAttributeTransformer.swift; sourceTree = "<group>"; };
 		B6465D8429DA7F930029FD9B /* TaskViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewHeader.swift; sourceTree = "<group>"; };
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
+		B6D4F10629DBE822002553B8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -275,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				B6D4F10429DBE722002553B8 /* ModelManagers */,
+				B6D4F10629DBE822002553B8 /* NotificationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				9C6C1C3E29B50E4F00DBB1A2 /* NewSubtaskCell.swift in Sources */,
 				B6465D6F29D1F8570029FD9B /* ThemePickerView.swift in Sources */,
 				9C1380AA29A489ED00BE1486 /* HomePresenter.swift in Sources */,
+				B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */,
 				9CC4885E29C3EFDE004D66D6 /* BasicListPresenter.swift in Sources */,
 				9C1380B429A48E0100BE1486 /* Coordinator.swift in Sources */,
 				9C6C1C3429B4813500DBB1A2 /* TaskPresenter.swift in Sources */,
