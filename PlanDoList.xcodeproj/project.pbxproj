@@ -274,16 +274,7 @@
 		9C1380A329A47E5700BE1486 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				9C3D1A3429C80D69001DABCC /* Basic protocols */,
-				9C2B2B0829ABADB000BD8F63 /* ModelManagerBuilder.swift */,
-				9C1380A129A47E5100BE1486 /* GroupManager.swift */,
-				9C2B2B0629ABA8D400BD8F63 /* ListManager.swift */,
-				9C6C1C3629B481EA00DBB1A2 /* TaskManager.swift */,
-				9CA22D4329C17E6700FC83C6 /* MyDayListManager.swift */,
-				9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */,
-				9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */,
-				9C3D1A4D29C96796001DABCC /* PlannedListManager.swift */,
-				B6465D6829CF73DE0029FD9B /* TaskCounter.swift */,
+				B6D4F10429DBE722002553B8 /* ModelManagers */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -416,14 +407,6 @@
 				9C3D1A2D29C7EFD9001DABCC /* IncomeListPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		9C3D1A3429C80D69001DABCC /* Basic protocols */ = {
-			isa = PBXGroup;
-			children = (
-				9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */,
-			);
-			path = "Basic protocols";
 			sourceTree = "<group>";
 		};
 		9C3D1A3929C95D24001DABCC /* ImportantScreen */ = {
@@ -616,6 +599,31 @@
 				B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B6D4F10429DBE722002553B8 /* ModelManagers */ = {
+			isa = PBXGroup;
+			children = (
+				B6D4F10529DBE735002553B8 /* ListManagers */,
+				9C2B2B0829ABADB000BD8F63 /* ModelManagerBuilder.swift */,
+				9C1380A129A47E5100BE1486 /* GroupManager.swift */,
+				9C6C1C3629B481EA00DBB1A2 /* TaskManager.swift */,
+				B6465D6829CF73DE0029FD9B /* TaskCounter.swift */,
+			);
+			path = ModelManagers;
+			sourceTree = "<group>";
+		};
+		B6D4F10529DBE735002553B8 /* ListManagers */ = {
+			isa = PBXGroup;
+			children = (
+				9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */,
+				9C2B2B0629ABA8D400BD8F63 /* ListManager.swift */,
+				9CA22D4329C17E6700FC83C6 /* MyDayListManager.swift */,
+				9C3D1A3029C7F4E2001DABCC /* IncomeListManager.swift */,
+				9C3D1A4229C95E86001DABCC /* ImportantListManager.swift */,
+				9C3D1A4D29C96796001DABCC /* PlannedListManager.swift */,
+			);
+			path = ListManagers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
