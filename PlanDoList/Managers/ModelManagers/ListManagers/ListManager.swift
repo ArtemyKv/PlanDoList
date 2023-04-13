@@ -107,14 +107,14 @@ class ListManager: ListManagerProtocol {
     func deleteUncompletedTask(at index: Int) {
         guard index < uncompletedTasksCount else { return }
         let task = uncompletedTasks.remove(at: index)
-        list.removeFromTasks(task)
+        coreDataStack.managedContext.delete(task)
         coreDataStack.saveContext()
     }
     
     func deleteCompletedTask(at index: Int) {
         guard index < completedTasksCount else { return }
         let task = completedTasks.remove(at: index)
-        list .removeFromTasks(task)
+        coreDataStack.managedContext.delete(task)
         coreDataStack.saveContext()
     }
     

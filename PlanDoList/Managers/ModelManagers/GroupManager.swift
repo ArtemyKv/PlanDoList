@@ -165,6 +165,7 @@ class GroupManager: GroupManagerProtocol {
         } else if let group = list.group, group.lists?.count == 1 {
             group.isExpanded = false
         }
+        list.tasks?.forEach { coreDataStack.managedContext.delete($0 as! Task) }
         coreDataStack.managedContext.delete(list)
         coreDataStack.saveContext()
     }
