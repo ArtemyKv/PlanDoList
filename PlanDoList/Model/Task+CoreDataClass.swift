@@ -14,4 +14,15 @@ public class Task: NSManagedObject {
     var wrappedName: String {
         name ?? "New Task"
     }
+    
+    var wrappedID: UUID {
+        if id == nil {
+            id = UUID()
+        }
+        return id!
+    }
+    
+    var idString: String {
+        return wrappedID.uuidString
+    }
 }

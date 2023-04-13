@@ -1,5 +1,5 @@
 //
-//  TaskManager.swift
+//  GroupManager.swift
 //  PlanDoList
 //
 //  Created by Artem Kvashnin on 21.02.2023.
@@ -48,8 +48,11 @@ class GroupManager: GroupManagerProtocol {
     private var groupFetchRequest: NSFetchRequest<Group>?
     private var ungroupedListsFetchRequest: NSFetchRequest<List>?
     
-    init(coreDataStack: CoreDataStack) {
+    private let notificationManager: NotificationManagerProtocol
+    
+    init(coreDataStack: CoreDataStack, notificationManager: NotificationManagerProtocol) {
         self.coreDataStack = coreDataStack
+        self.notificationManager = notificationManager
         loadData()
     }
     
@@ -229,7 +232,10 @@ class GroupManager: GroupManagerProtocol {
         task.myDay = myDay
         task.remindDate = remindDate
         task.dueDate = dueDate
-        
         coreDataStack.saveContext()
+        
+        if let remindDate = task.remindDate {
+            notificationManager.scheduleNotification(name: task.wrappedName, remindDate: remindDate, id: task.idString)
+        }
     }
 }

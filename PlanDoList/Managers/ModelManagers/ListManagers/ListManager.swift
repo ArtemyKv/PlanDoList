@@ -20,6 +20,7 @@ protocol ListManagerProtocol: BasicListManagerProtocol {
 class ListManager: ListManagerProtocol {
     
     private let coreDataStack: CoreDataStack
+    private let notificationManager: NotificationManagerProtocol
     
     private let list: List
     
@@ -42,8 +43,9 @@ class ListManager: ListManagerProtocol {
         return completedTasks.count
     }
     
-    init(coreDataStack: CoreDataStack, list: List) {
+    init(coreDataStack: CoreDataStack, notificationManager: NotificationManagerProtocol, list: List) {
         self.coreDataStack = coreDataStack
+        self.notificationManager = notificationManager
         self.list = list
     }
     
@@ -93,14 +95,13 @@ class ListManager: ListManagerProtocol {
         task.remindDate = remindDate
         task.dueDate = dueDate
         list.addToTasks(task)
+        coreDataStack.saveContext()
         
-        if complete {
-            completedTasks.insert(task, at: 0)
-        } else {
-            uncompletedTasks.append(task)
+        if let remindDate = task.remindDate {
+            notificationManager.scheduleNotification(name: task.wrappedName, remindDate: remindDate, id: task.idString)
         }
         
-        coreDataStack.saveContext()
+        complete ? completedTasks.insert(task, at: 0) : uncompletedTasks.append(task)
     }
     
     func deleteUncompletedTask(at index: Int) {

@@ -36,6 +36,7 @@ protocol TaskManagerProtocol {
 
 class TaskManager: TaskManagerProtocol {
     private let coreDataStack: CoreDataStack
+    private let notificationManager: NotificationManagerProtocol
     
     //TODO: - refactor this: add _task property and task computed property. Then delete all this computed variables
     private let task: Task
@@ -80,8 +81,9 @@ class TaskManager: TaskManagerProtocol {
         return task.notes ?? ""
     }
     
-    init(coreDataStack: CoreDataStack, task: Task) {
+    init(coreDataStack: CoreDataStack, notificationManager: NotificationManagerProtocol, task: Task) {
         self.coreDataStack = coreDataStack
+        self.notificationManager = notificationManager
         self.task = task
     }
     
@@ -140,6 +142,12 @@ class TaskManager: TaskManagerProtocol {
     func setRemindDate(_ date: Date?) {
         task.remindDate = date
         coreDataStack.saveContext()
+        
+        if let remindDate = date {
+            notificationManager.scheduleNotification(name: task.wrappedName, remindDate: remindDate, id: task.idString)
+        } else {
+            notificationManager.removeScheduledNotification(id: task.idString)
+        }
     }
     
     func setDueDate(_ date: Date?) {

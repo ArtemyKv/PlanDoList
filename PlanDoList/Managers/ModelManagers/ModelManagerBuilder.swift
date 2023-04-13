@@ -21,20 +21,21 @@ protocol ModelManagerBuilderProtocol {
 class ModelManagerBuilder: ModelManagerBuilderProtocol {
     
     lazy private var coreDataStack = CoreDataStack(modelName: "PlanDoList")
+    lazy private var notificationManager = NotificationManager()
     
     func groupManager() -> GroupManagerProtocol {
-        let groupManager = GroupManager(coreDataStack: coreDataStack)
+        let groupManager = GroupManager(coreDataStack: coreDataStack, notificationManager: notificationManager)
         return groupManager
     }
     
     func listManager(list: List) -> ListManagerProtocol {
-        let listManager = ListManager(coreDataStack: coreDataStack, list: list)
+        let listManager = ListManager(coreDataStack: coreDataStack, notificationManager: notificationManager, list: list)
         return listManager
         
     }
     
     func taskManager(task: Task) -> TaskManagerProtocol {
-        let taskManager = TaskManager(coreDataStack: coreDataStack, task: task)
+        let taskManager = TaskManager(coreDataStack: coreDataStack, notificationManager: notificationManager, task: task)
         return taskManager
     }
     
