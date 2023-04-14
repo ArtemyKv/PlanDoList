@@ -53,8 +53,8 @@ enum HomeViewModel {
                 return basicItem.imageColor
             case .group:
                 return Constants.Color.groupIconColor
-            case .list:
-                return Constants.Color.listIconColor
+            case .list(let list):
+                return list.colorTheme?.controlsColor
             }
         }
         
