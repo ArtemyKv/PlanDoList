@@ -40,7 +40,7 @@ class ImportantListPresenter: ImportantListPresenterProtocol {
     
     private func setViewColorTheme() {
         let colorTheme = Themes.defaultTheme
-        view.setColors(backgroundColor: colorTheme.backgroudColor, textColor: colorTheme.textColor)
+        view.applyColors(backgroundColor: colorTheme.backgroudColor, textColor: colorTheme.textColor)
     }
     
     
@@ -77,6 +77,7 @@ class ImportantListPresenter: ImportantListPresenterProtocol {
             task = listManager.completedTask(at: indexPath.row)!
         }
         cell.setupMainInfo(title: task.wrappedName, isComplete: task.complete, isImportant: task.important)
+        cell.applyColor(Themes.defaultTheme.controlsColor)
     }
     
     func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool {
@@ -134,6 +135,10 @@ class ImportantListPresenter: ImportantListPresenterProtocol {
         }
         sections[sectionIndex].isCollapsed = isCollapsed
         isCollapsed ? view.deleteRows(at: indexPaths) : view.insertRows(at: indexPaths)
+    }
+    
+    func configureHeader(_ header: ListHeaderView) {
+        header.applyColor(Themes.defaultTheme.textColor)
     }
 }
 

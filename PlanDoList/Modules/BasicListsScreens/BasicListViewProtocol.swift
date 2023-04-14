@@ -14,7 +14,7 @@ protocol BasicListViewProtocol: AnyObject {
     func deleteRows(at indexPaths: [IndexPath])
     func insertRows(at indexPaths: [IndexPath])
     func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath)
-    func setColors(backgroundColor: UIColor, textColor: UIColor)
+    func applyColors(backgroundColor: UIColor, textColor: UIColor)
 }
 
 

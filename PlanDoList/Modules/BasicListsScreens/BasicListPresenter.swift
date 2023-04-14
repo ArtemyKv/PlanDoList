@@ -22,5 +22,5 @@ protocol BasicListPresenter: AnyObject {
     func cellStarTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
     func didSelectRow(at indexPath: IndexPath)
     func headerTappedInSection(_ sectionIndex: Int, isCollapsed: Bool)
-    
+    func configureHeader(_ header: ListHeaderView)
 }

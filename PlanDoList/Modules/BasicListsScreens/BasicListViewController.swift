@@ -79,9 +79,10 @@ extension BasicListViewController: BasicListViewProtocol {
         tableView.reloadData()
     }
     
-    func setColors(backgroundColor: UIColor, textColor: UIColor) {
+    func applyColors(backgroundColor: UIColor, textColor: UIColor) {
         listView.setColors(backgroundColor: backgroundColor, textColor: textColor)
         navigationController?.navigationBar.tintColor = textColor
+        tableView.reloadData()
     }
 }
 
@@ -136,6 +137,7 @@ extension BasicListViewController: UITableViewDelegate {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ListHeaderView.identifier) as! ListHeaderView
         header.delegate = self
         header.section = section
+        presenter.configureHeader(header)
         return header
     }
     
