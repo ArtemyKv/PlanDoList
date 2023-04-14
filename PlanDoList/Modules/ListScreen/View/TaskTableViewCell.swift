@@ -214,6 +214,11 @@ class TaskTableViewCell: UITableViewCell {
         }
     }
     
+    func applyColor(_ color: UIColor) {
+        checkmarkButton.tintColor = color
+        starButton.tintColor = color
+    }
+    
     //Action for button target
     @objc func buttonTapped(_ sender: UIButton) {
         switch sender {

@@ -15,7 +15,7 @@ protocol ListViewProtocol: AnyObject {
     func deleteRows(at indexPaths: [IndexPath])
     func insertRows(at indexPaths: [IndexPath])
     func moveRow(at indexPath: IndexPath, to newIndexPath: IndexPath)
-    func setColors(backgroundColor: UIColor, textColor: UIColor)
+    func applyColors(backgroundColor: UIColor, textColor: UIColor)
 }
 
 protocol ListPresenterProtocol {
@@ -34,6 +34,7 @@ protocol ListPresenterProtocol {
     func cellStarTapped(cell: TaskTableViewCell, at indexPath: IndexPath)
     func didSelectRow(at indexPath: IndexPath)
     func headerTappedInSection(_ sectionIndex: Int, isCollapsed: Bool)
+    func configureHeader(_ header: UITableViewHeaderFooterView)
 
     func viewWillDisappear()
     func setViewTitle(_ title: String)
@@ -66,7 +67,7 @@ class ListPresenter: ListPresenterProtocol {
     func viewWillAppear() {
         listManager.getTasks()
         view.reloadData()
-        view.setColors(backgroundColor: listManager.colorTheme.backgroudColor, textColor: listManager.colorTheme.textColor)
+        view.applyColors(backgroundColor: listManager.colorTheme.backgroudColor, textColor: listManager.colorTheme.textColor)
     }
     
     func viewWillDisappear() {
@@ -77,7 +78,7 @@ class ListPresenter: ListPresenterProtocol {
         let listName = listManager.listName
         let colorTheme = listManager.colorTheme
         view.configure(withTitle: listName, subtitle: nil)
-        view.setColors(backgroundColor: colorTheme.backgroudColor, textColor: colorTheme.textColor)
+        view.applyColors(backgroundColor: colorTheme.backgroudColor, textColor: colorTheme.textColor)
     }
     
     func numberOfRowsInSection(_ sectionIndex: Int) -> Int {
@@ -107,6 +108,7 @@ class ListPresenter: ListPresenterProtocol {
             task = listManager.completedTask(at: indexPath.row)!
         }
         cell.setupMainInfo(title: task.wrappedName, isComplete: task.complete, isImportant: task.important)
+        cell.applyColor(listManager.colorTheme.controlsColor)
     }
     
     func shouldDisplayHeaderViewInSection(_ sectionIndex: Int) -> Bool {
@@ -174,6 +176,11 @@ class ListPresenter: ListPresenterProtocol {
         isCollapsed ? view.deleteRows(at: indexPaths) : view.insertRows(at: indexPaths)
     }
     
+    func configureHeader(_ header: UITableViewHeaderFooterView) {
+        guard let header = header as? ListHeaderView else { return }
+        header.applyColor(listManager.colorTheme.textColor)
+    }
+    
     func settingsButtonTapped() {
         coordinator.presentThemePickerScreen(delegate: self, colorTheme: listManager.colorTheme)
     }
@@ -191,7 +198,7 @@ extension ListPresenter: AddTaskPresenterDelegate {
 
 extension ListPresenter: ThemePickerPresenterDelegate {
     func setTheme(_ theme: ColorTheme) {
-        view.setColors(backgroundColor: theme.backgroudColor, textColor: theme.textColor)
+        view.applyColors(backgroundColor: theme.backgroudColor, textColor: theme.textColor)
         listManager.setListTheme(theme)
     }
     

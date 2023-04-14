@@ -21,7 +21,7 @@ class ListHeaderView: UITableViewHeaderFooterView {
     
     weak var delegate: ListHeaderViewDelegate?
     
-    var label: UILabel = {
+    let label: UILabel = {
         var label = UILabel()
         label.numberOfLines = 1
         label.contentMode = .left
@@ -30,7 +30,7 @@ class ListHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    var imageView: UIImageView = {
+    let imageView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
@@ -38,7 +38,12 @@ class ListHeaderView: UITableViewHeaderFooterView {
         return imageView
     }()
     
-    
+    let background: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 5
+        view.backgroundColor = UIColor(white: 0.2, alpha: 0.10)
+        return view
+    }()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -57,20 +62,26 @@ class ListHeaderView: UITableViewHeaderFooterView {
     }
     
     private func addSubviews() {
-        contentView.addSubview(imageView)
-        contentView.addSubview(label)
+        contentView.addSubview(background)
+        background.addSubview(imageView)
+        background.addSubview(label)
     }
     
     private func setupConstraints() {
+        background.snp.makeConstraints { make in
+            make.leading.equalTo(self.layoutMarginsGuide)
+            make.verticalEdges.equalToSuperview().inset(5)
+        }
+        
         imageView.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 20, height: 20))
-            make.leading.equalTo(self.layoutMarginsGuide)
-            make.verticalEdges.equalToSuperview()
+            make.leading.equalToSuperview().inset(4)
+            make.verticalEdges.equalToSuperview().inset(2)
         }
         
         label.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(5)
-            make.trailing.equalTo(self.layoutMarginsGuide)
+            make.trailing.equalToSuperview().inset(8)
             make.verticalEdges.equalToSuperview()
         }
     }
@@ -92,5 +103,10 @@ class ListHeaderView: UITableViewHeaderFooterView {
     @objc private func viewTapped() {
         rotateChevron()
         delegate?.headerTapped(sender: self, section: section)
+    }
+    
+    func applyColor(_ color: UIColor) {
+        imageView.tintColor = color
+        label.textColor = color
     }
 }
