@@ -24,6 +24,7 @@ class TaskView: UIView {
     private func setupView() {
         self.backgroundColor = .systemBackground
         tableView.backgroundColor = .systemBackground
+        tableView.separatorStyle = .none
         addSubview(taskViewHeader)
         addSubview(tableView)
         

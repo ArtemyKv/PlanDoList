@@ -113,6 +113,7 @@ class TaskPresenter: TaskPresenterProtocol {
     func completeButtonTapped(selected: Bool) {
         taskManager.setTaskIsComplete(selected)
         updateNameSection()
+        updateToolbar()
     }
     
     func importantButtonTapped(selected: Bool) {

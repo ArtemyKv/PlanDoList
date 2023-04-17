@@ -37,6 +37,7 @@ struct Constants {
     }
     
     struct Color {
+        static let defaultIconColor = UIColor.darkGray
         static let myDayIconColor = UIColor(rgb: 0xCFD300)
         static let incomeIconColor = UIColor(rgb: 0x0069D8)
         static let importantIconColor = UIColor(rgb: 0x9B1206)

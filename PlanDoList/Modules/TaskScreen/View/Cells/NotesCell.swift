@@ -20,9 +20,19 @@ class NotesCell: UITableViewCell {
     private let notesTextView: UITextView = {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 17)
+        textView.backgroundColor = .systemGray6
         textView.textAlignment = .left
         textView.isScrollEnabled = false
+        textView.layer.cornerRadius = 8
         return textView
+    }()
+    
+    private let textPlaceholer: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20)
+        label.textColor = .lightGray
+        label.text = "Tap to add notes"
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,6 +56,7 @@ class NotesCell: UITableViewCell {
     
     private func addSubviews() {
         contentView.addSubview(notesTextView)
+        contentView.addSubview(textPlaceholer)
     }
     
     private func makeConstraints() {
@@ -53,6 +64,10 @@ class NotesCell: UITableViewCell {
             make.horizontalEdges.equalTo(contentView.layoutMarginsGuide)
             make.verticalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(132)
+        }
+        
+        textPlaceholer.snp.makeConstraints { make in
+            make.center.equalTo(notesTextView)
         }
     }
     
@@ -76,18 +91,25 @@ class NotesCell: UITableViewCell {
         guard let info = notification.userInfo, let keyboardFrameValue = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let height = keyboardFrameValue.cgRectValue.size.height
         delegate?.keyboardWillShow(with: height)
+        textPlaceholer.isHidden = true
     }
     
     @objc private func keyboardWillHide() {
         delegate?.keyboardWillHide()
+        setPlaceholderVisibility()
     }
                                          
     @objc private func doneButtonPressed() {
         notesTextView.resignFirstResponder()
     }
     
-    func updateCell(with text: String) {
+    private func setPlaceholderVisibility() {
+        textPlaceholer.isHidden = !notesTextView.text.isEmpty
+    }
+    
+    func update(with text: String) {
         notesTextView.text = text
+        setPlaceholderVisibility()
     }
 }
 

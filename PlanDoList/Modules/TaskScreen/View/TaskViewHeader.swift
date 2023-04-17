@@ -21,6 +21,7 @@ class TaskViewHeader: UIView {
         let button = UIButton()
         button.setImage(Constants.Image.Checkmark.uncheckedLarge, for: .normal)
         button.setImage(Constants.Image.Checkmark.checkedLarge, for: .selected)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     
@@ -28,12 +29,13 @@ class TaskViewHeader: UIView {
         let button = UIButton()
         button.setImage(Constants.Image.Star.uncheckedLarge, for: .normal)
         button.setImage(Constants.Image.Star.checkedLarge, for: .selected)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     
     lazy var nameTextview: UITextView = {
         let textView = UITextView()
-        textView.font = .systemFont(ofSize: 20)
+        textView.font = .systemFont(ofSize: 22, weight: .semibold)
         textView.returnKeyType = .done
         textView.isScrollEnabled = false
         textView.delegate = self
@@ -79,7 +81,7 @@ class TaskViewHeader: UIView {
         importantButton.snp.contentCompressionResistanceHorizontalPriority = 751
         
         stack.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(self.layoutMarginsGuide)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.verticalEdges.equalToSuperview()
         }
     }

@@ -28,12 +28,14 @@ class SubtaskTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setImage(Constants.Image.Checkmark.uncheckedMedium, for: .normal)
         button.setImage(Constants.Image.Checkmark.checkedMedium, for: .selected)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     
     private let deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(Constants.Image.Xmark.small, for: .normal)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     

@@ -13,6 +13,7 @@ class MyDayCell: UITableViewCell {
     let imageButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "sun.max"), for: .normal)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     
@@ -62,5 +63,11 @@ class MyDayCell: UITableViewCell {
             make.horizontalEdges.equalTo(contentView.layoutMarginsGuide)
             make.verticalEdges.equalTo(contentView)
         }
+    }
+    
+    func update(withText text: String, color: UIColor) {
+        myDayLabel.text = text
+        myDayLabel.textColor = color
+        imageButton.tintColor = color
     }
 }

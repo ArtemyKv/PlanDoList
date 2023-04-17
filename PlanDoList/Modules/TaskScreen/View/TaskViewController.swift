@@ -141,6 +141,7 @@ class TaskViewController: UIViewController {
         dateToolbarButton.title = "Hello!"
         dateToolbarButton.isEnabled = false
         deleteToolbarButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(deleteToolbarButtonPressed))
+        deleteToolbarButton.tintColor = .red
         navigationController?.setToolbarHidden(false, animated: false)
         setToolbarItems([leftFlexSpace, dateToolbarButton, rightFlexSpace, deleteToolbarButton], animated: false)
     }
@@ -288,7 +289,9 @@ extension TaskViewController: TaskViewProtocol {
     }
     
     func updateMyDayCell(selected: Bool) {
-        myDayLabel.text = selected ? "Remove from My Day" : "Add to My Day"
+        let text = selected ? "Added to My Day" : "Add to My Day"
+        let color = selected ? UIColor.systemBlue : UIColor.label
+        myDayCell.update(withText: text, color: color)
     }
     
     func updateRemindDateCell(with text: String?) {
@@ -300,7 +303,7 @@ extension TaskViewController: TaskViewProtocol {
     }
     
     func updateNotesCell(with text: String) {
-        notesCell.updateCell(with: text)
+        notesCell.update(with: text)
     }
     
     func updateToolbar(with text: String) {

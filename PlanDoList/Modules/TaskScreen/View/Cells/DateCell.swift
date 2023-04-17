@@ -24,6 +24,7 @@ class DateCell: UITableViewCell {
     let imageButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "clock"), for: .normal)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     
@@ -37,7 +38,7 @@ class DateCell: UITableViewCell {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17)
+        label.font = .systemFont(ofSize: 14)
         label.textAlignment = .right
         label.textColor = .label
         return label
@@ -46,6 +47,7 @@ class DateCell: UITableViewCell {
     let deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(Constants.Image.Xmark.small, for: .normal)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     
@@ -91,7 +93,7 @@ class DateCell: UITableViewCell {
         deleteButton.snp.contentCompressionResistanceHorizontalPriority = 751
         
         hStack.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(contentView.layoutMarginsGuide)
+            make.horizontalEdges.equalTo(contentView).inset(20)
             make.verticalEdges.equalTo(contentView)
         }
     }
