@@ -33,20 +33,38 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "PlanDo List"
         homeView.delegate = self
-        collectionView.delegate = self
-        dataSource = collectionViewDataSource()
-        setupDataSourceHandlers()
-        collectionView.collectionViewLayout = collectionViewLayout()
-        collectionView.dataSource = dataSource
-        collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.reuseIdentifier)
+        setupNavigationItem()
+        setupCollectionViewDataSource()
+        setupCollectionView()
         applySnapshots()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadData()
+    }
+    
+    private func setupNavigationItem() {
+        navigationItem.title = "PlanDo List"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .darkGray
+    }
+    
+    private func setupCollectionView() {
+        collectionView.delegate = self
+        collectionView.collectionViewLayout = collectionViewLayout()
+        collectionView.dataSource = dataSource
+        collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.reuseIdentifier)
+    }
+    
+    private func setupCollectionViewDataSource() {
+        dataSource = collectionViewDataSource()
+        setupDataSourceHandlers()
+    }
+    
+    @objc func searchButtonTapped() {
+        presenter.searchButtonTapped()
     }
 }
 
@@ -174,6 +192,7 @@ extension HomeViewController {
     
 }
 
+//MARK: - Collection View Delegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)

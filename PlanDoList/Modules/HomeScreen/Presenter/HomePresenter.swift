@@ -21,6 +21,7 @@ protocol HomePresenterProtocol: AnyObject {
     func addGroupButtonTapped()
     func addListButtonTapped()
     func addTaskButtonTapped()
+    func searchButtonTapped()
     func getViewModelItems(ofKind itemKind: HomeViewModel.Item.ItemKind) -> [HomeViewModel.Item]
     func getGroupedListItems(forGroupItem groupItem: HomeViewModel.Item) -> [HomeViewModel.Item]
     func deleteSwipeActionTapped(for item: HomeViewModel.Item)
@@ -103,6 +104,10 @@ final class HomePresenter: HomePresenterProtocol {
     
     func addTaskButtonTapped() {
         coordinator.presentAddTaskScreen(delegate: self)
+    }
+    
+    func searchButtonTapped() {
+        coordinator.presentSearchScreen()
     }
     
     private func addListAction(groupItem: HomeViewModel.Item) {
