@@ -131,9 +131,16 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     private func setupCell() {
+        setupSelectedBackgroundView()
         addSubviews()
         setupConstraints()
         addTargets()
+    }
+    
+    private func setupSelectedBackgroundView() {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        self.selectedBackgroundView = backgroundView
     }
     
     private func addSubviews() {
@@ -230,5 +237,16 @@ class TaskTableViewCell: UITableViewCell {
         default:
             break
         }
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        if highlighted {
+            UIView.animate(withDuration: 0.2) {
+                self.containerView.backgroundColor = .systemGray4
+            }
+        } else {
+            containerView.backgroundColor = .systemBackground
+        }
+        super.setHighlighted(highlighted, animated: animated)
     }
 }
