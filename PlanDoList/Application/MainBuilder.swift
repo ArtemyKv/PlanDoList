@@ -19,6 +19,7 @@ protocol Builder: AnyObject {
     func importantScreen(coordinator: MainCoordinatorProtocol) -> ImportantViewController
     func plannedScreen(coordinator: MainCoordinatorProtocol) -> PlannedViewController
     func themePickerScreen(coordinator: MainCoordinatorProtocol, delegate: ThemePickerPresenterDelegate, colorTheme: ColorTheme) -> ThemePickerViewController
+    func searchScreen(coordinator: MainCoordinatorProtocol) -> SearchViewController
 
 }
 
@@ -100,6 +101,14 @@ final class MainBuilder: Builder {
         themePickerPresenter.delegate = delegate
         themePickerVC.presenter = themePickerPresenter
         return themePickerVC
+    }
+    
+    func searchScreen(coordinator: MainCoordinatorProtocol) -> SearchViewController {
+        let searchVC = SearchViewController()
+        let searchManager = modelManagerBuilder.searchManager()
+        let searchPresenter = SearchPresenter(coordinator: coordinator, view: searchVC, searchManager: searchManager)
+        searchVC.presenter = searchPresenter
+        return searchVC
     }
     
 }

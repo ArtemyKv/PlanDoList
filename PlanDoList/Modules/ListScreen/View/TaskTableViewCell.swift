@@ -38,6 +38,7 @@ class TaskTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setTitle("", for: .normal)
         button.setImage(Constants.Image.Checkmark.uncheckedMedium, for: .normal)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     
@@ -46,6 +47,7 @@ class TaskTableViewCell: UITableViewCell {
         button.setTitle("", for: .normal)
         button.setImage(Constants.Image.Star.uncheckedSmall, for: .normal)
         button.setImage(Constants.Image.Star.checkedSmall, for: .selected)
+        button.tintColor = Constants.Color.defaultIconColor
         return button
     }()
     

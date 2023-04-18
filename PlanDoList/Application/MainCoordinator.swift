@@ -18,6 +18,7 @@ protocol MainCoordinatorProtocol: Coordinator {
     func presentPlannedScreen()
     func presentThemePickerScreen(delegate: ThemePickerPresenterDelegate, colorTheme: ColorTheme)
     func dismissCurrentScreen()
+    func presentSearchScreen()
 }
 
 class MainCoordinator: MainCoordinatorProtocol {
@@ -90,6 +91,11 @@ class MainCoordinator: MainCoordinatorProtocol {
     
     func dismissCurrentScreen() {
         navigationController.popViewController(animated: true)
+    }
+    
+    func presentSearchScreen() {
+        let searchVC = builder.searchScreen(coordinator: self)
+        navigationController.pushViewController(searchVC, animated: true)
     }
     
     

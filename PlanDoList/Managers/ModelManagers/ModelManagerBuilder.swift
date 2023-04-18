@@ -16,6 +16,7 @@ protocol ModelManagerBuilderProtocol {
     func importantListManager() -> ImportantListManagerProtocol
     func plannedListManager() -> PlannedListManagerProtocol
     func taskCounter() -> TaskCounter
+    func searchManager() -> SearchManagerProtocol
 }
 
 class ModelManagerBuilder: ModelManagerBuilderProtocol {
@@ -62,5 +63,10 @@ class ModelManagerBuilder: ModelManagerBuilderProtocol {
     func taskCounter() -> TaskCounter {
         let homeTaskCounter = HomeTaskCounter(coreDataStack: coreDataStack)
         return homeTaskCounter
+    }
+    
+    func searchManager() -> SearchManagerProtocol {
+        let searchManager =  SearchManager(coreDataStack: coreDataStack)
+        return searchManager
     }
 }
