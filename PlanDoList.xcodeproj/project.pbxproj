@@ -91,6 +91,8 @@
 		B6465D8329D544180029FD9B /* ColorThemeAttributeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */; };
 		B6465D8529DA7F930029FD9B /* TaskViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8429DA7F930029FD9B /* TaskViewHeader.swift */; };
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
+		B6B2B8D029EEB24B00D61DBD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */; };
+		B6B2B8D329EEB27A00D61DBD /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */; };
 		B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4F10629DBE822002553B8 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -182,6 +184,8 @@
 		B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeAttributeTransformer.swift; sourceTree = "<group>"; };
 		B6465D8429DA7F930029FD9B /* TaskViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewHeader.swift; sourceTree = "<group>"; };
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
+		B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		B6D4F10629DBE822002553B8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -285,6 +289,7 @@
 		9C1380A429A4896000BE1486 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B6B2B8CE29EEB1B300D61DBD /* SearchScreen */,
 				9CC4885C29C3EFBB004D66D6 /* BasicListsScreens */,
 				9C1380A529A4896E00BE1486 /* HomeScreen */,
 				9C2B2AFF29AB15A300BD8F63 /* ListScreen */,
@@ -604,6 +609,31 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		B6B2B8CE29EEB1B300D61DBD /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B6B2B8D129EEB26C00D61DBD /* View */,
+				B6B2B8D429EEB27F00D61DBD /* Presenter */,
+			);
+			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		B6B2B8D129EEB26C00D61DBD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B6B2B8D429EEB27F00D61DBD /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		B6D4F10429DBE722002553B8 /* ModelManagers */ = {
 			isa = PBXGroup;
 			children = (
@@ -804,6 +834,8 @@
 				9C13807929A4615F00BE1486 /* SceneDelegate.swift in Sources */,
 				9C3D1A4929C966BE001DABCC /* PlannedView.swift in Sources */,
 				9C3D1A2C29C7EFCA001DABCC /* IncomeView.swift in Sources */,
+				B6B2B8D029EEB24B00D61DBD /* SearchViewController.swift in Sources */,
+				B6B2B8D329EEB27A00D61DBD /* SearchPresenter.swift in Sources */,
 				B6465D7D29D3CBA10029FD9B /* ColorTheme.swift in Sources */,
 				9C6C1C3229B4812900DBB1A2 /* TaskView.swift in Sources */,
 				9C2B2AF829A76DCE00BD8F63 /* HomeCollectionViewCell.swift in Sources */,
