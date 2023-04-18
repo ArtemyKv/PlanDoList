@@ -94,6 +94,7 @@
 		B6B2B8D029EEB24B00D61DBD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */; };
 		B6B2B8D329EEB27A00D61DBD /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */; };
 		B6B2B8D629EEB4EB00D61DBD /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D529EEB4EB00D61DBD /* SearchManager.swift */; };
+		B6B2B8D829EECC9200D61DBD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D729EECC9200D61DBD /* SearchView.swift */; };
 		B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4F10629DBE822002553B8 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -188,6 +189,7 @@
 		B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		B6B2B8D529EEB4EB00D61DBD /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
+		B6B2B8D729EECC9200D61DBD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B6D4F10629DBE822002553B8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -624,6 +626,7 @@
 			isa = PBXGroup;
 			children = (
 				B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */,
+				B6B2B8D729EECC9200D61DBD /* SearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				9C1380AE29A48A0500BE1486 /* HomeViewController.swift in Sources */,
 				9C3D1A4329C95E86001DABCC /* ImportantListManager.swift in Sources */,
 				9C3D1A3129C7F4E2001DABCC /* IncomeListManager.swift in Sources */,
+				B6B2B8D829EECC9200D61DBD /* SearchView.swift in Sources */,
 				9CA22D3E29C17B2A00FC83C6 /* MyDayView.swift in Sources */,
 				B6465D6929CF73DE0029FD9B /* TaskCounter.swift in Sources */,
 				9C3D1A2829C7EFAE001DABCC /* IncomeViewController.swift in Sources */,
