@@ -93,6 +93,7 @@
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
 		B6B2B8D029EEB24B00D61DBD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */; };
 		B6B2B8D329EEB27A00D61DBD /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */; };
+		B6B2B8D629EEB4EB00D61DBD /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D529EEB4EB00D61DBD /* SearchManager.swift */; };
 		B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4F10629DBE822002553B8 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +187,7 @@
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		B6B2B8D529EEB4EB00D61DBD /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		B6D4F10629DBE822002553B8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -642,6 +644,7 @@
 				9C1380A129A47E5100BE1486 /* GroupManager.swift */,
 				9C6C1C3629B481EA00DBB1A2 /* TaskManager.swift */,
 				B6465D6829CF73DE0029FD9B /* TaskCounter.swift */,
+				B6B2B8D529EEB4EB00D61DBD /* SearchManager.swift */,
 			);
 			path = ModelManagers;
 			sourceTree = "<group>";
@@ -825,6 +828,7 @@
 				B6465D7529D1F88E0029FD9B /* ThemePickerPresenter.swift in Sources */,
 				9C13809F29A47BEE00BE1486 /* List+CoreDataClass.swift in Sources */,
 				9C6C1C3C29B50E3D00DBB1A2 /* SubtasksListCell.swift in Sources */,
+				B6B2B8D629EEB4EB00D61DBD /* SearchManager.swift in Sources */,
 				9C44CCAD29C011C70007555E /* PlanDoList.xcdatamodeld in Sources */,
 				9CA22D4129C17B5300FC83C6 /* MyDayPresenter.swift in Sources */,
 				9C13809A29A47BEE00BE1486 /* List+CoreDataProperties.swift in Sources */,
