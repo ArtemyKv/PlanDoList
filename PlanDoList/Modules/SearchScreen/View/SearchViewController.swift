@@ -67,6 +67,11 @@ extension SearchViewController: SearchViewProtocol {
     func reloadData() {
         tableView.reloadData()
     }
+    
+    func setTipIsHidden() {
+        let isHidden = tableView.numberOfRows(inSection: 0) > 0
+        searchView.setTipViewIsHidden(isHidden)
+    }
 }
 
 extension SearchViewController: UITableViewDataSource {

@@ -9,6 +9,7 @@ import Foundation
 
 protocol SearchViewProtocol: AnyObject {
     func reloadData()
+    func setTipIsHidden()
 }
 
 protocol SearchPresenterProtocol: AnyObject {
@@ -52,6 +53,7 @@ class SearchPresenter: SearchPresenterProtocol {
     func searchBarTextDidChange(_ text: String) {
         searchManager.search(with: text) {
             view.reloadData()
+            view.setTipIsHidden()
         }
         
     }

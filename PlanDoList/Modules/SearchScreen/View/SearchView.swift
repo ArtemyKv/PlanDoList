@@ -11,6 +11,8 @@ import SnapKit
 class SearchView: UIView {
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
     
+    let searchTipView = SearchTipView()
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
         setupView()
@@ -22,9 +24,19 @@ class SearchView: UIView {
     
     func setupView() {
         addSubview(tableView)
+        addSubview(searchTipView)
         
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
+        
+        searchTipView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(3)
+        }
+    }
+    
+    func setTipViewIsHidden(_ isHidden: Bool) {
+        searchTipView.isHidden = isHidden
     }
 }
