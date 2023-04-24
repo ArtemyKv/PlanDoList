@@ -9,9 +9,9 @@ import Foundation
 import CoreData
 
 protocol SearchManagerProtocol: AnyObject {
+    var wrappedSearchResults: [Task] { get }
     func searchResultsCount() -> Int
-    func searchResult(at index: Int) -> Task?
-    func search(with text: String, completion: () -> Void)
+    func search(with text: String, completion: @escaping () -> Void)
 }
 
 class SearchManager: SearchManagerProtocol {
@@ -21,6 +21,10 @@ class SearchManager: SearchManagerProtocol {
     private var fetchRequest: NSFetchRequest<Task>?
     
     private var searchResults: [Task] = []
+    
+    var wrappedSearchResults: [Task] {
+        return searchResults
+    }
     
     init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
@@ -43,7 +47,7 @@ class SearchManager: SearchManagerProtocol {
         return searchResults[index]
     }
     
-    func search(with text: String, completion: () -> Void) {
+    func search(with text: String, completion: @escaping () -> Void) {
         guard let fetchRequest else { return }
         let predicate = NSPredicate(format: "%K contains[c] %@", #keyPath(Task.name), text)
         fetchRequest.predicate = predicate

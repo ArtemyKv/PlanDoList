@@ -16,7 +16,8 @@ protocol SearchPresenterProtocol: AnyObject {
     init(coordinator: MainCoordinatorProtocol, view: SearchViewProtocol, searchManager: SearchManagerProtocol)
     
     func numberOfRows() -> Int
-    func configureCell(_ cell: TaskTableViewCell, at indexPath: IndexPath)
+    func makeViewModelItems() -> [SearchViewModel.Item]
+    func configureCell(_ cell: TaskTableViewCell, with item: SearchViewModel.Item)
     func searchBarTextDidChange(_ text: String)
 }
 
@@ -37,8 +38,12 @@ class SearchPresenter: SearchPresenterProtocol {
         return searchManager.searchResultsCount()
     }
     
-    func configureCell(_ cell: TaskTableViewCell, at indexPath: IndexPath) {
-        guard let task = searchManager.searchResult(at: indexPath.row) else { return }
+    func makeViewModelItems() -> [SearchViewModel.Item] {
+        return searchManager.wrappedSearchResults.map { SearchViewModel.Item.searchResult($0) }
+    }
+    
+    func configureCell(_ cell: TaskTableViewCell, with item: SearchViewModel.Item) {
+        guard case let .searchResult(task) = item else { return }
         cell.setupMainInfo(title: task.wrappedName, isComplete: task.complete, isImportant: task.important)
         
         if !task.complete {
@@ -51,9 +56,10 @@ class SearchPresenter: SearchPresenterProtocol {
     }
     
     func searchBarTextDidChange(_ text: String) {
-        searchManager.search(with: text) {
-            view.reloadData()
-            view.setTipIsHidden()
+        searchManager.search(with: text) { [weak self] in
+            guard let self else { return }
+            self.view.reloadData()
+            self.view.setTipIsHidden()
         }
         
     }

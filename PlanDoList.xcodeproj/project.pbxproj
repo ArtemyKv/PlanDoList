@@ -97,6 +97,8 @@
 		B6B2B8D829EECC9200D61DBD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D729EECC9200D61DBD /* SearchView.swift */; };
 		B6B2B8DA29EF290F00D61DBD /* SearchTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D929EF290F00D61DBD /* SearchTipView.swift */; };
 		B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4F10629DBE822002553B8 /* NotificationManager.swift */; };
+		B6DA406329F5074C0096DA1C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA406229F5074C0096DA1C /* SearchViewModel.swift */; };
+		B6DA406629F60BBD0096DA1C /* UIView + setIsHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -193,6 +195,8 @@
 		B6B2B8D729EECC9200D61DBD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B6B2B8D929EF290F00D61DBD /* SearchTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTipView.swift; sourceTree = "<group>"; };
 		B6D4F10629DBE822002553B8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		B6DA406229F5074C0096DA1C /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + setIsHidden.swift"; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -263,6 +267,7 @@
 				B6465D6629CF61190029FD9B /* UIButton+Animations.swift */,
 				B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */,
 				B6465D7729D206960029FD9B /* BottomSheetView.swift */,
+				B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -620,6 +625,7 @@
 			children = (
 				B6B2B8D129EEB26C00D61DBD /* View */,
 				B6B2B8D429EEB27F00D61DBD /* Presenter */,
+				B6DA406429F507500096DA1C /* Model */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
@@ -666,6 +672,14 @@
 				9C3D1A4D29C96796001DABCC /* PlannedListManager.swift */,
 			);
 			path = ListManagers;
+			sourceTree = "<group>";
+		};
+		B6DA406429F507500096DA1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B6DA406229F5074C0096DA1C /* SearchViewModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -821,6 +835,7 @@
 				9C2B2B0729ABA8D400BD8F63 /* ListManager.swift in Sources */,
 				B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */,
 				9C13809C29A47BEE00BE1486 /* Subtask+CoreDataProperties.swift in Sources */,
+				B6DA406629F60BBD0096DA1C /* UIView + setIsHidden.swift in Sources */,
 				9C2B2B0B29AE2E9D00BD8F63 /* TaskTableViewCell.swift in Sources */,
 				9C3D1A3B29C95D6C001DABCC /* ImportantViewController.swift in Sources */,
 				9C6C1C4E29B6D5B100DBB1A2 /* AppConstants.swift in Sources */,
@@ -848,6 +863,7 @@
 				9C3D1A2C29C7EFCA001DABCC /* IncomeView.swift in Sources */,
 				B6B2B8D029EEB24B00D61DBD /* SearchViewController.swift in Sources */,
 				B6B2B8D329EEB27A00D61DBD /* SearchPresenter.swift in Sources */,
+				B6DA406329F5074C0096DA1C /* SearchViewModel.swift in Sources */,
 				B6465D7D29D3CBA10029FD9B /* ColorTheme.swift in Sources */,
 				9C6C1C3229B4812900DBB1A2 /* TaskView.swift in Sources */,
 				9C2B2AF829A76DCE00BD8F63 /* HomeCollectionViewCell.swift in Sources */,

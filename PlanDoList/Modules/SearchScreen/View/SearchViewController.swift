@@ -6,12 +6,17 @@
 //
 
 import UIKit
-import SnapKit
 
 class SearchViewController: UIViewController {
-    var presenter: SearchPresenterProtocol!
+    typealias DataSourceType = UITableViewDiffableDataSource<SearchViewModel.Section, SearchViewModel.Item>
+    typealias SnapshotType = NSDiffableDataSourceSnapshot<SearchViewModel.Section, SearchViewModel.Item>
     
+    var dataSource: DataSourceType?
+    
+    var presenter: SearchPresenterProtocol!
     var searchController: UISearchController!
+    
+    
     
     var searchView: SearchView! {
         guard isViewLoaded else { return nil }
@@ -32,6 +37,7 @@ class SearchViewController: UIViewController {
         setupNavigationItem()
         setupTableView()
         applyColorTheme()
+        applySnapshot()
     }
     
     private func setupNavigationItem() {
@@ -46,8 +52,25 @@ class SearchViewController: UIViewController {
     private func setupTableView() {
         tableView.separatorStyle = .none
         tableView.backgroundColor = Constants.Color.defaultIconColor
-        tableView.dataSource = self
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        dataSource = makeDataSource()
+    }
+    
+    private func makeDataSource() -> DataSourceType {
+        let dataSource = DataSourceType(tableView: tableView) { [weak self] tableView, indexPath, item in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as! TaskTableViewCell
+            self?.presenter.configureCell(cell, with: item)
+            return cell
+        }
+        return dataSource
+    }
+    
+    private func applySnapshot() {
+        var snapshot = SnapshotType()
+        snapshot.appendSections([.main])
+        let items = presenter.makeViewModelItems()
+        snapshot.appendItems(items)
+        dataSource?.apply(snapshot)
     }
     
     private func applyColorTheme() {
@@ -65,29 +88,12 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: SearchViewProtocol {
     func reloadData() {
-        tableView.reloadData()
+        applySnapshot()
     }
     
     func setTipIsHidden() {
-        let isHidden = tableView.numberOfRows(inSection: 0) > 0
+        let isHidden = presenter.numberOfRows() > 0
         searchView.setTipViewIsHidden(isHidden)
-    }
-}
-
-extension SearchViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRows()
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as! TaskTableViewCell
-        presenter.configureCell(cell, at: indexPath)
-        return cell
     }
 }
 

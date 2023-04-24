@@ -37,6 +37,6 @@ class SearchView: UIView {
     }
     
     func setTipViewIsHidden(_ isHidden: Bool) {
-        searchTipView.isHidden = isHidden
+        self.searchTipView.setIsHidden(isHidden, animated: true)
     }
 }
