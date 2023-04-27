@@ -119,8 +119,11 @@ class DateCell: UITableViewCell {
     
     func updateCell(dateText: String?) {
         let dateSet = (dateText != nil)
+        let color = dateSet ? UIColor.systemBlue : UIColor.label
         dateLabel.isHidden = !dateSet
         deleteButton.isHidden = !dateSet
         dateLabel.text = dateText
+        imageButton.tintColor = color
+        titleLabel.textColor = color
     }
 }
