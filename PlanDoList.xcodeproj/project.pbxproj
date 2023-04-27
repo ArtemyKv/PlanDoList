@@ -99,6 +99,9 @@
 		B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4F10629DBE822002553B8 /* NotificationManager.swift */; };
 		B6DA406329F5074C0096DA1C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA406229F5074C0096DA1C /* SearchViewModel.swift */; };
 		B6DA406629F60BBD0096DA1C /* UIView + setIsHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */; };
+		B6DA408A29FA19350096DA1C /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA408929FA19350096DA1C /* NoteViewController.swift */; };
+		B6DA408E29FA19550096DA1C /* NotePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA408D29FA19550096DA1C /* NotePresenter.swift */; };
+		B6DA409129FA19710096DA1C /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA409029FA19710096DA1C /* NoteView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -197,6 +200,9 @@
 		B6D4F10629DBE822002553B8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		B6DA406229F5074C0096DA1C /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + setIsHidden.swift"; sourceTree = "<group>"; };
+		B6DA408929FA19350096DA1C /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		B6DA408D29FA19550096DA1C /* NotePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePresenter.swift; sourceTree = "<group>"; };
+		B6DA409029FA19710096DA1C /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		E3BE12FCA81DCF61E553D47D /* Pods_PlanDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlanDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -307,6 +313,7 @@
 				9C2B2B0C29AF0DCE00BD8F63 /* AddTaskScreen */,
 				9C6C1C2D29B480ED00DBB1A2 /* TaskScreen */,
 				B6465D7229D1F86F0029FD9B /* ThemePickerScreen */,
+				B6DA408B29FA193B0096DA1C /* NoteScreen */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -682,6 +689,32 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		B6DA408B29FA193B0096DA1C /* NoteScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B6DA408C29FA19440096DA1C /* View */,
+				B6DA408F29FA195A0096DA1C /* Presenter */,
+			);
+			path = NoteScreen;
+			sourceTree = "<group>";
+		};
+		B6DA408C29FA19440096DA1C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B6DA408929FA19350096DA1C /* NoteViewController.swift */,
+				B6DA409029FA19710096DA1C /* NoteView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B6DA408F29FA195A0096DA1C /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				B6DA408D29FA19550096DA1C /* NotePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -802,6 +835,7 @@
 				9C6C1C4A29B6CEEF00DBB1A2 /* SubtaskTableViewDataSource.swift in Sources */,
 				9C3D1A4E29C96796001DABCC /* PlannedListManager.swift in Sources */,
 				9C3D1A4B29C966CB001DABCC /* PlannedListPresenter.swift in Sources */,
+				B6DA409129FA19710096DA1C /* NoteView.swift in Sources */,
 				9C6C1C2F29B4810600DBB1A2 /* TaskViewController.swift in Sources */,
 				9C13809029A4752300BE1486 /* CoreDataStack.swift in Sources */,
 				9C6C1C4C29B6D06E00DBB1A2 /* SubtaskTableViewCell.swift in Sources */,
@@ -877,11 +911,13 @@
 				9C3D1A4029C95D8C001DABCC /* ImportantListPresenter.swift in Sources */,
 				9C2B2AFA29A7702B00BD8F63 /* HomeViewModel.swift in Sources */,
 				9CA22D3C29C17B1200FC83C6 /* MyDayViewController.swift in Sources */,
+				B6DA408E29FA19550096DA1C /* NotePresenter.swift in Sources */,
 				9C1380B229A48A6C00BE1486 /* MainBuilder.swift in Sources */,
 				9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */,
 				9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */,
 				9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */,
 				9CC4886029C3F08A004D66D6 /* BasicListViewProtocol.swift in Sources */,
+				B6DA408A29FA19350096DA1C /* NoteViewController.swift in Sources */,
 				B6465D7A29D3C9840029FD9B /* ThemePickerViewModel.swift in Sources */,
 				9C3D1A3E29C95D7F001DABCC /* ImportantListView.swift in Sources */,
 				B6465D8129D3D1850029FD9B /* SelectionView.swift in Sources */,
