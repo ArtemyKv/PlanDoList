@@ -24,6 +24,7 @@ class NotesCell: UITableViewCell {
         textView.textAlignment = .left
         textView.isScrollEnabled = false
         textView.layer.cornerRadius = 8
+        textView.isUserInteractionEnabled = false
         return textView
     }()
     

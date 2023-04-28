@@ -20,6 +20,7 @@ protocol Builder: AnyObject {
     func plannedScreen(coordinator: MainCoordinatorProtocol) -> PlannedViewController
     func themePickerScreen(coordinator: MainCoordinatorProtocol, delegate: ThemePickerPresenterDelegate, colorTheme: ColorTheme) -> ThemePickerViewController
     func searchScreen(coordinator: MainCoordinatorProtocol) -> SearchViewController
+    func noteScreen(coordinator: MainCoordinatorProtocol, delegate: NotePresenterDelegate, note: NSAttributedString) -> NoteViewController
 
 }
 
@@ -109,6 +110,14 @@ final class MainBuilder: Builder {
         let searchPresenter = SearchPresenter(coordinator: coordinator, view: searchVC, searchManager: searchManager)
         searchVC.presenter = searchPresenter
         return searchVC
+    }
+    
+    func noteScreen(coordinator: MainCoordinatorProtocol, delegate: NotePresenterDelegate, note: NSAttributedString) -> NoteViewController {
+        let noteVC = NoteViewController()
+        let notePresenter = NotePresenter(note: note, view: noteVC, coordinator: coordinator)
+        notePresenter.delegate = delegate
+        noteVC.presenter = notePresenter
+        return noteVC
     }
     
 }

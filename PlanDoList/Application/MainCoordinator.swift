@@ -10,7 +10,7 @@ import UIKit
 protocol MainCoordinatorProtocol: Coordinator {
     func presentListScreen(list: List)
     func presentAddTaskScreen(delegate: AddTaskPresenterDelegate)
-    func dismissModalScreen()
+    func dismissModalScreen(animated: Bool)
     func presentTaskScreen(task: Task)
     func presentMyDayScreen()
     func presentIncomeScreen()
@@ -19,6 +19,7 @@ protocol MainCoordinatorProtocol: Coordinator {
     func presentThemePickerScreen(delegate: ThemePickerPresenterDelegate, colorTheme: ColorTheme)
     func dismissCurrentScreen()
     func presentSearchScreen()
+    func presentNoteScreen(delegate: NotePresenterDelegate, note: NSAttributedString)
 }
 
 class MainCoordinator: MainCoordinatorProtocol {
@@ -54,8 +55,8 @@ class MainCoordinator: MainCoordinatorProtocol {
         navigationController.viewControllers.last?.present(addTaskVC, animated: false)
     }
     
-    func dismissModalScreen() {
-        navigationController.viewControllers.last?.dismiss(animated: false)
+    func dismissModalScreen(animated: Bool) {
+        navigationController.viewControllers.last?.dismiss(animated: animated)
     }
     
     func presentTaskScreen(task: Task) {
@@ -96,6 +97,11 @@ class MainCoordinator: MainCoordinatorProtocol {
     func presentSearchScreen() {
         let searchVC = builder.searchScreen(coordinator: self)
         navigationController.pushViewController(searchVC, animated: true)
+    }
+    
+    func presentNoteScreen(delegate: NotePresenterDelegate, note: NSAttributedString) {
+        let noteVC = builder.noteScreen(coordinator: self, delegate: delegate, note: note)
+        navigationController.viewControllers.last?.present(noteVC,animated: true)
     }
     
     

@@ -252,14 +252,16 @@ extension TaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath {
-            case myDayCellIndexPath:
-                presenter.myDayCellSelected()
-            case remindMeCellIndexPath:
-                remindDatePickerIsHidden.toggle()
-            case dueDateCellIndexPath:
-                dueDatePickerIsHidden.toggle()
-            default:
-                break
+        case myDayCellIndexPath:
+            presenter.myDayCellSelected()
+        case remindMeCellIndexPath:
+            remindDatePickerIsHidden.toggle()
+        case dueDateCellIndexPath:
+            dueDatePickerIsHidden.toggle()
+        case notesIndexPath:
+            presenter.notesCellSelected()
+        default:
+            break
         }
     }
 }

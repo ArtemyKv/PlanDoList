@@ -64,7 +64,7 @@ class AddTaskPresenter: AddTaskPresenterProtocol {
     
     private func dismissScreen() {
         view.dismiss { [weak self] in
-            self?.coordinator.dismissModalScreen()
+            self?.coordinator.dismissModalScreen(animated: false)
         }
     }
 }

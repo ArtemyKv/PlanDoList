@@ -71,13 +71,13 @@ class ThemePickerPresenter: ThemePickerPresenterProtocol {
     
     func tappedOutside() {
         view.dismiss {
-            self.coordinator.dismissModalScreen()
+            self.coordinator.dismissModalScreen(animated: false)
         }
     }
     
     func draggedDown() {
         view.dismiss {
-            self.coordinator.dismissModalScreen()
+            self.coordinator.dismissModalScreen(animated: false)
         }
     }
 }
