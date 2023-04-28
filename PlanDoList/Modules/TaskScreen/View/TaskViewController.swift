@@ -170,7 +170,6 @@ class TaskViewController: UIViewController {
         dueDateCell.delegate = self
         remindDatePickerCell.delegate = self
         dueDatePickerCell.delegate = self
-        notesCell.delegate = self
     }
 }
 
@@ -304,8 +303,10 @@ extension TaskViewController: TaskViewProtocol {
         dueDateCell.updateCell(dateText: text)
     }
     
-    func updateNotesCell(with text: String) {
+    func updateNotesCell(with text: NSAttributedString) {
         notesCell.update(with: text)
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
     
     func updateToolbar(with text: String) {
@@ -372,22 +373,5 @@ extension TaskViewController: DatePickerCellDelegate {
             default:
                 break
         }
-    }
-}
-
-extension TaskViewController: NotesCellDelegate {
-    func keyboardWillShow(with keyboardHeight: CGFloat) {
-        taskView.updateBottomConstraint(inset: keyboardHeight)
-        tableView.scrollToRow(at: notesIndexPath, at: .none, animated: true)
-    }
-    
-    func keyboardWillHide() {
-        taskView.updateBottomConstraint(inset: 0)
-    }
-    
-    func notesTextViewDidChange(with text: String) {
-        presenter.notesTextDidChange(text)
-        tableView.beginUpdates()
-        tableView.endUpdates()
     }
 }

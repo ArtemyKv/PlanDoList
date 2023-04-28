@@ -8,14 +8,7 @@
 import UIKit
 import SnapKit
 
-protocol NotesCellDelegate: AnyObject {
-    func keyboardWillShow(with keyboardHeight: CGFloat)
-    func keyboardWillHide()
-    func notesTextViewDidChange(with text: String)
-}
-
 class NotesCell: UITableViewCell {
-    weak var delegate: NotesCellDelegate?
     
     private let notesTextView: UITextView = {
         let textView = UITextView()
@@ -49,10 +42,6 @@ class NotesCell: UITableViewCell {
     private func setupCell() {
         addSubviews()
         makeConstraints()
-        addObservers()
-        setupInputAccessoryView()
-        
-        notesTextView.delegate = self
     }
     
     private func addSubviews() {
@@ -71,51 +60,17 @@ class NotesCell: UITableViewCell {
             make.center.equalTo(notesTextView)
         }
     }
-    
-    private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    private func setupInputAccessoryView() {
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        toolbar.backgroundColor = .systemBackground
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
-        let flexSpace = UIBarButtonItem(systemItem: .flexibleSpace)
-        toolbar.items = [flexSpace, doneButton]
-        notesTextView.inputAccessoryView = toolbar
-    }
-    
-    @objc private func keyboardWillShow(notification: NSNotification) {
-        guard notesTextView.isFirstResponder else { return }
-        guard let info = notification.userInfo, let keyboardFrameValue = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let height = keyboardFrameValue.cgRectValue.size.height
-        delegate?.keyboardWillShow(with: height)
-        textPlaceholer.isHidden = true
-    }
-    
-    @objc private func keyboardWillHide() {
-        delegate?.keyboardWillHide()
-        setPlaceholderVisibility()
-    }
                                          
     @objc private func doneButtonPressed() {
         notesTextView.resignFirstResponder()
     }
     
     private func setPlaceholderVisibility() {
-        textPlaceholer.isHidden = !notesTextView.text.isEmpty
+        textPlaceholer.isHidden = !notesTextView.attributedText.string.isEmpty
     }
     
-    func update(with text: String) {
-        notesTextView.text = text
+    func update(with text: NSAttributedString) {
+        notesTextView.attributedText = text
         setPlaceholderVisibility()
-    }
-}
-
-extension NotesCell: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        delegate?.notesTextViewDidChange(with: textView.text)
     }
 }

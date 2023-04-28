@@ -1,8 +1,8 @@
 //
 //  Task+CoreDataProperties.swift
-//  
+//  PlanDoList
 //
-//  Created by Artem Kvashnin on 21.02.2023.
+//  Created by Artem Kvashnin on 28.04.2023.
 //
 //
 
@@ -24,7 +24,7 @@ extension Task {
     @NSManaged public var important: Bool
     @NSManaged public var myDay: Bool
     @NSManaged public var name: String?
-    @NSManaged public var notes: String?
+    @NSManaged public var notes: NSAttributedString?
     @NSManaged public var order: Int32
     @NSManaged public var remindDate: Date?
     @NSManaged public var list: List?
@@ -64,5 +64,9 @@ extension Task {
 
     @objc(removeSubtasks:)
     @NSManaged public func removeFromSubtasks(_ values: NSOrderedSet)
+
+}
+
+extension Task : Identifiable {
 
 }

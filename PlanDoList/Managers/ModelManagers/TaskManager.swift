@@ -18,7 +18,7 @@ protocol TaskManagerProtocol {
     var taskIsInMyDay: Bool { get }
     var taskDueDate: Date? { get }
     var taskRemindDate: Date? { get }
-    var taskNotes: String { get }
+    var taskNotes: NSAttributedString { get }
     
     func setTaskIsComplete(_ complete: Bool)
     func setTaskIsImportant(_ important: Bool)
@@ -30,7 +30,7 @@ protocol TaskManagerProtocol {
     func toggleMyDay() -> Bool
     func setRemindDate(_ date: Date?)
     func setDueDate(_ date: Date?)
-    func setNotes(with text: String)
+    func setNotes(with text: NSAttributedString)
     func deleteTask()
 }
 
@@ -77,8 +77,8 @@ class TaskManager: TaskManagerProtocol {
         return task.remindDate
     }
     
-    var taskNotes: String {
-        return task.notes ?? ""
+    var taskNotes: NSAttributedString {
+        return task.notes ?? NSAttributedString(string: "")
     }
     
     init(coreDataStack: CoreDataStack, notificationManager: NotificationManagerProtocol, task: Task) {
@@ -155,7 +155,7 @@ class TaskManager: TaskManagerProtocol {
         coreDataStack.saveContext()
     }
     
-    func setNotes(with text: String) {
+    func setNotes(with text: NSAttributedString) {
         task.notes = text
         coreDataStack.saveContext()
     }

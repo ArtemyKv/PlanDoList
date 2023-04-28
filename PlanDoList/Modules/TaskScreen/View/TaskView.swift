@@ -39,12 +39,4 @@ class TaskView: UIView {
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
-    
-    func updateBottomConstraint(inset: CGFloat) {
-        tableView.snp.updateConstraints { make in
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(inset)
-        }
-        layoutIfNeeded()
-    }
-    
 }

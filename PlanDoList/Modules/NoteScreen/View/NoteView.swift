@@ -84,6 +84,8 @@ class NoteView: UIView {
         addSubviews()
         setupConstraints()
         addActions()
+        addObservers()
+        setupInputAccessoryView()
     }
     
     private func addSubviews() {
@@ -119,6 +121,21 @@ class NoteView: UIView {
         doneButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func setupInputAccessoryView() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        toolbar.backgroundColor = .systemBackground
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(toolbarDoneButtonPressed))
+        let flexSpace = UIBarButtonItem(systemItem: .flexibleSpace)
+        toolbar.items = [flexSpace, doneButton]
+        noteTextView.inputAccessoryView = toolbar
+    }
+    
     @objc func buttonPressed(_ sender: UIButton) {
         switch sender {
         case cancelButton:
@@ -129,6 +146,29 @@ class NoteView: UIView {
             break
         }
     }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard noteTextView.isFirstResponder else { return }
+        guard let info = notification.userInfo, let keyboardFrameValue = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let height = keyboardFrameValue.cgRectValue.size.height
+        updateBottomConstraint(inset: height)
+    }
+    
+    @objc private func keyboardWillHide() {
+        updateBottomConstraint(inset: 0)
+    }
+    
+    private func updateBottomConstraint(inset: CGFloat) {
+        noteTextView.snp.updateConstraints { make in
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(inset)
+        }
+        layoutIfNeeded()
+    }
+    
+    @objc private func toolbarDoneButtonPressed() {
+        noteTextView.resignFirstResponder()
+    }
+    
 }
 
 extension NoteView: UITextViewDelegate {
