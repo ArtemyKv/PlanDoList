@@ -96,6 +96,7 @@
 		B6B2B8D629EEB4EB00D61DBD /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D529EEB4EB00D61DBD /* SearchManager.swift */; };
 		B6B2B8D829EECC9200D61DBD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D729EECC9200D61DBD /* SearchView.swift */; };
 		B6B2B8DA29EF290F00D61DBD /* SearchTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D929EF290F00D61DBD /* SearchTipView.swift */; };
+		B6BA132A2A04233B000C367B /* TextEditToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BA13292A04233B000C367B /* TextEditToolbarView.swift */; };
 		B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4F10629DBE822002553B8 /* NotificationManager.swift */; };
 		B6DA406329F5074C0096DA1C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA406229F5074C0096DA1C /* SearchViewModel.swift */; };
 		B6DA406629F60BBD0096DA1C /* UIView + setIsHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */; };
@@ -197,6 +198,7 @@
 		B6B2B8D529EEB4EB00D61DBD /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		B6B2B8D729EECC9200D61DBD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B6B2B8D929EF290F00D61DBD /* SearchTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTipView.swift; sourceTree = "<group>"; };
+		B6BA13292A04233B000C367B /* TextEditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditToolbarView.swift; sourceTree = "<group>"; };
 		B6D4F10629DBE822002553B8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		B6DA406229F5074C0096DA1C /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + setIsHidden.swift"; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 			children = (
 				B6DA408929FA19350096DA1C /* NoteViewController.swift */,
 				B6DA409029FA19710096DA1C /* NoteView.swift */,
+				B6BA13292A04233B000C367B /* TextEditToolbarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				B6465D6F29D1F8570029FD9B /* ThemePickerView.swift in Sources */,
 				9C1380AA29A489ED00BE1486 /* HomePresenter.swift in Sources */,
 				B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */,
+				B6BA132A2A04233B000C367B /* TextEditToolbarView.swift in Sources */,
 				9CC4885E29C3EFDE004D66D6 /* BasicListPresenter.swift in Sources */,
 				B6B2B8DA29EF290F00D61DBD /* SearchTipView.swift in Sources */,
 				9C1380B429A48E0100BE1486 /* Coordinator.swift in Sources */,
