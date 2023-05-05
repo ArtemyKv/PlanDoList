@@ -97,6 +97,7 @@
 		B6B2B8D829EECC9200D61DBD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D729EECC9200D61DBD /* SearchView.swift */; };
 		B6B2B8DA29EF290F00D61DBD /* SearchTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D929EF290F00D61DBD /* SearchTipView.swift */; };
 		B6BA132A2A04233B000C367B /* TextEditToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BA13292A04233B000C367B /* TextEditToolbarView.swift */; };
+		B6BA132E2A0496FE000C367B /* TextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BA132D2A0496FE000C367B /* TextEditor.swift */; };
 		B6D4F10729DBE822002553B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D4F10629DBE822002553B8 /* NotificationManager.swift */; };
 		B6DA406329F5074C0096DA1C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA406229F5074C0096DA1C /* SearchViewModel.swift */; };
 		B6DA406629F60BBD0096DA1C /* UIView + setIsHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */; };
@@ -199,6 +200,7 @@
 		B6B2B8D729EECC9200D61DBD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B6B2B8D929EF290F00D61DBD /* SearchTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTipView.swift; sourceTree = "<group>"; };
 		B6BA13292A04233B000C367B /* TextEditToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditToolbarView.swift; sourceTree = "<group>"; };
+		B6BA132D2A0496FE000C367B /* TextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditor.swift; sourceTree = "<group>"; };
 		B6D4F10629DBE822002553B8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		B6DA406229F5074C0096DA1C /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + setIsHidden.swift"; sourceTree = "<group>"; };
@@ -704,6 +706,7 @@
 			isa = PBXGroup;
 			children = (
 				B6DA408929FA19350096DA1C /* NoteViewController.swift */,
+				B6BA132D2A0496FE000C367B /* TextEditor.swift */,
 				B6DA409029FA19710096DA1C /* NoteView.swift */,
 				B6BA13292A04233B000C367B /* TextEditToolbarView.swift */,
 			);
@@ -917,6 +920,7 @@
 				9CA22D3C29C17B1200FC83C6 /* MyDayViewController.swift in Sources */,
 				B6DA408E29FA19550096DA1C /* NotePresenter.swift in Sources */,
 				9C1380B229A48A6C00BE1486 /* MainBuilder.swift in Sources */,
+				B6BA132E2A0496FE000C367B /* TextEditor.swift in Sources */,
 				9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */,
 				9C1380AC29A489F800BE1486 /* HomeView.swift in Sources */,
 				9C1380A229A47E5100BE1486 /* GroupManager.swift in Sources */,
