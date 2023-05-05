@@ -17,7 +17,7 @@ protocol NotePresenterProtocol: AnyObject {
     
     func viewDidLoad()
     func cancelButtonPressed()
-    func doneButtonPressed()
+    func saveButtonPressed()
     func noteDidChange(with attributedText: NSAttributedString)
 }
 
@@ -47,7 +47,7 @@ class NotePresenter: NotePresenterProtocol {
         coordinator.dismissModalScreen(animated: true)
     }
     
-    func doneButtonPressed() {
+    func saveButtonPressed() {
         delegate?.saveNote(note)
         coordinator.dismissModalScreen(animated: true)
     }

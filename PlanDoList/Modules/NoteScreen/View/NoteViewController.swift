@@ -10,10 +10,15 @@ import UIKit
 class NoteViewController: UIViewController {
     
     var presenter: NotePresenterProtocol!
+    var textEditor: TextEditor!
     
     var noteView: NoteView! {
         guard isViewLoaded else { return nil }
         return (view as! NoteView)
+    }
+    
+    var noteTextView: UITextView {
+        return noteView.noteTextView
     }
     
     override func loadView() {
@@ -24,6 +29,7 @@ class NoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         noteView.delegate = self
+        textEditor.textView = noteTextView
         presenter.viewDidLoad()
     }
     
@@ -31,21 +37,47 @@ class NoteViewController: UIViewController {
 
 extension NoteViewController: NoteViewProtocol {
     func setup(with note: NSAttributedString) {
-        noteView.noteTextView.attributedText = note
+        noteTextView.attributedText = note
     }
 }
 
 extension NoteViewController: NoteViewDelegate {
+    
+    
     func cancelButtonPressed() {
         presenter.cancelButtonPressed()
     }
     
-    func doneButtonPressed() {
-        presenter.doneButtonPressed()
+    func saveButtonPressed() {
+        presenter.saveButtonPressed()
     }
     
-    func textViewDidChange(with attributedText: NSAttributedString) {
+    func textViewDidChange(withAttributedText attributedText: NSAttributedString) {
         presenter.noteDidChange(with: attributedText)
     }
     
+    func textStyleButtonPressed() {
+        
+    }
+    
+    //TODO: - Use one method instead?
+    func boldButtonPressed(isSelected: Bool) {
+        textEditor.setBoldStyleIsActive(isSelected)
+        presenter.noteDidChange(with: noteTextView.attributedText)
+    }
+    
+    func italicButtonPressed(isSelected: Bool) {
+        textEditor.setItalicStyleIsActive(isSelected)
+        presenter.noteDidChange(with: noteTextView.attributedText)
+    }
+    
+    func underlineButtonPressed(isSelected: Bool) {
+        textEditor.setUnderlineStyleIsActive(isSelected)
+        presenter.noteDidChange(with: noteTextView.attributedText)
+    }
+    
+    func strikethroughButtonPressed(isSelected: Bool) {
+        textEditor.setStrikethroughStyleIsActive(isSelected)
+        presenter.noteDidChange(with: noteTextView.attributedText)
+    }
 }

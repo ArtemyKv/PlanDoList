@@ -115,8 +115,10 @@ final class MainBuilder: Builder {
     func noteScreen(coordinator: MainCoordinatorProtocol, delegate: NotePresenterDelegate, note: NSAttributedString) -> NoteViewController {
         let noteVC = NoteViewController()
         let notePresenter = NotePresenter(note: note, view: noteVC, coordinator: coordinator)
+        let textEditor = TextEditor()
         notePresenter.delegate = delegate
         noteVC.presenter = notePresenter
+        noteVC.textEditor = TextEditor()
         return noteVC
     }
     

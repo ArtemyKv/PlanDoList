@@ -10,8 +10,14 @@ import SnapKit
 
 protocol NoteViewDelegate: AnyObject {
     func cancelButtonPressed()
-    func doneButtonPressed()
-    func textViewDidChange(with attributedText: NSAttributedString)
+    func saveButtonPressed()
+    func textViewDidChange(withAttributedText attributedText: NSAttributedString)
+    
+    func textStyleButtonPressed()
+    func boldButtonPressed(isSelected: Bool)
+    func italicButtonPressed(isSelected: Bool)
+    func underlineButtonPressed(isSelected: Bool)
+    func strikethroughButtonPressed(isSelected: Bool)
 }
 
 class NoteView: UIView {
@@ -41,9 +47,9 @@ class NoteView: UIView {
         return button
     }()
     
-    let doneButton: UIButton = {
+    let saveButton: UIButton = {
         let button = UIButton()
-        let attributedTitle = NSMutableAttributedString(string: "Done")
+        let attributedTitle = NSMutableAttributedString(string: "Save")
         attributedTitle.setAttributes([
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: UIColor.white
@@ -69,6 +75,8 @@ class NoteView: UIView {
         return textView
     }()
     
+    let textEditToolbarView = TextEditorToolbarView()
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
         setupView()
@@ -91,7 +99,7 @@ class NoteView: UIView {
     private func addSubviews() {
         topBarStack.addArrangedSubview(cancelButton)
         topBarStack.addArrangedSubview(titleLabel)
-        topBarStack.addArrangedSubview(doneButton)
+        topBarStack.addArrangedSubview(saveButton)
         topBarView.addSubview(topBarStack)
         
         self.addSubview(topBarView)
@@ -118,33 +126,30 @@ class NoteView: UIView {
     
     private func addActions() {
         cancelButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        doneButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-    }
-    
-    private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    private func setupInputAccessoryView() {
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        toolbar.backgroundColor = .systemBackground
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(toolbarDoneButtonPressed))
-        let flexSpace = UIBarButtonItem(systemItem: .flexibleSpace)
-        toolbar.items = [flexSpace, doneButton]
-        noteTextView.inputAccessoryView = toolbar
+        saveButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        
+        textEditToolbarView.doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
+        textEditToolbarView.textStyleButton.addTarget(self, action: #selector(textStyleButtonPressed), for: .touchUpInside)
+        textEditToolbarView.boldButton.addTarget(self, action: #selector(boldButtonPressed), for: .touchUpInside)
+        textEditToolbarView.italicButton.addTarget(self, action: #selector(italicButtonPressed), for: .touchUpInside)
+        textEditToolbarView.underlineButton.addTarget(self, action: #selector(underlineButtonPressed), for: .touchUpInside)
+        textEditToolbarView.strikethroughButton.addTarget(self, action: #selector(strikethroughButtonPressed), for: .touchUpInside)
     }
     
     @objc func buttonPressed(_ sender: UIButton) {
         switch sender {
         case cancelButton:
             delegate?.cancelButtonPressed()
-        case doneButton:
-            delegate?.doneButtonPressed()
+        case saveButton:
+            delegate?.saveButtonPressed()
         default:
             break
         }
+    }
+    
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
@@ -165,14 +170,55 @@ class NoteView: UIView {
         layoutIfNeeded()
     }
     
-    @objc private func toolbarDoneButtonPressed() {
+    private func setupInputAccessoryView() {
+        noteTextView.inputAccessoryView = textEditToolbarView
+    }
+    
+    @objc private func textStyleButtonPressed(_ sender: UIButton) {
+        delegate?.textStyleButtonPressed()
+    }
+    
+    @objc private func boldButtonPressed(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        delegate?.boldButtonPressed(isSelected: sender.isSelected)
+    }
+    
+    @objc private func italicButtonPressed(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        delegate?.italicButtonPressed(isSelected: sender.isSelected)
+    }
+    
+    @objc private func underlineButtonPressed(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        delegate?.underlineButtonPressed(isSelected: sender.isSelected)
+    }
+    
+    @objc private func strikethroughButtonPressed(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        delegate?.strikethroughButtonPressed(isSelected: sender.isSelected)
+    }
+    
+    @objc private func doneButtonPressed(_ sender: UIButton) {
         noteTextView.resignFirstResponder()
+    }
+    
+    override func layoutSubviews() {
+        textEditToolbarView.frame = CGRect(x: 0, y: 0, width: 150, height: 44)
     }
     
 }
 
 extension NoteView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        delegate?.textViewDidChange(with: textView.attributedText)
+        delegate?.textViewDidChange(withAttributedText: textView.attributedText)
+    }
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        let typingAttributes = textView.typingAttributes
+        let font = typingAttributes[.font] as! UIFont
+        textEditToolbarView.boldButton.isSelected = font.fontDescriptor.symbolicTraits.contains(.traitBold)
+        textEditToolbarView.italicButton.isSelected = font.fontDescriptor.symbolicTraits.contains(.traitItalic)
+        textEditToolbarView.underlineButton.isSelected = (typingAttributes[.underlineStyle] as? Int) == 1
+        textEditToolbarView.strikethroughButton.isSelected = (typingAttributes[.strikethroughStyle] as? Int) == 1
     }
 }
