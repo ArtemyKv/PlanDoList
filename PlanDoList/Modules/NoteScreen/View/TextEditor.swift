@@ -84,3 +84,34 @@ class TextEditor {
         textView.selectedRange = selectedRange
     }
 }
+
+//MARK: - Links
+extension TextEditor {
+    
+    func addLink(linkName: String, linkURLString: String) {
+        let mText = NSMutableAttributedString(attributedString: textView.attributedText)
+        let currentLocation = textView.selectedRange.location
+        let currentAttrs = textView.typingAttributes
+        
+        if linkName.count > 0 {
+            let linkAttributedText = NSMutableAttributedString(string: linkName)
+            let linkTextRange = NSRange(location: 0, length: linkAttributedText.length)
+            linkAttributedText.addAttributes([
+                .link: linkURLString,
+                .font: UIFont.preferredFont(forTextStyle: .body),
+                .underlineStyle: 1
+            ], range: linkTextRange)
+            mText.insert(linkAttributedText, at: currentLocation)
+        }
+        
+        textView.attributedText = mText
+        textView.typingAttributes = currentAttrs
+    }
+    
+    func editLink(linkName: String, linkURLString: String, linkTextRange: NSRange) {
+        let mText = NSMutableAttributedString(attributedString: self.textView.attributedText)
+        mText.deleteCharacters(in: linkTextRange)
+        textView.attributedText = mText
+        addLink(linkName: linkName, linkURLString: linkURLString)
+    }
+}

@@ -46,6 +46,13 @@ class TextEditorToolbarView: UIView {
         return button
     }()
     
+    let linkButton: UIButton = {
+        let button = UIButton(type: .system)
+        let image = UIImage(systemName: "link", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
     let doneButton: UIButton = {
         let button = UIButton()
         button.setTitle("Done", for: .normal)
@@ -77,6 +84,7 @@ class TextEditorToolbarView: UIView {
         hStack.addArrangedSubview(italicButton)
         hStack.addArrangedSubview(underlineButton)
         hStack.addArrangedSubview(strikethroughButton)
+        hStack.addArrangedSubview(linkButton)
         hStack.addArrangedSubview(doneButton)
         
         addSubview(hStack)

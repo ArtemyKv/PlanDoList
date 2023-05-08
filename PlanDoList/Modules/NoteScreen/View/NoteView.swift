@@ -12,12 +12,14 @@ protocol NoteViewDelegate: AnyObject {
     func cancelButtonPressed()
     func saveButtonPressed()
     func textViewDidChange(withAttributedText attributedText: NSAttributedString)
+    func textView(_ textView: UITextView, didInteractWith url: URL, in characterRange: NSRange)
     
     func textStyleButtonPressed()
     func boldButtonPressed(isSelected: Bool)
     func italicButtonPressed(isSelected: Bool)
     func underlineButtonPressed(isSelected: Bool)
     func strikethroughButtonPressed(isSelected: Bool)
+    func linkButtonPressed()
 }
 
 class NoteView: UIView {
@@ -134,6 +136,7 @@ class NoteView: UIView {
         textEditToolbarView.italicButton.addTarget(self, action: #selector(italicButtonPressed), for: .touchUpInside)
         textEditToolbarView.underlineButton.addTarget(self, action: #selector(underlineButtonPressed), for: .touchUpInside)
         textEditToolbarView.strikethroughButton.addTarget(self, action: #selector(strikethroughButtonPressed), for: .touchUpInside)
+        textEditToolbarView.linkButton.addTarget(self, action: #selector(linkButtonPressed), for: .touchUpInside)
     }
     
     @objc func buttonPressed(_ sender: UIButton) {
@@ -198,6 +201,10 @@ class NoteView: UIView {
         delegate?.strikethroughButtonPressed(isSelected: sender.isSelected)
     }
     
+    @objc private func linkButtonPressed(_ sender: UIButton) {
+        delegate?.linkButtonPressed()
+    }
+    
     @objc private func doneButtonPressed(_ sender: UIButton) {
         noteTextView.resignFirstResponder()
     }
@@ -220,5 +227,20 @@ extension NoteView: UITextViewDelegate {
         textEditToolbarView.italicButton.isSelected = font.fontDescriptor.symbolicTraits.contains(.traitItalic)
         textEditToolbarView.underlineButton.isSelected = (typingAttributes[.underlineStyle] as? Int) == 1
         textEditToolbarView.strikethroughButton.isSelected = (typingAttributes[.strikethroughStyle] as? Int) == 1
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        switch interaction {
+        case .invokeDefaultAction:
+            delegate?.textView(textView, didInteractWith: URL, in: characterRange)
+            return false
+        case .presentActions:
+            return false
+        case .preview:
+            return false
+        @unknown default:
+            return false
+        }
     }
 }
