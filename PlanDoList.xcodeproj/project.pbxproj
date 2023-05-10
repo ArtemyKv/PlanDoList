@@ -90,6 +90,7 @@
 		B6465D8129D3D1850029FD9B /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8029D3D1850029FD9B /* SelectionView.swift */; };
 		B6465D8329D544180029FD9B /* ColorThemeAttributeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */; };
 		B6465D8529DA7F930029FD9B /* TaskViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8429DA7F930029FD9B /* TaskViewHeader.swift */; };
+		B6966B6B2A0B28ED00002FF9 /* UIFont+TextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6966B6A2A0B28ED00002FF9 /* UIFont+TextStyle.swift */; };
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
 		B6B2B8D029EEB24B00D61DBD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */; };
 		B6B2B8D329EEB27A00D61DBD /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */; };
@@ -193,6 +194,7 @@
 		B6465D8029D3D1850029FD9B /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeAttributeTransformer.swift; sourceTree = "<group>"; };
 		B6465D8429DA7F930029FD9B /* TaskViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewHeader.swift; sourceTree = "<group>"; };
+		B6966B6A2A0B28ED00002FF9 /* UIFont+TextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+TextStyle.swift"; sourceTree = "<group>"; };
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
@@ -276,8 +278,9 @@
 				B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */,
 				B6465D6629CF61190029FD9B /* UIButton+Animations.swift */,
 				B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */,
-				B6465D7729D206960029FD9B /* BottomSheetView.swift */,
 				B6DA406529F60BBD0096DA1C /* UIView + setIsHidden.swift */,
+				B6966B6A2A0B28ED00002FF9 /* UIFont+TextStyle.swift */,
+				B6465D7729D206960029FD9B /* BottomSheetView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -866,6 +869,7 @@
 				B6465D6D29D139C90029FD9B /* UIStackView + isHidden.swift in Sources */,
 				B6465D7F29D3CE8C0029FD9B /* ThemePickerCollectionVIewCell.swift in Sources */,
 				9C3D1A2E29C7EFD9001DABCC /* IncomeListPresenter.swift in Sources */,
+				B6966B6B2A0B28ED00002FF9 /* UIFont+TextStyle.swift in Sources */,
 				9C13807729A4615F00BE1486 /* AppDelegate.swift in Sources */,
 				9C3D1A3629C94767001DABCC /* BasicListViewController.swift in Sources */,
 				9C2B2B0529AB202200BD8F63 /* ListView.swift in Sources */,
