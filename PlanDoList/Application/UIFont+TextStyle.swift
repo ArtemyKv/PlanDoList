@@ -32,9 +32,9 @@ extension UIFont.TextStyle {
         case .body:
             return "Body"
         case .title2:
-            return "Title2"
+            return "Subhead"
         case .largeTitle:
-            return "LargeTitle"
+            return "Title"
         default:
             return "TextStyle"
             

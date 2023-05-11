@@ -9,63 +9,73 @@ import UIKit
 import SnapKit
 
 class TextEditorToolbarView: UIView {
-    
-    let textStyleButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Bold", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
+        
+    let textStyleButton: TextEditorToolbarButton = {
+        let button = TextEditorToolbarButton()
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         return button
     }()
     
-    let boldButton: UIButton = {
-        let button = UIButton(type: .system)
+    let boldButton: TextEditorToolbarButton = {
+        let button = TextEditorToolbarButton()
         let image = UIImage(systemName: "bold", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
         button.setImage(image, for: .normal)
-        button.showsMenuAsPrimaryAction = true
+        button.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         return button
     }()
     
-    let italicButton: UIButton = {
-        let button = UIButton(type: .system)
+    let italicButton: TextEditorToolbarButton = {
+        let button = TextEditorToolbarButton()
         let image = UIImage(systemName: "italic", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
         button.setImage(image, for: .normal)
         return button
     }()
     
-    let underlineButton: UIButton = {
-        let button = UIButton(type: .system)
+    let underlineButton: TextEditorToolbarButton = {
+        let button = TextEditorToolbarButton()
         let image = UIImage(systemName: "underline", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
         button.setImage(image, for: .normal)
         return button
     }()
     
-    let strikethroughButton: UIButton = {
-        let button = UIButton(type: .system)
+    let strikethroughButton: TextEditorToolbarButton = {
+        let button = TextEditorToolbarButton()
         let image = UIImage(systemName: "strikethrough", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
         button.setImage(image, for: .normal)
+        button.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         return button
     }()
     
-    let linkButton: UIButton = {
-        let button = UIButton(type: .system)
-        let image = UIImage(systemName: "link", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
+    let linkButton: TextEditorToolbarButton = {
+        let button = TextEditorToolbarButton()
+        let image = UIImage(systemName: "link")
         button.setImage(image, for: .normal)
         return button
     }()
     
-    let doneButton: UIButton = {
-        let button = UIButton()
+    let doneButton: TextEditorToolbarButton = {
+        let button = TextEditorToolbarButton()
         button.setTitle("Done", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         return button
+    }()
+    
+    private let traitButtonsStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .fill
+        stack.spacing = 4
+        stack.layer.masksToBounds = true
+        return stack
     }()
     
     private let hStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.alignment = .fill
-        stack.distribution = .fillEqually
-        stack.spacing = 8
+        stack.distribution = .equalSpacing
         return stack
     }()
     
@@ -79,19 +89,46 @@ class TextEditorToolbarView: UIView {
     }
     
     private func setupView() {
+        addSubviews()
+        setupConstraints()
+    }
+    
+    private func addSubviews() {
+        traitButtonsStack.addArrangedSubview(boldButton)
+        traitButtonsStack.addArrangedSubview(italicButton)
+        traitButtonsStack.addArrangedSubview(underlineButton)
+        traitButtonsStack.addArrangedSubview(strikethroughButton)
+        
         hStack.addArrangedSubview(textStyleButton)
-        hStack.addArrangedSubview(boldButton)
-        hStack.addArrangedSubview(italicButton)
-        hStack.addArrangedSubview(underlineButton)
-        hStack.addArrangedSubview(strikethroughButton)
+        hStack.addArrangedSubview(traitButtonsStack)
         hStack.addArrangedSubview(linkButton)
         hStack.addArrangedSubview(doneButton)
         
         addSubview(hStack)
+    }
+    
+    private func setupConstraints() {
+        let buttons = [boldButton, italicButton, underlineButton, strikethroughButton, linkButton]
+        for button in buttons {
+            button.snp.makeConstraints { make in
+                make.height.equalTo(button.snp.width)
+            }
+        }
         
+        textStyleButton.snp.makeConstraints { make in
+            make.width.equalTo(textStyleButton.snp.height).multipliedBy(2)
+        }
         hStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 8, bottom: 8, right: 8))
             make.height.equalTo(44)
         }
+        
+    }
+    
+    func setButtonsCornerRadius(radius cornerRadius: CGFloat) {
+        textStyleButton.layer.cornerRadius = cornerRadius
+        traitButtonsStack.layer.cornerRadius = cornerRadius
+        linkButton.layer.cornerRadius = cornerRadius
+        doneButton.layer.cornerRadius = cornerRadius
     }
 }

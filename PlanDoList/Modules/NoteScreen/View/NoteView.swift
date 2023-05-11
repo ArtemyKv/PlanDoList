@@ -77,7 +77,11 @@ class NoteView: UIView {
         return textView
     }()
     
-    let textEditToolbarView = TextEditorToolbarView()
+    let textEditToolbarView: TextEditorToolbarView = {
+        let toolbar = TextEditorToolbarView()
+        toolbar.setButtonsCornerRadius(radius: 8)
+        return toolbar
+    }()
     
     override init(frame: CGRect) {
         super .init(frame: frame)
