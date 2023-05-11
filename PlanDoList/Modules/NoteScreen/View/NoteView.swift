@@ -131,7 +131,6 @@ class NoteView: UIView {
         saveButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
         textEditToolbarView.doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
-        textEditToolbarView.textStyleButton.addTarget(self, action: #selector(textStyleButtonPressed), for: .touchUpInside)
         textEditToolbarView.boldButton.addTarget(self, action: #selector(boldButtonPressed), for: .touchUpInside)
         textEditToolbarView.italicButton.addTarget(self, action: #selector(italicButtonPressed), for: .touchUpInside)
         textEditToolbarView.underlineButton.addTarget(self, action: #selector(underlineButtonPressed), for: .touchUpInside)
@@ -175,10 +174,6 @@ class NoteView: UIView {
     
     private func setupInputAccessoryView() {
         noteTextView.inputAccessoryView = textEditToolbarView
-    }
-    
-    @objc private func textStyleButtonPressed(_ sender: UIButton) {
-        delegate?.textStyleButtonPressed()
     }
     
     @objc private func boldButtonPressed(_ sender: UIButton) {
