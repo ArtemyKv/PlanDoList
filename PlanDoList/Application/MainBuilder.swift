@@ -118,7 +118,7 @@ final class MainBuilder: Builder {
         let textEditor = TextEditor()
         notePresenter.delegate = delegate
         noteVC.presenter = notePresenter
-        noteVC.textEditor = TextEditor()
+        noteVC.textEditor = textEditor
         return noteVC
     }
     

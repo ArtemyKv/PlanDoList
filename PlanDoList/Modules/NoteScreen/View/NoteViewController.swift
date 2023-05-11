@@ -32,6 +32,7 @@ class NoteViewController: UIViewController {
         textEditor.textView = noteTextView
         presenter.viewDidLoad()
         noteTextView.becomeFirstResponder()
+        noteView.setupStyleMenu(withTextStyles: textEditor.textStyles)
     }
     
 }
@@ -43,7 +44,6 @@ extension NoteViewController: NoteViewProtocol {
 }
 
 extension NoteViewController: NoteViewDelegate {
-    
     
     func cancelButtonPressed() {
         presenter.cancelButtonPressed()
@@ -84,8 +84,9 @@ extension NoteViewController: NoteViewDelegate {
         self.present(alert, animated: true)
     }
     
-    func textStyleButtonPressed() {
-        
+    func setTextStyle(_ textStyle: UIFont.TextStyle) {
+        textEditor.setTextStyle(textStyle)
+        presenter.noteDidChange(with: noteTextView.attributedText)
     }
     
     //TODO: - Use one method instead?

@@ -14,12 +14,12 @@ protocol NoteViewDelegate: AnyObject {
     func textViewDidChange(withAttributedText attributedText: NSAttributedString)
     func textView(_ textView: UITextView, didInteractWith url: URL, in characterRange: NSRange)
     
-    func textStyleButtonPressed()
     func boldButtonPressed(isSelected: Bool)
     func italicButtonPressed(isSelected: Bool)
     func underlineButtonPressed(isSelected: Bool)
     func strikethroughButtonPressed(isSelected: Bool)
     func linkButtonPressed()
+    func setTextStyle(_ textStyle: UIFont.TextStyle)
 }
 
 class NoteView: UIView {
@@ -213,6 +213,33 @@ class NoteView: UIView {
         textEditToolbarView.frame = CGRect(x: 0, y: 0, width: 150, height: 44)
     }
     
+    func setupStyleMenu(withTextStyles textStyles: [UIFont.TextStyle]) {
+        let childActions = textStyles.map { textStyle in
+            let textStyleName = textStyle.stringName
+            return UIAction(title: textStyleName) { [weak self] _ in
+                self?.delegate?.setTextStyle(textStyle)
+                self?.textEditToolbarView.textStyleButton.setTitle(textStyleName, for: .normal)
+            }
+        }
+        textEditToolbarView.textStyleButton.menu = UIMenu(children: childActions)
+        textEditToolbarView.textStyleButton.showsMenuAsPrimaryAction = true
+        textEditToolbarView.textStyleButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.updateStyleMenu(textStyles)
+        }), for: .menuActionTriggered)
+    }
+    
+    private func updateStyleMenu(_ textStyles: [UIFont.TextStyle]) {
+        guard
+            let currentTextStyle = (noteTextView.typingAttributes[.font] as? UIFont)?.textStyle,
+            let currentTextStyleIndex = textStyles.firstIndex(of: currentTextStyle),
+            let menu = textEditToolbarView.textStyleButton.menu
+        else { return }
+        for (index, item) in menu.children.enumerated() {
+            let action = item as! UIAction
+            action.image = index == currentTextStyleIndex ? UIImage(systemName: "checkmark") : nil
+        }
+    }
+    
 }
 
 extension NoteView: UITextViewDelegate {
@@ -223,6 +250,7 @@ extension NoteView: UITextViewDelegate {
     func textViewDidChangeSelection(_ textView: UITextView) {
         let typingAttributes = textView.typingAttributes
         let font = typingAttributes[.font] as! UIFont
+        textEditToolbarView.textStyleButton.setTitle(font.textStyle.stringName, for: .normal)
         textEditToolbarView.boldButton.isSelected = font.fontDescriptor.symbolicTraits.contains(.traitBold)
         textEditToolbarView.italicButton.isSelected = font.fontDescriptor.symbolicTraits.contains(.traitItalic)
         textEditToolbarView.underlineButton.isSelected = (typingAttributes[.underlineStyle] as? Int) == 1

@@ -10,7 +10,8 @@ import UIKit
 class TextEditor {
     weak var textView: UITextView!
     
-    var fontStyles: [UIFont.TextStyle] = [.body, .subheadline, .title1]
+    let textStyles: [UIFont.TextStyle] = [.body, .title2, .largeTitle]
+    
     
     func setBoldStyleIsActive(_ isActive: Bool) {
         if textView.selectedRange.length > 0 {
@@ -113,5 +114,28 @@ extension TextEditor {
         mText.deleteCharacters(in: linkTextRange)
         textView.attributedText = mText
         addLink(linkName: linkName, linkURLString: linkURLString)
+    }
+}
+
+//TextStyle
+extension TextEditor {
+    func setTextStyle(_ textStyle: UIFont.TextStyle) {
+        if textView.selectedRange.length > 0 {
+            setSelectedTextStyle(textStyle)
+        } else {
+            textView.typingAttributes[.font] = UIFont.preferredFont(forTextStyle: textStyle)
+        }
+    }
+    
+    private func setSelectedTextStyle(_ textStyle: UIFont.TextStyle) {
+        let selectedRange = textView.selectedRange
+        let attrs = textView.attributedText.attributes(at: selectedRange.location, effectiveRange: nil)
+        let traits = (attrs[NSAttributedString.Key.font] as! UIFont).fontDescriptor.symbolicTraits
+        let newDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
+        let newFont = UIFont(descriptor: newDescriptor.withSymbolicTraits(traits)!, size: 0)
+        let mText = NSMutableAttributedString(attributedString: textView.attributedText)
+        mText.addAttribute(.font, value: newFont, range: selectedRange)
+        textView.attributedText = mText
+        textView.selectedRange = selectedRange
     }
 }
