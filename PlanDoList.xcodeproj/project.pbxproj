@@ -91,6 +91,7 @@
 		B6465D8329D544180029FD9B /* ColorThemeAttributeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */; };
 		B6465D8529DA7F930029FD9B /* TaskViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D8429DA7F930029FD9B /* TaskViewHeader.swift */; };
 		B6966B6B2A0B28ED00002FF9 /* UIFont+TextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6966B6A2A0B28ED00002FF9 /* UIFont+TextStyle.swift */; };
+		B6966B6D2A0C9A7600002FF9 /* TextEditorToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6966B6C2A0C9A7600002FF9 /* TextEditorToolbarButton.swift */; };
 		B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */; };
 		B6B2B8D029EEB24B00D61DBD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */; };
 		B6B2B8D329EEB27A00D61DBD /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */; };
@@ -195,6 +196,7 @@
 		B6465D8229D544180029FD9B /* ColorThemeAttributeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeAttributeTransformer.swift; sourceTree = "<group>"; };
 		B6465D8429DA7F930029FD9B /* TaskViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewHeader.swift; sourceTree = "<group>"; };
 		B6966B6A2A0B28ED00002FF9 /* UIFont+TextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+TextStyle.swift"; sourceTree = "<group>"; };
+		B6966B6C2A0C9A7600002FF9 /* TextEditorToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorToolbarButton.swift; sourceTree = "<group>"; };
 		B6B1E7D329CB5BBD007E4E00 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		B6B2B8CF29EEB24B00D61DBD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B6B2B8D229EEB27A00D61DBD /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
@@ -711,6 +713,7 @@
 				B6DA408929FA19350096DA1C /* NoteViewController.swift */,
 				B6DA409029FA19710096DA1C /* NoteView.swift */,
 				B6BA13292A04233B000C367B /* TextEditToolbarView.swift */,
+				B6966B6C2A0C9A7600002FF9 /* TextEditorToolbarButton.swift */,
 				B6BA132D2A0496FE000C367B /* TextEditor.swift */,
 			);
 			path = View;
@@ -921,6 +924,7 @@
 				9C2B2B0229AB15C600BD8F63 /* ListPresenter.swift in Sources */,
 				9C3D1A4029C95D8C001DABCC /* ImportantListPresenter.swift in Sources */,
 				9C2B2AFA29A7702B00BD8F63 /* HomeViewModel.swift in Sources */,
+				B6966B6D2A0C9A7600002FF9 /* TextEditorToolbarButton.swift in Sources */,
 				9CA22D3C29C17B1200FC83C6 /* MyDayViewController.swift in Sources */,
 				B6DA408E29FA19550096DA1C /* NotePresenter.swift in Sources */,
 				9C1380B229A48A6C00BE1486 /* MainBuilder.swift in Sources */,
