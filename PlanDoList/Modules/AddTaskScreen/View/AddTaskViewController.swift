@@ -59,6 +59,10 @@ extension AddTaskViewController: AddTaskViewProtocol {
         return addTaskView.dueDatePicker.date
     }
     
+    func reset() {
+        addTaskView.reset()
+    }
+    
     func dismiss(_ completion: @escaping () -> Void) {
         self.addTaskView.dismiss {
             completion()

@@ -18,6 +18,7 @@ protocol AddTaskViewProtocol: AnyObject {
     var remindDate: Date? { get }
     var dueDate: Date? { get }
     
+    func reset()
     func dismiss(_ completion: @escaping () -> Void)
 }
 
@@ -59,7 +60,7 @@ class AddTaskPresenter: AddTaskPresenterProtocol {
         let remindDate = view.remindDate
         let dueDate = view.dueDate
         delegate?.addTask(name: name, complete: complete, myDay: myDay, remindDate: remindDate, dueDate: dueDate)
-        dismissScreen()
+        view.reset()
     }
     
     private func dismissScreen() {

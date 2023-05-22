@@ -101,7 +101,7 @@ class ListManager: ListManagerProtocol {
             notificationManager.scheduleNotification(name: task.wrappedName, remindDate: remindDate, id: task.idString)
         }
         
-        complete ? completedTasks.insert(task, at: 0) : uncompletedTasks.append(task)
+        complete ? completedTasks.insert(task, at: 0) : uncompletedTasks.insert(task, at: 0)
     }
     
     func deleteUncompletedTask(at index: Int) {

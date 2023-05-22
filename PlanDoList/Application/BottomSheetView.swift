@@ -18,7 +18,7 @@ class BottomSheetView: UIView {
     //MARK: - Constants
     let maxHeight: CGFloat = 800
     let defaultRowHeightConstant: CGFloat = 44
-    let maxDimmedAlpha: CGFloat = 0.6
+    let maxDimmedAlpha: CGFloat = 0.4
     
     //MARK: - Properties
     weak var gestureDelegate: BottomSheetViewGestureDelegate?

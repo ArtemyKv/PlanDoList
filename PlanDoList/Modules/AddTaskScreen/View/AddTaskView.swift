@@ -235,7 +235,7 @@ class AddTaskView: BottomSheetView {
     
     //MARK: managing keyboard appearance
     
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc private func keyboardWillShow(notification: NSNotification) {
         guard let info = notification.userInfo, let keyboardFrameValue = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardFrame = keyboardFrameValue.cgRectValue
         let keyboardHeight = keyboardFrame.size.height
@@ -245,7 +245,7 @@ class AddTaskView: BottomSheetView {
         layoutIfNeeded()
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc private func keyboardWillHide(notification: NSNotification) {
         bottomAnchorConstraint?.update(offset: 0)
         layoutIfNeeded()
     }
@@ -261,7 +261,6 @@ class AddTaskView: BottomSheetView {
     }
     
     @objc private func createButtonTapped() {
-        nameTextField.resignFirstResponder()
         addTaskViewDelegate?.createButtonTapped()
     }
     
@@ -281,21 +280,23 @@ class AddTaskView: BottomSheetView {
     
     @objc private func dateButtonPressed(sender: UIButton) {
         toggleSelection(of: sender)
-        
-        switch sender {
-            case remindButton:
-                toggleDatePickerRowVisibility(row: forthRowStack)
-
-            case dueButton:
-                toggleDatePickerRowVisibility(row: fifthRowStack)
-            default:
-                break
-        }
+        toggleDatePickerRowVisibility(withButtonPressed: sender)
     }
     
     private func toggleSelection(of button: UIButton) {
         button.isSelected.toggle()
         button.backgroundColor = button.isSelected ? .systemGray4 : .systemGray6
+    }
+    
+    private func toggleDatePickerRowVisibility(withButtonPressed button: UIButton) {
+        switch button {
+        case remindButton:
+            toggleDatePickerRowVisibility(row: forthRowStack)
+        case dueButton:
+            toggleDatePickerRowVisibility(row: fifthRowStack)
+        default:
+            break
+        }
     }
     
     private func toggleDatePickerRowVisibility(row: UIStackView) {
@@ -316,13 +317,15 @@ class AddTaskView: BottomSheetView {
         }
     }
     
-    
-
-
-    
-    
-
-
-
-    
+    func reset() {
+        nameTextField.text = ""
+        checkmarkButton.isSelected = false
+        createButton.isEnabled = false
+        
+        for view in thirdRowHStack.arrangedSubviews {
+            guard let button = view as? UIButton, button.isSelected else { continue }
+            toggleSelection(of: button)
+            toggleDatePickerRowVisibility(withButtonPressed: button)
+        }
+    }
 }

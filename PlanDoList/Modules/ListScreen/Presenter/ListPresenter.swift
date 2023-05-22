@@ -191,8 +191,7 @@ extension ListPresenter: AddTaskPresenterDelegate {
         listManager.addTask(name: name, complete: complete, myDay: myDay, remindDate: remindDate, dueDate: dueDate)
         
         let section = complete ? 1 : 0
-        let row = complete ? 0 : listManager.uncompletedTasksCount - 1
-        view.insertRows(at: [IndexPath(row: row, section: section)])
+        view.insertRows(at: [IndexPath(row: 0, section: section)])
     }
 }
 
