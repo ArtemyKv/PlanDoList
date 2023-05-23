@@ -40,8 +40,15 @@ class NotesCell: UITableViewCell {
     
     
     private func setupCell() {
+        setupSelectedBackgroundView()
         addSubviews()
         makeConstraints()
+    }
+    
+    private func setupSelectedBackgroundView() {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        self.selectedBackgroundView = backgroundView
     }
     
     private func addSubviews() {

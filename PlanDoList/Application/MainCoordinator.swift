@@ -101,7 +101,8 @@ class MainCoordinator: MainCoordinatorProtocol {
     
     func presentNoteScreen(delegate: NotePresenterDelegate, note: NSAttributedString) {
         let noteVC = builder.noteScreen(coordinator: self, delegate: delegate, note: note)
-        navigationController.viewControllers.last?.present(noteVC,animated: true)
+        noteVC.modalPresentationStyle = .pageSheet
+        navigationController.viewControllers.last?.present(noteVC, animated: true)
     }
     
     

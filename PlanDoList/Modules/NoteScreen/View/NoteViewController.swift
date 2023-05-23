@@ -31,8 +31,12 @@ class NoteViewController: UIViewController {
         noteView.delegate = self
         textEditor.textView = noteTextView
         presenter.viewDidLoad()
-        noteTextView.becomeFirstResponder()
         noteView.setupStyleMenu(withTextStyles: textEditor.textStyles)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        noteTextView.becomeFirstResponder()
     }
     
 }

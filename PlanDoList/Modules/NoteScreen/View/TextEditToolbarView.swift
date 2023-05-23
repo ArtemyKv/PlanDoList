@@ -14,6 +14,7 @@ class TextEditorToolbarView: UIView {
         let button = TextEditorToolbarButton()
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.setTitle("Body", for: .normal)
         return button
     }()
     
