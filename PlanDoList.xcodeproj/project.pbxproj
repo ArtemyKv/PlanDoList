@@ -77,6 +77,7 @@
 		9CC4886029C3F08A004D66D6 /* BasicListViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4885F29C3F08A004D66D6 /* BasicListViewProtocol.swift */; };
 		9CC4886229C3F0A6004D66D6 /* BasicListManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */; };
 		9CC4886529C3F3D6004D66D6 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */; };
+		B63511472A1C45500054F597 /* NSAttributedStringAttributeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63511462A1C45500054F597 /* NSAttributedStringAttributeTransformer.swift */; };
 		B6465D6729CF61190029FD9B /* UIButton+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6629CF61190029FD9B /* UIButton+Animations.swift */; };
 		B6465D6929CF73DE0029FD9B /* TaskCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6829CF73DE0029FD9B /* TaskCounter.swift */; };
 		B6465D6D29D139C90029FD9B /* UIStackView + isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */; };
@@ -182,6 +183,7 @@
 		9CC4885F29C3F08A004D66D6 /* BasicListViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewProtocol.swift; sourceTree = "<group>"; };
 		9CC4886129C3F0A6004D66D6 /* BasicListManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListManagerProtocol.swift; sourceTree = "<group>"; };
 		9CC4886429C3F3D6004D66D6 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		B63511462A1C45500054F597 /* NSAttributedStringAttributeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringAttributeTransformer.swift; sourceTree = "<group>"; };
 		B6465D6629CF61190029FD9B /* UIButton+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Animations.swift"; sourceTree = "<group>"; };
 		B6465D6829CF73DE0029FD9B /* TaskCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCounter.swift; sourceTree = "<group>"; };
 		B6465D6C29D139C90029FD9B /* UIStackView + isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + isHidden.swift"; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 				9C44CCA729C0047C0007555E /* Group+CoreDataProperties.swift */,
 				9C13809529A47BEE00BE1486 /* Subtask+CoreDataClass.swift */,
 				9C13809129A47BEE00BE1486 /* Subtask+CoreDataProperties.swift */,
+				B63511462A1C45500054F597 /* NSAttributedStringAttributeTransformer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -884,6 +887,7 @@
 				B6B1E7D429CB5BBD007E4E00 /* UIColor+RGB.swift in Sources */,
 				9C13809C29A47BEE00BE1486 /* Subtask+CoreDataProperties.swift in Sources */,
 				B6DA406629F60BBD0096DA1C /* UIView + setIsHidden.swift in Sources */,
+				B63511472A1C45500054F597 /* NSAttributedStringAttributeTransformer.swift in Sources */,
 				9C2B2B0B29AE2E9D00BD8F63 /* TaskTableViewCell.swift in Sources */,
 				9C3D1A3B29C95D6C001DABCC /* ImportantViewController.swift in Sources */,
 				9C6C1C4E29B6D5B100DBB1A2 /* AppConstants.swift in Sources */,
