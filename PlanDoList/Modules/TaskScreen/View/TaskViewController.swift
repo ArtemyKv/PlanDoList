@@ -289,6 +289,10 @@ extension TaskViewController: TaskViewProtocol {
         subtasksTableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
     }
     
+    func endEditingNewSubtaskTextField() {
+        newSubataskCell.endEditing(true)
+    }
+    
     func updateMyDayCell(selected: Bool) {
         let text = selected ? "Added to My Day" : "Add to My Day"
         let color = selected ? UIColor.systemBlue : UIColor.label
@@ -343,8 +347,8 @@ extension TaskViewController: TaskViewHeaderDelegate {
 }
 
 extension TaskViewController: NewSubtaskCellDelegate {
-    func nameTextFieldEditingDidEnd(with text: String) {
-        presenter.newSubtaskTextFieldDidEndEditing(with: text)
+    func nameTextFieldShouldReturn(with text: String) {
+        presenter.newSubtaskTextFieldShouldReturn(with: text)
     }
 }
 

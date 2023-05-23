@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol NewSubtaskCellDelegate: AnyObject {
-    func nameTextFieldEditingDidEnd(with text: String)
+    func nameTextFieldShouldReturn(with text: String)
 }
 
 class NewSubtaskCell: UITableViewCell {
@@ -75,13 +75,11 @@ class NewSubtaskCell: UITableViewCell {
 }
 
 extension NewSubtaskCell: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        nameTextField.text = ""
-        delegate?.nameTextFieldEditingDidEnd(with: text)
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        nameTextField.endEditing(false)
+        guard let text = textField.text else { return false }
+        delegate?.nameTextFieldShouldReturn(with: text)
+        textField.text = ""
+        return false
     }
 }

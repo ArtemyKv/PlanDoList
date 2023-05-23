@@ -12,6 +12,7 @@ protocol TaskViewProtocol: AnyObject {
     func insertRowInSubtasksTableView(at indexPath: IndexPath)
     func deleteRowInSubtasksTableView(at indexPath: IndexPath)
     func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
+    func endEditingNewSubtaskTextField()
     func updateMyDayCell(selected: Bool)
     func updateDueDateCell(with text: String?)
     func updateRemindDateCell(with text: String?)
@@ -30,7 +31,7 @@ protocol TaskPresenterProtocol {
     func completeButtonTapped(selected: Bool)
     func importantButtonTapped(selected: Bool)
     func nameTextViewDidChange(text: String)
-    func newSubtaskTextFieldDidEndEditing(with text: String)
+    func newSubtaskTextFieldShouldReturn(with text: String)
     func subtaskCellCompleteButtonTapped(at indexPath: IndexPath, isSelected: Bool)
     func subtaskCellDeleteButtonTapped(at indexPath: IndexPath)
     func moveRowInSubtaskTableView(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
@@ -128,12 +129,15 @@ class TaskPresenter: TaskPresenterProtocol {
     func nameTextViewDidChange(text: String) {
         taskManager.setTaskName(with: text)
     }
-    
-    func newSubtaskTextFieldDidEndEditing(with text: String) {
-        guard !text.isEmpty else { return }
-        taskManager.addSubtask(name: text)
-        let newSubtaskIndexPath = IndexPath(row: taskManager.subtasks.count - 1, section: 0)
-        view.insertRowInSubtasksTableView(at: newSubtaskIndexPath)
+        
+    func newSubtaskTextFieldShouldReturn(with text: String) {
+        if text.isEmpty {
+            view.endEditingNewSubtaskTextField()
+        } else {
+            taskManager.addSubtask(name: text)
+            let newSubtaskIndexPath = IndexPath(row: taskManager.subtasks.count - 1, section: 0)
+            view.insertRowInSubtasksTableView(at: newSubtaskIndexPath)
+        }
     }
     
     func subtaskCellCompleteButtonTapped(at indexPath: IndexPath, isSelected: Bool) {
