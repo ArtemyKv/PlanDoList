@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class NoteViewController: UIViewController {
     
@@ -31,7 +32,7 @@ class NoteViewController: UIViewController {
         noteView.delegate = self
         textEditor.textView = noteTextView
         presenter.viewDidLoad()
-        noteView.setupStyleMenu(withTextStyles: textEditor.textStyles)
+        noteView.setMenuTextStyles(textEditor.textStyles)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,30 +63,7 @@ extension NoteViewController: NoteViewDelegate {
     }
     
     func textView(_ textView: UITextView, didInteractWith url: URL, in characterRange: NSRange) {
-        let alert = UIAlertController(title: "Link", message: nil, preferredStyle: .actionSheet)
-        
-        let openAction = UIAlertAction(title: "Open Link", style: .default) { _ in
-            UIApplication.shared.open(url)
-        }
-        
-        let editAction = UIAlertAction(title: "Edit Link", style: .default) { [weak self] _ in
-            let linkName = textView.attributedText.attributedSubstring(from: characterRange).string
-            let linkURLString = url.absoluteString
-            self?.presentLinkAlert(isNewLinkAdded: false, linkName: linkName, linkURLString: linkURLString, linkTextRange: characterRange)
-        }
-        
-        let selectAction = UIAlertAction(title: "Select link text", style: .default) { _ in
-            textView.becomeFirstResponder()
-            textView.selectedRange = characterRange
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alert.addAction(openAction)
-        alert.addAction(editAction)
-        alert.addAction(selectAction)
-        alert.addAction(cancelAction)
-        self.present(alert, animated: true)
+        presentLinkActionSheet(textView: textView, linkURL: url, linkTextRange: characterRange)
     }
     
     func setTextStyle(_ textStyle: UIFont.TextStyle) {
@@ -93,7 +71,6 @@ extension NoteViewController: NoteViewDelegate {
         presenter.noteDidChange(with: noteTextView.attributedText)
     }
     
-    //TODO: - Use one method instead?
     func boldButtonPressed(isSelected: Bool) {
         textEditor.setBoldStyleIsActive(isSelected)
         presenter.noteDidChange(with: noteTextView.attributedText)
@@ -117,9 +94,13 @@ extension NoteViewController: NoteViewDelegate {
     func linkButtonPressed() {
         presentLinkAlert(isNewLinkAdded: true)
     }
+    
+    func textViewDidChangeSelection() {
+        textEditor.removeLinkTypingAttrubutes()
+    }
 }
 
-//MARK: - Presenting alerts
+//MARK: - Presenting alerts and views
 extension NoteViewController {
     func presentLinkAlert(isNewLinkAdded: Bool, linkName: String = "", linkURLString: String = "", linkTextRange: NSRange? = nil) {
         let alertTitle = isNewLinkAdded ? "Add Link" : "Edit Link"
@@ -154,5 +135,38 @@ extension NoteViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true)
+    }
+    
+    func presentLinkActionSheet(textView: UITextView, linkURL url: URL, linkTextRange characterRange: NSRange) {
+        let alert = UIAlertController(title: "Link", message: nil, preferredStyle: .actionSheet)
+        
+        let openAction = UIAlertAction(title: "Open Link", style: .default) { [weak self] _ in
+            self?.presentSafariController(with: url)
+        }
+        
+        let editAction = UIAlertAction(title: "Edit Link", style: .default) { [weak self] _ in
+            let linkName = textView.attributedText.attributedSubstring(from: characterRange).string
+            let linkURLString = url.absoluteString
+            self?.presentLinkAlert(isNewLinkAdded: false, linkName: linkName, linkURLString: linkURLString, linkTextRange: characterRange)
+        }
+        
+        let selectAction = UIAlertAction(title: "Select link text", style: .default) { _ in
+            textView.becomeFirstResponder()
+            textView.selectedRange = characterRange
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(openAction)
+        alert.addAction(editAction)
+        alert.addAction(selectAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true)
+    }
+    
+    func presentSafariController(with url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.modalPresentationStyle = .pageSheet
+        self.show(safariVC, sender: self)
     }
 }

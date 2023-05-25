@@ -8,13 +8,31 @@
 import UIKit
 import SnapKit
 
+protocol TextEditorToolbarDelegate: AnyObject {
+    func textStyleMenuActionTriggered(menu: UIMenu?)
+    func doneButtonPressed()
+    func textTraitButtonPressed(textTrait: TextEditorToolbarView.TextTrait, isSelected: Bool)
+    func linkButtonPressed()
+}
+
 class TextEditorToolbarView: UIView {
+    
+    enum TextTrait {
+        case none
+        case bold
+        case italic
+        case underline
+        case strikethrough
+    }
+    
+    weak var delegate: TextEditorToolbarDelegate?
         
     let textStyleButton: TextEditorToolbarButton = {
         let button = TextEditorToolbarButton()
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.setTitle("Body", for: .normal)
+        button.showsMenuAsPrimaryAction = true
         return button
     }()
     
@@ -92,6 +110,7 @@ class TextEditorToolbarView: UIView {
     private func setupView() {
         addSubviews()
         setupConstraints()
+        addActions()
     }
     
     private func addSubviews() {
@@ -124,6 +143,46 @@ class TextEditorToolbarView: UIView {
             make.height.equalTo(44)
         }
         
+    }
+    
+    private func addActions() {
+        textStyleButton.addTarget(self, action: #selector(textStyleMenuActionTriggered), for: .menuActionTriggered)
+        doneButton.addTarget(self, action: #selector(textTraitButtonPressed), for: .touchUpInside)
+        boldButton.addTarget(self, action: #selector(textTraitButtonPressed), for: .touchUpInside)
+        italicButton.addTarget(self, action: #selector(textTraitButtonPressed), for: .touchUpInside)
+        underlineButton.addTarget(self, action: #selector(textTraitButtonPressed), for: .touchUpInside)
+        strikethroughButton.addTarget(self, action: #selector(textTraitButtonPressed), for: .touchUpInside)
+        linkButton.addTarget(self, action: #selector(linkButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc private func textStyleMenuActionTriggered() {
+        delegate?.textStyleMenuActionTriggered(menu: textStyleButton.menu)
+    }
+    
+    @objc private func doneButtonPressed() {
+        delegate?.doneButtonPressed()
+    }
+    
+    @objc private func textTraitButtonPressed(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        let textTrait: TextTrait
+        switch sender {
+        case boldButton:
+            textTrait = .bold
+        case italicButton:
+            textTrait = .italic
+        case underlineButton:
+            textTrait = .underline
+        case strikethroughButton:
+            textTrait = .strikethrough
+        default:
+            textTrait = .none
+        }
+        delegate?.textTraitButtonPressed(textTrait: textTrait, isSelected: sender.isSelected)
+    }
+    
+    @objc private func linkButtonPressed() {
+        delegate?.linkButtonPressed()
     }
     
     func setButtonsCornerRadius(radius cornerRadius: CGFloat) {

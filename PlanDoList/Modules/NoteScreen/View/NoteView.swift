@@ -20,11 +20,13 @@ protocol NoteViewDelegate: AnyObject {
     func strikethroughButtonPressed(isSelected: Bool)
     func linkButtonPressed()
     func setTextStyle(_ textStyle: UIFont.TextStyle)
+    func textViewDidChangeSelection()
 }
 
 class NoteView: UIView {
     
     weak var delegate: NoteViewDelegate?
+    private var menuTextStyles: [UIFont.TextStyle] = []
     
     let topBarView: UIView = {
         let view = UIView()
@@ -95,6 +97,7 @@ class NoteView: UIView {
     private func setupView() {
         backgroundColor = .systemBackground
         noteTextView.delegate = self
+        textEditToolbarView.delegate = self
         addSubviews()
         setupConstraints()
         addActions()
@@ -133,13 +136,6 @@ class NoteView: UIView {
     private func addActions() {
         cancelButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        
-        textEditToolbarView.doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
-        textEditToolbarView.boldButton.addTarget(self, action: #selector(boldButtonPressed), for: .touchUpInside)
-        textEditToolbarView.italicButton.addTarget(self, action: #selector(italicButtonPressed), for: .touchUpInside)
-        textEditToolbarView.underlineButton.addTarget(self, action: #selector(underlineButtonPressed), for: .touchUpInside)
-        textEditToolbarView.strikethroughButton.addTarget(self, action: #selector(strikethroughButtonPressed), for: .touchUpInside)
-        textEditToolbarView.linkButton.addTarget(self, action: #selector(linkButtonPressed), for: .touchUpInside)
     }
     
     @objc func buttonPressed(_ sender: UIButton) {
@@ -180,63 +176,25 @@ class NoteView: UIView {
         noteTextView.inputAccessoryView = textEditToolbarView
     }
     
-    @objc private func boldButtonPressed(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        delegate?.boldButtonPressed(isSelected: sender.isSelected)
-    }
-    
-    @objc private func italicButtonPressed(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        delegate?.italicButtonPressed(isSelected: sender.isSelected)
-    }
-    
-    @objc private func underlineButtonPressed(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        delegate?.underlineButtonPressed(isSelected: sender.isSelected)
-    }
-    
-    @objc private func strikethroughButtonPressed(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        delegate?.strikethroughButtonPressed(isSelected: sender.isSelected)
-    }
-    
-    @objc private func linkButtonPressed(_ sender: UIButton) {
-        delegate?.linkButtonPressed()
-    }
-    
-    @objc private func doneButtonPressed(_ sender: UIButton) {
-        noteTextView.resignFirstResponder()
-    }
-    
     override func layoutSubviews() {
         textEditToolbarView.frame = CGRect(x: 0, y: 0, width: 150, height: 44)
     }
     
-    func setupStyleMenu(withTextStyles textStyles: [UIFont.TextStyle]) {
-        let childActions = textStyles.map { textStyle in
+    
+    private func setStyleMenu() -> UIMenu {
+        let childActions = menuTextStyles.map { textStyle in
             let textStyleName = textStyle.stringName
             return UIAction(title: textStyleName) { [weak self] _ in
                 self?.delegate?.setTextStyle(textStyle)
                 self?.textEditToolbarView.textStyleButton.setTitle(textStyleName, for: .normal)
             }
         }
-        textEditToolbarView.textStyleButton.menu = UIMenu(children: childActions)
-        textEditToolbarView.textStyleButton.showsMenuAsPrimaryAction = true
-        textEditToolbarView.textStyleButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.updateStyleMenu(textStyles)
-        }), for: .menuActionTriggered)
+        return UIMenu(children: childActions)
     }
     
-    private func updateStyleMenu(_ textStyles: [UIFont.TextStyle]) {
-        guard
-            let currentTextStyle = (noteTextView.typingAttributes[.font] as? UIFont)?.textStyle,
-            let currentTextStyleIndex = textStyles.firstIndex(of: currentTextStyle),
-            let menu = textEditToolbarView.textStyleButton.menu
-        else { return }
-        for (index, item) in menu.children.enumerated() {
-            let action = item as! UIAction
-            action.image = index == currentTextStyleIndex ? UIImage(systemName: "checkmark") : nil
-        }
+    func setMenuTextStyles(_ textStyles: [UIFont.TextStyle]) {
+        self.menuTextStyles = textStyles
+        textEditToolbarView.textStyleButton.menu = setStyleMenu()
     }
     
 }
@@ -247,6 +205,7 @@ extension NoteView: UITextViewDelegate {
     }
     
     func textViewDidChangeSelection(_ textView: UITextView) {
+        delegate?.textViewDidChangeSelection()
         let typingAttributes = textView.typingAttributes
         let font = typingAttributes[.font] as! UIFont
         textEditToolbarView.textStyleButton.setTitle(font.textStyle.stringName, for: .normal)
@@ -270,4 +229,43 @@ extension NoteView: UITextViewDelegate {
             return false
         }
     }
+}
+
+extension NoteView: TextEditorToolbarDelegate {
+    func doneButtonPressed() {
+        noteTextView.resignFirstResponder()
+    }
+    
+    func textTraitButtonPressed(textTrait: TextEditorToolbarView.TextTrait, isSelected: Bool) {
+        switch textTrait {
+        case .bold:
+            delegate?.boldButtonPressed(isSelected: isSelected)
+        case .italic:
+            delegate?.italicButtonPressed(isSelected: isSelected)
+        case .underline:
+            delegate?.underlineButtonPressed(isSelected: isSelected)
+        case .strikethrough:
+            delegate?.strikethroughButtonPressed(isSelected: isSelected)
+        case .none:
+            break
+        }
+    }
+    
+    func linkButtonPressed() {
+        delegate?.linkButtonPressed()
+    }
+    
+    func textStyleMenuActionTriggered(menu: UIMenu?) {
+        guard
+            let menu = menu,
+            let currentTextStyle = (noteTextView.typingAttributes[.font] as? UIFont)?.textStyle,
+            let currentTextStyleIndex = menuTextStyles.firstIndex(of: currentTextStyle)
+        else { return }
+        for (index, item) in menu.children.enumerated() {
+            let action = item as! UIAction
+            action.image = index == currentTextStyleIndex ? UIImage(systemName: "checkmark") : nil
+        }
+    }
+    
+    
 }

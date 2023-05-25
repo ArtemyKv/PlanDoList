@@ -115,6 +115,13 @@ extension TextEditor {
         textView.attributedText = mText
         addLink(linkName: linkName, linkURLString: linkURLString)
     }
+    
+    func removeLinkTypingAttrubutes() {
+        if textView.typingAttributes[.link] != nil {
+            textView.typingAttributes.removeValue(forKey: .link)
+            textView.typingAttributes.removeValue(forKey: .underlineStyle)
+        }
+    }
 }
 
 //TextStyle
